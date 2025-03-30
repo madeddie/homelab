@@ -23,7 +23,7 @@ This repository contains configuration and code to maintain my homelab.
       - [Calibre-Web](https://github.com/janeczku/calibre-web)
       - [ESPHome](https://esphome.io/)
       - [Grafana](https://grafana.com/)
-      - [Home Assistant][https://www.home-assistant.io/]
+      - [Home Assistant](https://www.home-assistant.io/)
       - [homepage](https://gethomepage.dev/)
       - [Jellyfin](https://jellyfin.org/)
       - [Open Home Foundation Matter Server](https://github.com/home-assistant-libs/python-matter-server)
@@ -39,7 +39,7 @@ This repository contains configuration and code to maintain my homelab.
       - [wyze-bridge](https://github.com/mrlt8/docker-wyze-bridge)
 - MikroTik runs the folllowing services (apart from standard routing functionality):
   - Local DNS for home.madtech.cx and lab.madtech.cx
-  - DHCP + PXE using netboot.xyz
+  - DHCP + PXE using [netboot.xyz](https://netboot.xyz/)
   - Wireguard VPN
 
 ## plans
