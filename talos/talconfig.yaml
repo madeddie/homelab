@@ -1,0 +1,51 @@
+clusterName: homelab
+talosVersion: v1.9.5
+kubernetesVersion: v1.32.2
+endpoint: https://cluster.lab.madtech.cx:6443
+allowSchedulingOnControlPlanes: true
+nodes:
+  - hostname: homelab1
+    ipAddress: 192.168.0.115
+    installDisk: /dev/sda
+    controlPlane: true
+  - hostname: homelab2
+    ipAddress: 192.168.0.120
+    installDisk: /dev/sda
+    controlPlane: true
+  - hostname: homelab3
+    ipAddress: 192.168.0.125
+    installDisk: /dev/sda
+    controlPlane: true
+controlPlane:
+  networkInterfaces:
+    - deviceSelector:
+        physical: true
+      dhcp: true
+      vip:
+        ip: 192.168.0.15
+  schematic:
+    customization:
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/intel-ucode
+          - siderolabs/iscsi-tools
+          - siderolabs/util-linux-tools
+  patches:
+    - |-
+      - op: add
+        path: /machine/kubelet/extraMounts
+        value:
+          - destination: /var/lib/longhorn
+            type: bind
+            source: /var/lib/longhorn
+            options:
+              - bind
+              - rshared
+              - rw
+          - destination: /var/lib/local-path-provisioner
+            type: bind
+            source: /var/lib/local-path-provisioner
+            options:
+              - bind
+              - rshared
+              - rw
