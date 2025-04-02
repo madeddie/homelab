@@ -2,3 +2,4 @@ homelab-homelab1.yaml
 homelab-homelab2.yaml
 homelab-homelab3.yaml
 talosconfig
+kubeconfig
