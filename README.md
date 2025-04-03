@@ -74,16 +74,17 @@ Steps:
 
 ## plans
 
-- use talhelper to configure Talos nodes declaratively
-- find a way to configure MikroTik router declaratively
-- migrate software from docker-compose to k8s
-- implement ArgoCD on k8s
-- add LTE backup to MikroTik router
-- add Raspberry Pi's to k8s cluster
-- switch from Caddy to Traefik
-- NUC either added to k8s cluster or remove proxmox, install VM directly on hardware to run Ansible/Terraform/bootstrap code and Home Assistant and Jellyfin
-- create new git repo with local AMT Console changes
-- add USB storage and simple HTTP server to MikroTik to serve PXE assets
+- [ ] use talhelper to configure Talos nodes declaratively
+- [ ] find a way to configure MikroTik router declaratively
+- [ ] migrate software from docker-compose to k8s
+- [ ] implement ArgoCD
+- [ ] experiment with FluxCD
+- [ ] add LTE backup to MikroTik router
+- [ ] add Raspberry Pi's to k8s cluster
+- [ ] switch from Caddy to Traefik
+- [ ] NUC either added to k8s cluster or remove proxmox, install VM directly on hardware to run Ansible/Terraform/bootstrap code and Home Assistant and Jellyfin
+- [ ] create new git repo with local AMT Console changes
+- [ ] add USB storage and simple HTTP server to MikroTik to serve PXE assets
 
 ## deprecations / cleanup
 - Caddy, going to be replaced with Traefik
