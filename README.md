@@ -74,7 +74,7 @@ Steps:
 
 ## plans
 
-- [ ] use talhelper to configure Talos nodes declaratively
+- [x] use talhelper to configure Talos nodes declaratively
 - [ ] find a way to configure MikroTik router declaratively
 - [ ] migrate software from docker-compose to k8s
 - [ ] implement ArgoCD
