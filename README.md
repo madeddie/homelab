@@ -6,8 +6,8 @@ This repository contains configuration and code to maintain my homelab.
 
 ### Install required tools
 
-Running [Devbox](https://www.jetify.com/devbox): use `devbox shell` to initialize the environment with all the required tools.
-Not running Devbox, but are using [Homebrew](https://brew.sh/): run `brew bundle` to install the required tools.
+- Running [Devbox](https://www.jetify.com/devbox): use `devbox shell` to initialize the environment with all the required tools.
+- Not running Devbox, but are using [Homebrew](https://brew.sh/): run `brew bundle` to install the required tools.
 
 ### Configure talosctl and kubectl
 
@@ -28,7 +28,7 @@ Steps:
 - test access to talos\
   `talhelper gencommand kubeconfig | sed 's/kubeconfig/health/' | bash`  # The `health` command is not yet supported
 - configure `kubectl`\
-  `talosctl kubeconfig --talosconfig=./clusterconfig/talosconfig kubeconfig --nodes=192.168.0.115; | bash`
+  `talhelper gencommand --extra-flags ./clusterconfig/kubeconfig kubeconfig | bash`
 - test access to kubernetes\
   `kubectl get nodes`
 
