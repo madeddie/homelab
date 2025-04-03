@@ -2,6 +2,36 @@
 
 This repository contains configuration and code to maintain my homelab.
 
+## How to initialize
+
+### Install required tools
+
+Running [Devbox](https://www.jetify.com/devbox): use `devbox shell` to initialize the environment with all the required tools.
+Not running Devbox, but are using [Homebrew](https://brew.sh/): run `brew bundle` to install the required tools.
+
+### Configure talosctl and kubectl
+
+I'm assuming you have [Talos](https://www.talos.dev/) nodes already installed. In `talos/talconfig.yaml`
+there are 3 machines, homelab{1,2,3} with IPs 192.168.0.{115,120,125}. Update this configuration
+if you have a different amount of machines or use different IP addresses.
+
+Steps:
+
+- `cd talos`
+- configure SOPS; https://budimanjojo.github.io/talhelper/latest/guides/#configuring-sops-for-talhelper\
+  ```
+  mkdir -p "$HOME/Library/Application Support/sops/age"             # I use age for encryption
+  pass homelab > "$HOME/Library/Application Support/sops/keys.txt"  # I keep secrets in [pass](https://www.passwordstore.org/)
+  ```
+- generate talosconfig and node configs\
+  `talhelper genconfig`
+- test access to talos\
+  `talhelper gencommand kubeconfig | sed 's/kubeconfig/health/' | bash`  # The `health` command is not yet supported
+- configure `kubectl`\
+  `talosctl kubeconfig --talosconfig=./clusterconfig/talosconfig kubeconfig --nodes=192.168.0.115; | bash`
+- test access to kubernetes\
+  `kubectl get nodes`
+
 ## hardware
 
 - cable modem, Arris TM1602A (supplied by Spectrum)

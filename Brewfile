@@ -1,0 +1,7 @@
+brew "talosctl"
+brew "talhelper"
+brew "sops"
+brew "age"
+brew "k9s"
+brew "kubectl"
+brew "direnv"
