@@ -41,4 +41,7 @@ spec:
                 pod-security.kubernetes.io/enforce: privileged   
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: local-path-provisioner
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
