@@ -32,6 +32,30 @@ Steps:
 - test access to kubernetes\
   `kubectl get nodes`
 
+### Bootstrap Argo CD
+
+We'll be managing all apps in the cluster with Argo CD, even Argo CD itself, but to do this, we first need to manually install Argo CD.
+
+```
+cd helmcharts/argo-cd
+helm dependency build
+helm install -n argocd --create-namespace argocd .
+```
+
+Since there are some interdependencies, there might be some manual actions to take before everything works as expected.
+
+First we'll log in to the UI.
+
+```
+kubectl port-forward service/argocd-server -n argocd 8080:443
+open https://localhost:8080
+```
+
+User `admin` with the password that is bcrypt'ed in helmcharts/argo-cd/values.yaml.
+
+We'll want to refresh the `root` Application, after that the `argo-cd` Application will show it's out of sync. This is because
+it wasn't created with the `argocd.argoproj.io/instance` label which `argocd` itself will now add.
+
 ## hardware
 
 - cable modem, Arris TM1602A (supplied by Spectrum)
@@ -77,7 +101,7 @@ Steps:
 - [x] use talhelper to configure Talos nodes declaratively
 - [ ] find a way to configure MikroTik router declaratively
 - [ ] migrate software from docker-compose to k8s
-- [ ] implement ArgoCD
+- [x] implement ArgoCD
 - [ ] experiment with FluxCD
 - [ ] add LTE backup to MikroTik router
 - [ ] add Raspberry Pi's to k8s cluster
