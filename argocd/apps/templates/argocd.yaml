@@ -11,4 +11,4 @@ spec:
   source:
     repoURL: https://github.com/madeddie/homelab.git
     path: helmcharts/argo-cd
-    targetRevision: devel
+    targetRevision: HEAD
