@@ -56,6 +56,14 @@ User `admin` with the password that is bcrypt'ed in helmcharts/argo-cd/values.ya
 We'll want to refresh the `root` Application, after that the `argocd` Application will show it's out of sync. This is because
 it wasn't created with the `argocd.argoproj.io/instance` label which `argocd` itself will now add.
 
+## Available services
+
+### MetalLB and Traefik
+
+The k8s cluster runs MetalLB, configured to give out IPs between 192.168.0.240 and 192.168.0.250.
+
+Traefik was chosen as main loadbalancer and ingress service and is hardcoded to request 192.168.0.240.
+
 ## hardware
 
 - cable modem, Arris TM1602A (supplied by Spectrum)
@@ -68,7 +76,12 @@ it wasn't created with the `argocd.argoproj.io/instance` label which `argocd` it
 
 ## software
 
-[- Talos linux k8s cluster, 3 controller nodes that are also worker nodes on the 1L HP EliteDesks
+- Talos linux k8s cluster, 3 controller nodes that are also worker nodes on the 1L HP EliteDesks
+  - Argo CD
+  - local-path-provisioner
+  - MetalLB
+  - Traefik
+
 - Proxmox on the Beelink S12, running:
     - VM with Debian Bookworm with docker-compose running:
       - [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/)
@@ -91,6 +104,7 @@ it wasn't created with the `argocd.argoproj.io/instance` label which `argocd` it
       - [Sonarr](https://sonarr.tv/)
       - [WireGuard Easy](https://github.com/wg-easy/wg-easy)
       - [wyze-bridge](https://github.com/mrlt8/docker-wyze-bridge)
+
 - MikroTik runs the folllowing services (apart from standard routing functionality):
   - Local DNS for home.madtech.cx and lab.madtech.cx
   - DHCP + PXE using [netboot.xyz](https://netboot.xyz/)
@@ -105,8 +119,9 @@ it wasn't created with the `argocd.argoproj.io/instance` label which `argocd` it
 - [ ] experiment with FluxCD
 - [ ] add LTE backup to MikroTik router
 - [ ] add Raspberry Pi's to k8s cluster
-- [ ] implement MetalLB
-- [ ] switch from Caddy to Traefik
+- [x] implement MetalLB
+- [ ] implement traefik
+- [ ] switch from Caddy to Traefik for other services
 - [ ] NUC either added to k8s cluster or remove proxmox, install VM directly on hardware to run Ansible/Terraform/bootstrap code and Home Assistant and Jellyfin
 - [ ] create new git repo with local AMT Console changes
 - [ ] add USB storage and simple HTTP server to MikroTik to serve PXE assets
