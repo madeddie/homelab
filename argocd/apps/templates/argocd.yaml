@@ -5,15 +5,10 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    namespace: argocd
     server: https://kubernetes.default.svc
+    namespace: argocd
   project: default
   source:
-    chart: argo-cd
-    repoURL: https://argoproj.github.io/argo-helm
-    targetRevision: 7.8.22
-    helm:
-      valuesObject:
-        configs:
-          secret:
-            argocdServerAdminPassword: $2y$12$sFRyP3lkKyKF9ONTPifiu.sm5Z.jJbKHiuaL3gE0v01wUPb1mgHjm
+    repoURL: git@github.com:madeddie/homelab.git
+    path: helmcharts/argo-cd
+    targetRevision: devel
