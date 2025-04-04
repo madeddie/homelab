@@ -7,7 +7,8 @@
     "age@latest",
     "k9s@latest",
     "kubectl@latest",
-    "direnv@latest"
+    "direnv@latest",
+    "kustomize@latest"
   ],
   "shell": {
     "init_hook": [
