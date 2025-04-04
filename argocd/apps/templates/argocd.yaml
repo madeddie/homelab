@@ -9,6 +9,6 @@ spec:
     namespace: argocd
   project: default
   source:
-    repoURL: git@github.com:madeddie/homelab.git
+    repoURL: https://github.com/madeddie/homelab.git
     path: helmcharts/argo-cd
     targetRevision: devel
