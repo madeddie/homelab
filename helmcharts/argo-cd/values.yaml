@@ -2,3 +2,6 @@ argo-cd:
   configs:
     secret:
       argocdServerAdminPassword: $2y$12$sFRyP3lkKyKF9ONTPifiu.sm5Z.jJbKHiuaL3gE0v01wUPb1mgHjm
+  server:
+    service:
+      type: LoadBalancer
