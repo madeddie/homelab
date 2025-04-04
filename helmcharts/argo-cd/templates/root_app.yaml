@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root
+spec:
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
+  source:
+    path: argocd/apps
+    repoURL: https://github.com/madeddie/homelab
+    targetRevision: devel
+  project: default
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
