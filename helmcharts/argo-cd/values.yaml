@@ -2,6 +2,11 @@ argo-cd:
   configs:
     secret:
       argocdServerAdminPassword: $2y$12$sFRyP3lkKyKF9ONTPifiu.sm5Z.jJbKHiuaL3gE0v01wUPb1mgHjm
+    params:
+      server.insecure: true
+
   server:
-    service:
-      type: LoadBalancer
+    ingress:
+      enabled: true
+      ingressClassName: traefik
+      hostname: argocd.192.168.0.240.nip.io
