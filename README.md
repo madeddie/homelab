@@ -53,7 +53,7 @@ open https://localhost:8080
 
 User `admin` with the password that is bcrypt'ed in helmcharts/argo-cd/values.yaml.
 
-We'll want to refresh the `root` Application, after that the `argo-cd` Application will show it's out of sync. This is because
+We'll want to refresh the `root` Application, after that the `argocd` Application will show it's out of sync. This is because
 it wasn't created with the `argocd.argoproj.io/instance` label which `argocd` itself will now add.
 
 ## hardware
