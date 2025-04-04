@@ -68,7 +68,7 @@ it wasn't created with the `argocd.argoproj.io/instance` label which `argocd` it
 
 ## software
 
-- Talos linux k8s cluster, 3 controller nodes that are also worker nodes on the 1L HP EliteDesks
+[- Talos linux k8s cluster, 3 controller nodes that are also worker nodes on the 1L HP EliteDesks
 - Proxmox on the Beelink S12, running:
     - VM with Debian Bookworm with docker-compose running:
       - [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/)
@@ -105,10 +105,13 @@ it wasn't created with the `argocd.argoproj.io/instance` label which `argocd` it
 - [ ] experiment with FluxCD
 - [ ] add LTE backup to MikroTik router
 - [ ] add Raspberry Pi's to k8s cluster
+- [ ] implement MetalLB
 - [ ] switch from Caddy to Traefik
 - [ ] NUC either added to k8s cluster or remove proxmox, install VM directly on hardware to run Ansible/Terraform/bootstrap code and Home Assistant and Jellyfin
 - [ ] create new git repo with local AMT Console changes
 - [ ] add USB storage and simple HTTP server to MikroTik to serve PXE assets
+- [ ] implement SAML and/or OIDC server
+- [ ] migrate services to SSO
 
 ## deprecations / cleanup
 - Caddy, going to be replaced with Traefik
