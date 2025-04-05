@@ -9,7 +9,8 @@
     "kubectl@latest",
     "direnv@latest",
     "kustomize@latest",
-    "argocd@latest"
+    "argocd@latest",
+    "kubevirt@latest"
   ],
   "shell": {
     "init_hook": [
