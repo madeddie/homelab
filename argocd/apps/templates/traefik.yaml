@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    chart: traefik
-    repoURL: https://traefik.github.io/charts
-    targetRevision: 34.5.0
+    repoURL: https://github.com/madeddie/homelab.git
+    path: helmcharts/traefik
+    targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
     namespace: traefik

@@ -115,12 +115,13 @@ Traefik was chosen as main loadbalancer and ingress service and is hardcoded to 
 - [x] use talhelper to configure Talos nodes declaratively
 - [ ] find a way to configure MikroTik router declaratively
 - [ ] migrate software from docker-compose to k8s
-- [x] implement ArgoCD
+- [x] add ArgoCD
 - [ ] experiment with FluxCD
 - [ ] add LTE backup to MikroTik router
 - [ ] add Raspberry Pi's to k8s cluster
-- [x] implement MetalLB
-- [ ] implement traefik
+- [x] add MetalLB
+- [x] add traefik
+- [x] configure traefik for *.home.madtech.cx on NUC
 - [ ] switch from Caddy to Traefik for other services
 - [ ] NUC either added to k8s cluster or remove proxmox, install VM directly on hardware to run Ansible/Terraform/bootstrap code and Home Assistant and Jellyfin
 - [ ] create new git repo with local AMT Console changes
