@@ -125,8 +125,9 @@ Traefik was chosen as main loadbalancer and ingress service and is hardcoded to 
 - [ ] NUC either added to k8s cluster or remove proxmox, install VM directly on hardware to run Ansible/Terraform/bootstrap code and Home Assistant and Jellyfin
 - [ ] create new git repo with local AMT Console changes
 - [ ] add USB storage and simple HTTP server to MikroTik to serve PXE assets
-- [ ] implement SAML and/or OIDC server
+- [ ] implement SAML and/or OIDC server [currently: keycloak]
 - [ ] migrate services to SSO
+- [ ] add oauth2-proxy for apps that don't support SAML/OIDC
 
 ## deprecations / cleanup
 - Caddy, going to be replaced with Traefik
