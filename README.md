@@ -79,8 +79,10 @@ Traefik was chosen as main loadbalancer and ingress service and is hardcoded to 
 - Talos linux k8s cluster, 3 controller nodes that are also worker nodes on the 1L HP EliteDesks
   - Argo CD
   - local-path-provisioner
+  - Longhorn
   - MetalLB
   - Traefik
+  - KubeVirt
 
 - Proxmox on the Beelink S12, running:
     - VM with Debian Bookworm with docker-compose running:
@@ -132,7 +134,7 @@ Traefik was chosen as main loadbalancer and ingress service and is hardcoded to 
 - [ ] investigate use-case for argo ApplicationSets
 - [ ] host own git? (forgejo)
 - [ ] host own password manager? (vaultwarden?)
-- [ ] add kubevirt
+- [x] add kubevirt
 - [ ] add sops operator
 - [ ] host own notes app? (memos: https://www.usememos.com/)
 - [x] add longhorn (storage)
