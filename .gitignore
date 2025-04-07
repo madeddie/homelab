@@ -1,4 +1,7 @@
-# General
+# MacOS General
 .DS_Store
 .AppleDouble
 .LSOverride
+
+# local env vars
+.env
