@@ -12,6 +12,7 @@
     "argocd@latest",
     "kubevirt@latest"
   ],
+  "env_from": ".env",
   "shell": {
     "init_hook": [
       "echo 'Welcome to madtech homelab devbox!' > /dev/null"
