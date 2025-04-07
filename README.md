@@ -129,6 +129,13 @@ Traefik was chosen as main loadbalancer and ingress service and is hardcoded to 
 - [ ] implement SAML and/or OIDC server [currently: keycloak]
 - [ ] migrate services to SSO
 - [ ] add oauth2-proxy for apps that don't support SAML/OIDC
+- [ ] investigate use-case for argo ApplicationSets
+- [ ] host own git? (forgejo)
+- [ ] host own password manager? (vaultwarden?)
+- [ ] add kubevirt
+- [ ] add sops operator
+- [ ] host own notes app? (memos: https://www.usememos.com/)
+- [ ] add longhorn (storage)
 
 ## deprecations / cleanup
 - Caddy, going to be replaced with Traefik

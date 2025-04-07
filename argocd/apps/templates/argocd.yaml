@@ -12,3 +12,8 @@ spec:
     repoURL: https://github.com/madeddie/homelab.git
     path: helmcharts/argo-cd
     targetRevision: HEAD
+  ignoreDifferences:
+    - kind: Secret
+      name: argocd-secret
+      jsonPointers:
+        - /data/admin.passwordMtime
