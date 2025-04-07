@@ -135,7 +135,7 @@ Traefik was chosen as main loadbalancer and ingress service and is hardcoded to 
 - [ ] add kubevirt
 - [ ] add sops operator
 - [ ] host own notes app? (memos: https://www.usememos.com/)
-- [ ] add longhorn (storage)
+- [x] add longhorn (storage)
 - [ ] implement renovate
 
 ## deprecations / cleanup
