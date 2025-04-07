@@ -18,7 +18,7 @@ if you have a different amount of machines or use different IP addresses.
 Steps:
 
 - `cd talos`
-- configure SOPS; https://budimanjojo.github.io/talhelper/latest/guides/#configuring-sops-for-talhelper\
+- configure SOPS; https://budimanjojo.github.io/talhelper/latest/guides/#configuring-sops-for-talhelper
   ```
   mkdir -p "$HOME/Library/Application Support/sops/age"             # I use age for encryption
   pass homelab > "$HOME/Library/Application Support/sops/keys.txt"  # I keep secrets in [pass](https://www.passwordstore.org/)
@@ -136,6 +136,7 @@ Traefik was chosen as main loadbalancer and ingress service and is hardcoded to 
 - [ ] add sops operator
 - [ ] host own notes app? (memos: https://www.usememos.com/)
 - [ ] add longhorn (storage)
+- [ ] implement renovate
 
 ## deprecations / cleanup
 - Caddy, going to be replaced with Traefik
