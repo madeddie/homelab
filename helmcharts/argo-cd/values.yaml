@@ -1,4 +1,7 @@
 argo-cd:
+  global:
+    domain: argocd.lab.madtech.cx
+
   configs:
     secret:
       argocdServerAdminPassword: $2y$12$sFRyP3lkKyKF9ONTPifiu.sm5Z.jJbKHiuaL3gE0v01wUPb1mgHjm
@@ -9,4 +12,6 @@ argo-cd:
     ingress:
       enabled: true
       ingressClassName: traefik
-      hostname: argocd.192.168.0.240.nip.io
+      annotations:
+        traefik.ingress.kubernetes.io/router.tls: "true"
+        traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
