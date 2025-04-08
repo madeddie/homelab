@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: traefik
   rules:
-  - host: argocd.lab.madtech.cx
+  - host: argocd.svc.madtech.cx
     http:
       paths:
       - backend:
