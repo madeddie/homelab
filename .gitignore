@@ -5,3 +5,6 @@
 
 # local env vars
 .env
+
+# local test files
+tmp/
