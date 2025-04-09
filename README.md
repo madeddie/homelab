@@ -49,6 +49,7 @@ and install Argo CD (just once):
 
 ```
 cd helmcharts/argo-cd
+helm repo add argo https://argoproj.github.io/argo-helm
 helm dependency build
 helm install -n argocd --create-namespace argocd .
 ```
@@ -65,7 +66,7 @@ open https://localhost:8080
 User `admin` with the password that is bcrypt'ed in helmcharts/argo-cd/values.yaml.
 
 We'll want to refresh the `root` Application, after that the `argocd` Application will show it's out of sync. This is because
-it wasn't created with the `argocd.argoproj.io/instance` label which `argocd` itself will now add.
+it wasn't created with the `argocd.argoproj.io/instance` label which `argocd` itself will add if we press Sync and then Synchronize.
 
 ## Available services
 
@@ -74,6 +75,14 @@ it wasn't created with the `argocd.argoproj.io/instance` label which `argocd` it
 The k8s cluster runs MetalLB, configured to give out IPs between 192.168.0.240 and 192.168.0.250.
 
 Traefik was chosen as main loadbalancer and ingress service and is hardcoded to request 192.168.0.240.
+
+### SOPS secrets operator
+
+We can add Secrets to our git repo safely since they can be encrypted using SOPS.
+
+Create a SopsSecret CR encapsulating whichever Secret's you want, encrypt it with `sops` and commit it to the repo.
+After creating the CR with `kubectl apply -f ...` or adding it to an Argo CD Application (through Helm or Kustomize), the
+SOPS secrets operator will decrypt the values and create the k8s Secret objects.
 
 ## hardware
 
@@ -88,6 +97,7 @@ Traefik was chosen as main loadbalancer and ingress service and is hardcoded to 
 ## software
 
 - Talos linux k8s cluster, 3 controller nodes that are also worker nodes on the 1L HP EliteDesks
+  - SOPS secrets operator
   - Argo CD
   - local-path-provisioner
   - Longhorn
@@ -139,14 +149,14 @@ Traefik was chosen as main loadbalancer and ingress service and is hardcoded to 
 - [ ] NUC either added to k8s cluster or remove proxmox, install VM directly on hardware to run Ansible/Terraform/bootstrap code and Home Assistant and Jellyfin
 - [ ] create new git repo with local AMT Console changes
 - [ ] add USB storage and simple HTTP server to MikroTik to serve PXE assets
-- [ ] implement SAML and/or OIDC server [currently: keycloak]
+- [ ] implement SAML and/or OIDC server (keycloak)
 - [ ] migrate services to SSO
 - [ ] add oauth2-proxy for apps that don't support SAML/OIDC
 - [ ] investigate use-case for argo ApplicationSets
 - [ ] host own git? (forgejo)
 - [ ] host own password manager? (vaultwarden?)
 - [x] add kubevirt
-- [ ] add sops operator
+- [x] add sops operator
 - [ ] host own notes app? (memos: https://www.usememos.com/)
 - [x] add longhorn (storage)
 - [ ] implement renovate
