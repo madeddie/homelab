@@ -32,9 +32,20 @@ Steps:
 - test access to kubernetes\
   `kubectl get nodes`
 
-### Bootstrap Argo CD
+### Bootstrap SOPS and Argo CD
 
-We'll be managing all apps in the cluster with Argo CD, even Argo CD itself, but to do this, we first need to manually install Argo CD.
+We'll be managing all apps (including Argo CD itself) in the cluster with Argo CD and managing secrets using
+SOPS secrets operator, which allows storing the secrets, encrypted, in git.
+
+To start we first need to manually create the main decryption key Secret, using the same `age` key we used
+for the Talos config:
+
+```
+kubectl create namespace sops
+kubectl -n sops create secret generic sops-age-key-file --from-file="$HOME/Library/Application Support/sops/age/keys.txt"
+
+```
+and install Argo CD (just once):
 
 ```
 cd helmcharts/argo-cd
@@ -44,7 +55,7 @@ helm install -n argocd --create-namespace argocd .
 
 Since there are some interdependencies, there might be some manual actions to take before everything works as expected.
 
-First we'll log in to the UI.
+Let's log in to the UI.
 
 ```
 kubectl port-forward service/argocd-server -n argocd 8080:443
