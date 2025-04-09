@@ -5,7 +5,7 @@
     "github:budimanjojo/talhelper",
     "sops@latest",
     "age@latest",
-    "k9s@latest",
+    "k9s@0.40.10",
     "kubectl@latest",
     "direnv@latest",
     "kustomize@latest",
