@@ -164,6 +164,8 @@ SOPS secrets operator will decrypt the values and create the k8s Secret objects.
 - [ ] try running a service needing a specific USB device
 - [ ] try running a service using video decoding hardware
 - [ ] implement hardware watchdog on talos nodes (https://www.talos.dev/v1.9/advanced/watchdog/)
+- [x] set up basic github page for project using Jekyll
+- [ ] set up github actions to copy README and create Changelog for the project site
 
 ## deprecations / cleanup
 - Caddy, going to be replaced with Traefik
