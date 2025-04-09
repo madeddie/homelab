@@ -3,6 +3,8 @@
   "extends": [
     "config:recommended"
   ],
+  "dependencyDashboardTitle": "Renovate Dependency Dashboard",
+  "labels": "renovate",
   "kustomize": {
     "fileMatch": [
       "(^|/)kustomization\\.ya?ml$",
