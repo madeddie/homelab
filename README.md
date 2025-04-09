@@ -139,6 +139,7 @@ Traefik was chosen as main loadbalancer and ingress service and is hardcoded to 
 - [ ] host own notes app? (memos: https://www.usememos.com/)
 - [x] add longhorn (storage)
 - [ ] implement renovate
+- [x] add metrics-server
 
 ## deprecations / cleanup
 - Caddy, going to be replaced with Traefik
