@@ -4,7 +4,7 @@
     "config:recommended"
   ],
   "dependencyDashboardTitle": "Renovate Dependency Dashboard",
-  "labels": ["renovate"],
+  "labels": ["renovate", "{{{manager}}}"],
   "kustomize": {
     "fileMatch": [
       "(^|/)kustomization\\.ya?ml$",
