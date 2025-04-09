@@ -6,7 +6,7 @@
     "sops@latest",
     "age@latest",
     "k9s@latest",
-    "kubectl@latest",
+    "kubectl@1.32.3",
     "direnv@latest",
     "kustomize@latest",
     "argocd@latest",
