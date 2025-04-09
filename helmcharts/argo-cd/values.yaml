@@ -3,10 +3,10 @@ argo-cd:
     domain: argocd.svc.madtech.cx
 
   configs:
-    secret:
-      argocdServerAdminPassword: $2y$12$sFRyP3lkKyKF9ONTPifiu.sm5Z.jJbKHiuaL3gE0v01wUPb1mgHjm
     params:
-      server.insecure: true
+      server.insecure: true  # tls termination by traefik
+    secret:
+      createSecret: false    # managed by SOPS operator in ./templates/argocd-secret.sops.yaml
 
   server:
     ingress:
