@@ -140,6 +140,9 @@ Traefik was chosen as main loadbalancer and ingress service and is hardcoded to 
 - [x] add longhorn (storage)
 - [ ] implement renovate
 - [x] add metrics-server
+- [ ] try running a service needing a specific USB device
+- [ ] try running a service using video decoding hardware
+- [ ] implement hardware watchdog on talos nodes (https://www.talos.dev/v1.9/advanced/watchdog/)
 
 ## deprecations / cleanup
 - Caddy, going to be replaced with Traefik
