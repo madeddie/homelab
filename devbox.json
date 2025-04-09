@@ -10,7 +10,7 @@
     "direnv@latest",
     "kustomize@latest",
     "argocd@latest",
-    "kubevirt@latest",
+    "kubevirt@1.5.0",
     "jekyll@latest",
     "ruby@latest"
   ],
