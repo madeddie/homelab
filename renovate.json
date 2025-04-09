@@ -2,5 +2,12 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
-  ]
+  ],
+  "kustomize": {
+    "fileMatch": [
+      "(^|/)kustomization\\.ya?ml$",
+      "kustomized/.+/kustomization.ya?ml$"
+    ],
+    "pinDigests": false
+  }
 }
