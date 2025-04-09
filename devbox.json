@@ -10,7 +10,9 @@
     "direnv@latest",
     "kustomize@latest",
     "argocd@latest",
-    "kubevirt@latest"
+    "kubevirt@latest",
+    "jekyll@latest",
+    "ruby@latest"
   ],
   "env_from": ".env",
   "shell": {
