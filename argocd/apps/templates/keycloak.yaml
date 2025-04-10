@@ -6,15 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: registry-1.docker.io/bitnamicharts
-    chart: keycloak
-    targetRevision: 24.5.1
-    helm:
-      valuesObject:
-        ingress:
-          enabled: true
-          hostname: keycloak.svc.madtech.cx
-        proxy: edge
+    repoURL: https://github.com/madeddie/homelab.git
+    path: helmcharts/keycloak
+    targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
     namespace: keycloak
