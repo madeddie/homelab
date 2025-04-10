@@ -8,3 +8,8 @@ keycloak:
     hostname: keycloak.svc.madtech.cx
   proxy: edge
   production: true
+  postgresql:
+    auth:
+      existingSecret: keycloak-secret
+      secretKeys:
+        userPasswordKey: postgres-password
