@@ -159,7 +159,7 @@ SOPS secrets operator will decrypt the values and create the k8s Secret objects.
 - [x] add sops operator
 - [ ] host own notes app? (memos: https://www.usememos.com/)
 - [x] add longhorn (storage)
-- [ ] implement renovate
+- [x] implement renovate
 - [x] add metrics-server
 - [ ] try running a service needing a specific USB device
 - [ ] try running a service using video decoding hardware
