@@ -3,7 +3,7 @@
   "packages": [
     "talosctl@0.14.3",
     "github:budimanjojo/talhelper",
-    "sops@latest",
+    "sops@3.10.1",
     "age@1.2.1",
     "k9s@latest",
     "kubectl@latest",
