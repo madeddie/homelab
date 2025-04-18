@@ -151,9 +151,9 @@
     "github:budimanjojo/talhelper": {
       "resolved": "github:budimanjojo/talhelper/40dc750d1a16d4accff03dd9f86621d93d48da33?lastModified=1743047444&narHash=sha256-3eDzCuOEf2pfxpDQsVz%2BAZyg8sUEof4Fxx6L5ov0lVA%3D"
     },
-    "jekyll@latest": {
-      "last_modified": "2025-03-27T11:50:31Z",
-      "resolved": "github:NixOS/nixpkgs/6c5963357f3c1c840201eda129a99d455074db04#jekyll",
+    "jekyll@4.4.1": {
+      "last_modified": "2025-04-09T17:27:46Z",
+      "resolved": "github:NixOS/nixpkgs/67d2b8200c828903b36a6dd0fb952fe424aa0606#jekyll",
       "source": "devbox-search",
       "version": "4.4.1",
       "systems": {
@@ -161,41 +161,41 @@
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/xncrkrn2yf87jkiyh1dj8526arnv3mn8-jekyll-4.4.1",
+              "path": "/nix/store/6lz2fn43qc5ar7k27zrkz00962mq8v2l-jekyll-4.4.1",
               "default": true
             }
           ],
-          "store_path": "/nix/store/xncrkrn2yf87jkiyh1dj8526arnv3mn8-jekyll-4.4.1"
+          "store_path": "/nix/store/6lz2fn43qc5ar7k27zrkz00962mq8v2l-jekyll-4.4.1"
         },
         "aarch64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/kk5z2kirpas2r9a2msdxpyn68d2mgfij-jekyll-4.4.1",
+              "path": "/nix/store/q6my9yk56qrmgqwl09bjfi1pi24kb9bq-jekyll-4.4.1",
               "default": true
             }
           ],
-          "store_path": "/nix/store/kk5z2kirpas2r9a2msdxpyn68d2mgfij-jekyll-4.4.1"
+          "store_path": "/nix/store/q6my9yk56qrmgqwl09bjfi1pi24kb9bq-jekyll-4.4.1"
         },
         "x86_64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/gqyffzahmm7pymdifb0d210allcbwgc2-jekyll-4.4.1",
+              "path": "/nix/store/ms3iz4q3q690wclcdcn3xvrifpsai4zk-jekyll-4.4.1",
               "default": true
             }
           ],
-          "store_path": "/nix/store/gqyffzahmm7pymdifb0d210allcbwgc2-jekyll-4.4.1"
+          "store_path": "/nix/store/ms3iz4q3q690wclcdcn3xvrifpsai4zk-jekyll-4.4.1"
         },
         "x86_64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/hw7935b1pzc5aclb4r56vch6dzdy6mrs-jekyll-4.4.1",
+              "path": "/nix/store/5fxj2v1xaqxx5ghpkdfj71avys4b91xw-jekyll-4.4.1",
               "default": true
             }
           ],
-          "store_path": "/nix/store/hw7935b1pzc5aclb4r56vch6dzdy6mrs-jekyll-4.4.1"
+          "store_path": "/nix/store/5fxj2v1xaqxx5ghpkdfj71avys4b91xw-jekyll-4.4.1"
         }
       }
     },
