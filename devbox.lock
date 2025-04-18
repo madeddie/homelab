@@ -299,51 +299,51 @@
         }
       }
     },
-    "kubevirt@latest": {
-      "last_modified": "2025-03-16T16:17:41Z",
-      "resolved": "github:NixOS/nixpkgs/8f76cf16b17c51ae0cc8e55488069593f6dab645#kubevirt",
+    "kubevirt@0.59.2": {
+      "last_modified": "2023-07-24T21:56:31Z",
+      "resolved": "github:NixOS/nixpkgs/dfcffbd74fd6f0419370d8240e445252a39f4d10#kubevirt",
       "source": "devbox-search",
-      "version": "1.5.0",
+      "version": "0.59.2",
       "systems": {
         "aarch64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/w1s3hap48l8ss1zg1lfk3wy4kq04bxwf-kubevirt-1.5.0",
+              "path": "/nix/store/v079j5pa0hmkdj6bz96x3dsn153x91xb-kubevirt-0.59.2",
               "default": true
             }
           ],
-          "store_path": "/nix/store/w1s3hap48l8ss1zg1lfk3wy4kq04bxwf-kubevirt-1.5.0"
+          "store_path": "/nix/store/v079j5pa0hmkdj6bz96x3dsn153x91xb-kubevirt-0.59.2"
         },
         "aarch64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/06zv90wvkds76vm95iwmsr4wl6kw1bms-kubevirt-1.5.0",
+              "path": "/nix/store/x14q41blh99jrg680pvbkjc7hkv817ch-kubevirt-0.59.2",
               "default": true
             }
           ],
-          "store_path": "/nix/store/06zv90wvkds76vm95iwmsr4wl6kw1bms-kubevirt-1.5.0"
+          "store_path": "/nix/store/x14q41blh99jrg680pvbkjc7hkv817ch-kubevirt-0.59.2"
         },
         "x86_64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/dr5c1dgwbd04gp1110a9p5hw5pp22ms6-kubevirt-1.5.0",
+              "path": "/nix/store/12srbbvhr88wd2qbz5vb3mcfncj8qv39-kubevirt-0.59.2",
               "default": true
             }
           ],
-          "store_path": "/nix/store/dr5c1dgwbd04gp1110a9p5hw5pp22ms6-kubevirt-1.5.0"
+          "store_path": "/nix/store/12srbbvhr88wd2qbz5vb3mcfncj8qv39-kubevirt-0.59.2"
         },
         "x86_64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/ncy9hmhgmicawgrpw9xqabxkl80kkkqa-kubevirt-1.5.0",
+              "path": "/nix/store/zckwgx5pvppxj8kmb5yhn9nmlxkm96xq-kubevirt-0.59.2",
               "default": true
             }
           ],
-          "store_path": "/nix/store/ncy9hmhgmicawgrpw9xqabxkl80kkkqa-kubevirt-1.5.0"
+          "store_path": "/nix/store/zckwgx5pvppxj8kmb5yhn9nmlxkm96xq-kubevirt-0.59.2"
         }
       }
     },
