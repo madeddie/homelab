@@ -1,7 +1,7 @@
 {
   "lockfile_version": "1",
   "packages": {
-    "age@latest": {
+    "age@1.2.1": {
       "last_modified": "2025-03-11T17:52:14Z",
       "resolved": "github:NixOS/nixpkgs/0d534853a55b5d02a4ababa1d71921ce8f0aee4c#age",
       "source": "devbox-search",
@@ -21,11 +21,11 @@
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/kkb1sy4g8bcpvx3a4n8a4hicf7hwjxx0-age-1.2.1",
+              "path": "/nix/store/zx9ih00v5byyz1kffwg8g636i12z2x59-age-1.2.1",
               "default": true
             }
           ],
-          "store_path": "/nix/store/kkb1sy4g8bcpvx3a4n8a4hicf7hwjxx0-age-1.2.1"
+          "store_path": "/nix/store/zx9ih00v5byyz1kffwg8g636i12z2x59-age-1.2.1"
         },
         "x86_64-darwin": {
           "outputs": [

@@ -4,7 +4,7 @@
     "talosctl@0.14.3",
     "github:budimanjojo/talhelper",
     "sops@latest",
-    "age@latest",
+    "age@1.2.1",
     "k9s@latest",
     "kubectl@latest",
     "direnv@latest",
