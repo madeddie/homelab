@@ -11,7 +11,7 @@
     "kustomize@3.10.0",
     "argocd@1.8.6",
     "kubevirt@1.5.0",
-    "jekyll@latest",
+    "jekyll@4.4.1",
     "ruby@latest"
   ],
   "env_from": ".env",
