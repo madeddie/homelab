@@ -7,7 +7,7 @@
     "age@latest",
     "k9s@latest",
     "kubectl@latest",
-    "direnv@latest",
+    "direnv@2.36.0",
     "kustomize@latest",
     "argocd@latest",
     "kubevirt@latest",
