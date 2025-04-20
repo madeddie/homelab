@@ -145,9 +145,6 @@
         }
       }
     },
-    "github:NixOS/nixpkgs/nixpkgs-unstable": {
-      "resolved": "github:NixOS/nixpkgs/63158b9cbb6ec93d26255871c447b0f01da81619?lastModified=1743320628&narHash=sha256-FurMxmjEEqEMld11eX2vgfAx0Rz0JhoFm8UgxbfCZa8%3D"
-    },
     "github:budimanjojo/talhelper": {
       "resolved": "github:budimanjojo/talhelper/40dc750d1a16d4accff03dd9f86621d93d48da33?lastModified=1743047444&narHash=sha256-3eDzCuOEf2pfxpDQsVz%2BAZyg8sUEof4Fxx6L5ov0lVA%3D"
     },
