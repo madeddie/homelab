@@ -117,15 +117,11 @@ SOPS secrets operator will decrypt the values and create the k8s Secret objects.
       - [homepage](https://gethomepage.dev/)
       - [Jellyfin](https://jellyfin.org/)
       - [Open Home Foundation Matter Server](https://github.com/home-assistant-libs/python-matter-server)
-      - [MeshCentral](https://meshcentral.com/)
       - [Eclipse Mosquitto](https://mosquitto.org/)
-      - [Pi-hole](https://pi-hole.net/)
-      - [Portainer](https://www.portainer.io/)
       - [Prometheus](https://prometheus.io/)
       - [qBittorrent](https://www.qbittorrent.org/)
       - [Samba](https://github.com/dperson/samba)
       - [Sonarr](https://sonarr.tv/)
-      - [WireGuard Easy](https://github.com/wg-easy/wg-easy)
       - [wyze-bridge](https://github.com/mrlt8/docker-wyze-bridge)
 
 - MikroTik runs the folllowing services (apart from standard routing functionality):
@@ -149,7 +145,7 @@ SOPS secrets operator will decrypt the values and create the k8s Secret objects.
 - [ ] NUC either added to k8s cluster or remove proxmox, install VM directly on hardware to run Ansible/Terraform/bootstrap code and Home Assistant and Jellyfin
 - [ ] create new git repo with local AMT Console changes
 - [ ] add USB storage and simple HTTP server to MikroTik to serve PXE assets
-- [ ] implement SAML and/or OIDC server (keycloak)
+- [x] implement SAML and/or OIDC server (keycloak)
 - [ ] migrate services to SSO
 - [ ] add oauth2-proxy for apps that don't support SAML/OIDC
 - [ ] investigate use-case for argo ApplicationSets
@@ -166,11 +162,12 @@ SOPS secrets operator will decrypt the values and create the k8s Secret objects.
 - [ ] implement hardware watchdog on talos nodes (https://www.talos.dev/v1.9/advanced/watchdog/)
 - [x] set up basic github page for project using Jekyll
 - [ ] set up github actions to copy README and create Changelog for the project site
+- [ ] implement paperless-ngx
 
 ## deprecations / cleanup
 - Caddy, going to be replaced with Traefik
-- MeshCentral, replaced with AMT Console
-- Pi-hole, replaced with native MikroTik functionality
-- Portainer, not actually used
+- ~~MeshCentral, replaced with AMT Console~~
+- ~~Pi-hole, replaced with native MikroTik functionality~~
+- ~~Portainer, not actually used~~
 - Sonarr, not actually used
-- WireGuard Easy, replaced with native MikroTik functionality
+- ~~WireGuard Easy, replaced with native MikroTik functionality~~
