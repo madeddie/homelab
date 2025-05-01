@@ -12,7 +12,8 @@
     "argocd@2.14.7",
     "kubevirt@1.5.0",
     "jekyll@4.4.1",
-    "ruby@3.4.2"
+    "ruby@3.4.2",
+    "kubernetes-helm@latest"
   ],
   "env_from": ".env",
   "shell": {
