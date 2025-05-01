@@ -331,7 +331,7 @@
         }
       }
     },
-    "kubernetes-helm@latest": {
+    "kubernetes-helm@3.17.3": {
       "last_modified": "2025-04-10T20:20:34Z",
       "resolved": "github:NixOS/nixpkgs/d19cf9dfc633816a437204555afeb9e722386b76#kubernetes-helm",
       "source": "devbox-search",
