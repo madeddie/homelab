@@ -7,6 +7,13 @@ argo-cd:
       server.insecure: true  # tls termination by traefik
     secret:
       createSecret: false    # managed by SOPS operator in ./templates/argocd-secret.sops.yaml
+    cm:
+      oidc.config: |
+        name: Keycloak
+        issuer: https://keycloak.svc.madtech.cx/realms/madtech
+        clientID: argocd
+        enablePKCEAuthentication: true
+        requestedScopes: ["openid", "profile", "email", "groups"]
 
   server:
     ingress:
