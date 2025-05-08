@@ -9,7 +9,7 @@ authentik:
       valueFrom:
         secretKeyRef:
           name: authentik-secret
-          key: postgresql-password
+          key: postgres-password
 
   authentik:
     error_reporting:
