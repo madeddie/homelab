@@ -1,5 +1,6 @@
 authentik:
-  global.env:
+  global:
+    env:
     - name: AUTHENTIK_SECRET_KEY
       valueFrom:
         secretKeyRef:
@@ -30,8 +31,8 @@ authentik:
     auth:
       existingSecret: authentik-secret
       secretKeys:
-        adminPasswordKey: postgresql-password
-        userPasswordKey: postgresql-password
+        adminPasswordKey: postgres-password
+        userPasswordKey: postgres-password
         replicationPasswordKey: postgresql-password
   redis:
     enabled: true
