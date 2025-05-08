@@ -20,9 +20,9 @@ authentik:
       enabled: true
       hosts:
         - authentik.svc.madtech.cx
-      labels:
-        - traefik.ingress.kubernetes.io/router.tls: 'true'
-        - traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
+      annotations:
+        traefik.ingress.kubernetes.io/router.tls: 'true'
+        traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
 
   postgresql:
     enabled: true
