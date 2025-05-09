@@ -1,0 +1,38 @@
+authentik:
+  global:
+    env:
+    - name: AUTHENTIK_SECRET_KEY
+      valueFrom:
+        secretKeyRef:
+          name: authentik-secret
+          key: secret-key
+    - name: AUTHENTIK_POSTGRESQL__PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: authentik-secret
+          key: postgres-password
+
+  authentik:
+    error_reporting:
+      enabled: false
+
+  server:
+    ingress:
+      ingressClassName: traefik
+      enabled: true
+      hosts:
+        - authentik.svc.madtech.cx
+      annotations:
+        traefik.ingress.kubernetes.io/router.tls: 'true'
+        traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
+
+  postgresql:
+    enabled: true
+    auth:
+      existingSecret: authentik-secret
+      secretKeys:
+        adminPasswordKey: postgres-password
+        userPasswordKey: postgres-password
+        replicationPasswordKey: postgresql-password
+  redis:
+    enabled: true
