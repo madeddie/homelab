@@ -25,7 +25,7 @@ Steps:
   https://budimanjojo.github.io/talhelper/latest/guides/#configuring-sops-for-talhelper
   ```
   mkdir -p "$HOME/Library/Application Support/sops/age"             # I use age for encryption
-  pass homelab > "$HOME/Library/Application Support/sops/keys.txt"  # I keep secrets in [pass](https://www.passwordstore.org/)
+  pass homelab > "$HOME/Library/Application Support/sops/keys.txt"  # I keep secrets in https://www.passwordstore.org
   ```
 - generate talosconfig and node configs\
   `talhelper genconfig`
