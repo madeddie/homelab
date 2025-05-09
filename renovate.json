@@ -4,18 +4,23 @@
     "config:recommended"
   ],
   "dependencyDashboardTitle": "Renovate Dependency Dashboard",
-  "labels": ["renovate", "{{{manager}}}"],
+  "labels": [
+    "renovate",
+    "{{{manager}}}"
+  ],
   "kustomize": {
-    "fileMatch": [
-      "(^|/)kustomization\\.ya?ml$",
-      "(^|/)kustomized/.+/kustomization\\.ya?ml$"
+    "managerFilePatterns": [
+      "/(^|/)kustomization\\.ya?ml$/",
+      "/(^|/)kustomized/.+/kustomization\\.ya?ml$/"
     ],
     "pinDigests": false
   },
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": "kustomization.yaml",
+      "managerFilePatterns": [
+        "/kustomization.yaml/"
+      ],
       "matchStrings": [
         "https://github.com/(?<depName>.*/.*?)/releases/download/(?<currentValue>.*?)/"
       ],
@@ -23,7 +28,9 @@
     },
     {
       "customType": "regex",
-      "fileMatch": "kustomization.yaml",
+      "managerFilePatterns": [
+        "/kustomization.yaml/"
+      ],
       "matchStrings": [
         "https://raw.githubusercontent.com/(?<depName>[^/]*/[^/]*)/(refs/tags/)?(?<currentValue>.*?)/"
       ],
