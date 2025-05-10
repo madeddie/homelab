@@ -24,8 +24,8 @@ Steps:
 - configure SOPS;
   https://budimanjojo.github.io/talhelper/latest/guides/#configuring-sops-for-talhelper
   ```
-  mkdir -p "$HOME/Library/Application Support/sops/age"             # I use age for encryption
-  pass homelab > "$HOME/Library/Application Support/sops/keys.txt"  # I keep secrets in https://www.passwordstore.org
+  mkdir -p "$HOME/.config/sops/age"             # I use age for encryption
+  pass homelab > "$HOME/.config/sops/keys.txt"  # I keep secrets in [pass](https://www.passwordstore.org/)
   ```
 - generate talosconfig and node configs\
   `talhelper genconfig`
@@ -43,16 +43,14 @@ We'll be managing all apps (including Argo CD itself) in the cluster with Argo
 CD and managing secrets using SOPS secrets operator, which allows storing the
 secrets, encrypted, in git.
 
-(there's a chicken and egg problem here, with that SOPS is installed by ArgoCD
-and ArgoCD has some secrets encrypted by SOPS. This might be a non-issue that
-gets solved over time, but need to test it out at some point.)
-
 To start we first need to manually create the main decryption key Secret, using
 the same `age` key we used for the Talos config:
 
 ```
 kubectl create namespace sops
-kubectl -n sops create secret generic sops-age-key-file --from-file="$HOME/Library/Application Support/sops/age/keys.txt"
+kubectl -n sops create secret generic sops-age-key-file --from-file="$HOME/.config/sops/age/keys.txt"
+helm upgrade --install sops sops/sops-secrets-operator --namespace sops --set "secretsAsFiles[0].mountPath=/etc/sops-age-key-file,secretsAsFiles[0].name=sops-age
+-key-file,secretsAsFiles[0].secretName=sops-age-key-file,extraEnv[0].name=SOPS_AGE_KEY_FILE,extraEnv[0].value=/etc/sops-age-key-file/keys.txt"
 ```
 
 and install Argo CD (just once):
@@ -209,6 +207,9 @@ Secret objects.
   - [ ] Jellyfin?
   - [ ] Calibre-Web
 - [ ] implement local image storage (move from google photos?)
+- [x] instructions are missing installing SOPS helm chart before argocd
+- [ ] add sops helm chart with included values to simplify bootstrap
+      instructions
 
 ## deprecations / cleanup
 
