@@ -163,22 +163,24 @@ Secret objects.
 - [x] add MetalLB
 - [x] add traefik
 - [x] configure traefik for *.home.madtech.cx on NUC
-- [ ] switch from Caddy to Traefik for other services
+- [ ] ~~switch from Caddy to Traefik for other services~~ Will stick with caddy
+      on docker and traefik in k8s
 - [ ] NUC either added to k8s cluster or remove proxmox, install VM directly on
       hardware to run Ansible/Terraform/bootstrap code and Home Assistant and
       Jellyfin
 - [ ] create new git repo with local AMT Console changes
 - [ ] add USB storage and simple HTTP server to MikroTik to serve PXE assets
-- [x] implement SAML and/or OIDC server (keycloak)
+- [x] implement SAML and/or OIDC server (~~keycloak~~authentik)
 - [x] test keycloak
 - [x] implement Authentik
 - [ ] migrate services to SSO
   - [x] ArgoCD (OIDC + PKCE)
   - [x] Home Assistant (using https://github.com/BeryJu/hass-auth-header)
-  - [ ] Jellyfin
+  - [x] Jellyfin (using https://github.com/9p4/jellyfin-plugin-sso)
   - [x] Calibre-Web (using built-in Reverse Proxy Authentication)
   - [ ] Prometheus/Grafana/Alertmanager
   - [x] qBittorrent (using forward auth and disabling auth on local subnet)
+  - [x] Proxmox
 - [ ] ~~add oauth2-proxy for apps that don't support SAML/OIDC~~ using Traefik
       built-in forward auth
 - [ ] investigate use-case for argo ApplicationSets
