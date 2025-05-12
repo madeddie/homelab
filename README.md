@@ -171,13 +171,14 @@ Secret objects.
 - [x] test keycloak
 - [x] implement Authentik
 - [ ] migrate services to SSO
-  - [x] ArgoCD
-  - [ ] Home Assistant
+  - [x] ArgoCD (OIDC + PKCE)
+  - [x] Home Assistant (using https://github.com/BeryJu/hass-auth-header)
   - [ ] Jellyfin
-  - [ ] Calibre-Web
+  - [x] Calibre-Web (using built-in Reverse Proxy Authentication)
   - [ ] Prometheus/Grafana/Alertmanager
-  - [ ] qBittorrent
-- [ ] add oauth2-proxy for apps that don't support SAML/OIDC
+  - [x] qBittorrent (using forward auth and disabling auth on local subnet)
+- [ ] ~~add oauth2-proxy for apps that don't support SAML/OIDC~~ using Traefik
+      built-in forward auth
 - [ ] investigate use-case for argo ApplicationSets
 - [ ] host own git? (forgejo)
 - [ ] host own password manager? (vaultwarden?)
@@ -210,6 +211,10 @@ Secret objects.
 - [x] instructions are missing installing SOPS helm chart before argocd
 - [ ] add sops helm chart with included values to simplify bootstrap
       instructions
+- [ ] switch or duplicate use of devbox into nix shell (I use nix-darwin and
+      nix-on-droid now)
+- [ ] find a way to declaratively configure authentik
+- [ ] figure out social login with authentik and google/github
 
 ## deprecations / cleanup
 
