@@ -116,6 +116,7 @@ Secret objects.
 - Talos linux k8s cluster, 3 controller nodes that are also worker nodes on the
   1L HP EliteDesks
   - SOPS secrets operator
+  - metrics-server + Kubelet Serving Certificate Approver
   - Argo CD
   - local-path-provisioner
   - Longhorn
@@ -127,6 +128,7 @@ Secret objects.
 - Proxmox on the Beelink S12, running:
   - VM with Debian Bookworm with docker-compose running:
     - [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/)
+    - [Authentik Proxy outpost](https://docs.goauthentik.io/docs/add-secure-apps/outposts/manual-deploy-docker-compose)
     - [Console](https://github.com/device-management-toolkit/console) (with some
       local patches)
     - [Caddy](https://caddyserver.com/)
@@ -215,6 +217,8 @@ Secret objects.
       nix-on-droid now)
 - [ ] find a way to declaratively configure authentik
 - [ ] figure out social login with authentik and google/github
+- [ ] Caddy is behind Traefik from outside traffic. This breaks SSL cert
+      renewal. Fix.
 
 ## deprecations / cleanup
 
