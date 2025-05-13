@@ -15,7 +15,7 @@ services:
       - AUTHENTIK_TOKEN
 
   caddy:
-    image: caddy:alpine
+    image: caddy:2.10.0
     #build: ./caddy_build
     container_name: caddy
     hostname: caddy
@@ -29,7 +29,7 @@ services:
       - ./caddy/data:/data
 
   homeassistant:
-    image: ghcr.io/home-assistant/home-assistant:stable
+    image: ghcr.io/home-assistant/home-assistant:2025.5.1
     container_name: homeassistant
     hostname: homeassistant
     restart: unless-stopped
@@ -52,7 +52,7 @@ services:
       - esphome
 
   matter-server:
-    image: ghcr.io/home-assistant-libs/python-matter-server:stable
+    image: ghcr.io/home-assistant-libs/python-matter-server:7.0.1
     container_name: matter-server
     hostname: matter-server
     restart: unless-stopped
@@ -66,7 +66,7 @@ services:
         ipv4_address: 192.168.0.66
 
   mosquitto:
-    image: eclipse-mosquitto:latest
+    image: eclipse-mosquitto:2.0.21
     container_name: mosquitto
     hostname: mosquitto
     command: mosquitto -c /mosquitto/config/mosquitto.conf
@@ -84,7 +84,7 @@ services:
       - ./caddy/data/caddy/certificates/acme-v02.api.letsencrypt.org-directory/mqtt.home.madtech.cx:/certs
 
   wyze-bridge:
-    image: mrlt8/wyze-bridge:latest
+    image: mrlt8/wyze-bridge:2.10.3
     container_name: wyze-bridge
     hostname: wyze-bridge
     restart: unless-stopped
