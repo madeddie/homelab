@@ -221,6 +221,8 @@ Secret objects.
 - [ ] figure out social login with authentik and google/github
 - [ ] Caddy is behind Traefik from outside traffic. This breaks SSL cert
       renewal. Fix.
+- [ ] auto create traefik namespace
+- [ ] label longhorn namespace pod-security.kubernetes.io/enforce=privileged
 
 ## deprecations / cleanup
 
