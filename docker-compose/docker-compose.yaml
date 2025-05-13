@@ -1,0 +1,327 @@
+name: 'madhome'
+
+services:
+  authentik_proxy:
+    image: ghcr.io/goauthentik/proxy:2025.4.0
+    container_name: authentik_proxy
+    hostname: authentik_proxy
+    restart: unless-stopped
+    #ports:
+    #  - "9000:9000"
+    #  - "9443:9443"
+    environment:
+      - AUTHENTIK_HOST=https://authentik.svc.madtech.cx
+      - AUTHENTIK_INSECURE=false
+      - AUTHENTIK_TOKEN
+
+  caddy:
+    image: caddy:alpine
+    #build: ./caddy_build
+    container_name: caddy
+    hostname: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy/index.html:/srv/index.html
+      - ./caddy/data:/data
+
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: homeassistant
+    hostname: homeassistant
+    restart: unless-stopped
+    privileged: true
+    #ports:
+    #  - "8123:8123"
+    environment:
+      - TZ=America/New_York
+    volumes:
+      - ./homeassistant:/config
+      - /var/run/docker.sock:/var/run/docker.sock
+    devices:
+      - "/dev/ttyACM0:/dev/ttyACM0"
+    networks:
+      default:
+      macvlan:
+        ipv4_address: 192.168.0.64
+    depends_on:
+      - mosquitto
+      - esphome
+
+  matter-server:
+    image: ghcr.io/home-assistant-libs/python-matter-server:stable
+    container_name: matter-server
+    hostname: matter-server
+    restart: unless-stopped
+    ports:
+      - "5580:5580"
+    volumes:
+      - ./matter-server:/data
+    networks:
+      default:
+      macvlan:
+        ipv4_address: 192.168.0.66
+
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    container_name: mosquitto
+    hostname: mosquitto
+    command: mosquitto -c /mosquitto/config/mosquitto.conf
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+      - "8883:8883"
+      - "8082:8082"
+      - "8083:8083"
+    environment:
+      - TZ=America/New_York
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./caddy/data/caddy/certificates/acme-v02.api.letsencrypt.org-directory/mqtt.home.madtech.cx:/certs
+
+  wyze-bridge:
+    image: mrlt8/wyze-bridge:latest
+    container_name: wyze-bridge
+    hostname: wyze-bridge
+    restart: unless-stopped
+    ports:
+      - "8888:8888"
+      - "8889:8889"
+      - "8189:8189/udp"
+      - "5000:5000"
+    environment:
+      - TZ=America/New_York
+      - WYZE_EMAIL
+      - WYZE_PASSWORD
+      - API_ID
+      - API_KEY
+      - WB_AUTH=False
+      - ENABLE_AUDIO=True
+      - WB_IP=192.168.0.60
+      - MQTT_HOST=mosquitto:1883
+      - MQTT_AUTH
+    networks:
+      default:
+      macvlan:
+        ipv4_address: 192.168.0.67
+
+  esphome:
+    image: esphome/esphome
+    container_name: esphome
+    hostname: esphome
+    restart: unless-stopped
+    ports:
+      - "6052:6052"
+    environment:
+      - TZ=America/New_York
+    volumes:
+      - ./esphome:/config
+    networks:
+      default:
+      macvlan:
+        ipv4_address: 192.168.0.65
+
+  qbittorrent:
+    image: ghcr.io/hotio/qbittorrent
+    container_name: qbittorrent
+    hostname: qbittorrent
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=America/New_York
+      - VPN_ENABLED=true
+      - VPN_LAN_NETWORK=192.168.0.0/24
+      - VPN_CONF=wg0
+      - VPN_ADDITIONAL_PORTS
+      - PRIVOXY_ENABLED=false
+    volumes:
+      - ./qbittorrent:/config
+      - /media/sandisk/downloads:/data/downloads
+    cap_add:
+      - NET_ADMIN
+    dns:
+      - 1.1.1.1
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+      - net.ipv6.conf.all.disable_ipv6=1
+
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    hostname: jellyfin
+    restart: 'unless-stopped'
+    ports:
+      - "8096:8096/tcp"
+    volumes:
+      - ./jellyfin/config:/config
+      - ./jellyfin/cache:/cache
+      - /media/sandisk:/data
+    devices:
+      - /dev/dri:/dev/dri
+
+  samba:
+    image: dperson/samba
+    container_name: samba
+    hostname: samba
+    restart: 'unless-stopped'
+    ports:
+      - "139:139"
+      - "445:445"
+    environment:
+      - SHARE=media;/data;yes;yes
+      - PERMISSIONS=true
+      - USER
+    volumes:
+      - /media/sandisk:/data
+
+  #kasm:
+  #  image: lscr.io/linuxserver/kasm:latest
+  #  container_name: kasm
+  #  hostname: kasm
+  #  privileged: true
+  #  environment:
+  #    - KASM_PORT=4443
+  #  volumes:
+  #    - /data/kasm:/opt
+  #  ports:
+  #    - 3000:3000
+  #    - 4443:4443
+  #  restart: unless-stopped
+
+  #homepage:
+  #  image: ghcr.io/gethomepage/homepage:latest
+  #  container_name: homepage
+  #  hostname: homepage
+  #  restart: unless-stopped
+  #  ports:
+  #    - "3080:3080"
+  #  volumes:
+  #    - ./homepage/config:/app/config
+  #    - /var/run/docker.sock:/var/run/docker.sock
+
+  calibre-web:
+    image: lscr.io/linuxserver/calibre-web:latest
+    container_name: calibre-web
+    hostname: calibre-web
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+      - DOCKER_MODS=linuxserver/mods:universal-calibre
+      - OAUTHLIB_RELAX_TOKEN_SCOPE=1
+    volumes:
+      - /media/sandisk/books:/config
+      - /media/sandisk/books:/books
+
+  prometheus:
+    image: quay.io/prometheus/prometheus
+    container_name: prometheus
+    hostname: prometheus
+    restart: unless-stopped
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--web.external-url=https://prometheus.home.madtech.cx'
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - prom_data:/prometheus
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    hostname: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER
+      - GF_SECURITY_ADMIN_PASSWORD
+    volumes:
+      - ./grafana:/etc/grafana/provisioning/datasources
+
+  alertmanager:
+    image: quay.io/prometheus/alertmanager
+    container_name: alertmanager
+    hostname: alertmanager
+    restart: unless-stopped
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+      - '--storage.path=/alertmanager'
+      - '--web.external-url=https://alertmanager.home.madtech.cx'
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+
+  #meshcentral:
+  #  image: ghcr.io/ylianst/meshcentral
+  #  container_name: meshcentral
+  #  restart: unless-stopped
+  #  ports:
+  #    - 4433:4433 # AMT
+  #  environment:
+  #    - NODE_ENV=production
+  #    - HOSTNAME=meshcentral.home.madtech.cx
+  #  volumes:
+  #    # config.json and other important files live here. A must for data persistence
+  #    - /opt/meshcentral/data:/opt/meshcentral/meshcentral-data
+  #    # where file uploads for users live
+  #    - /opt/meshcentral/user_files:/opt/meshcentral/meshcentral-files
+  #    # location for the meshcentral-backups - this should be mounted to an external storage
+  #    - /opt/meshcentral/backup:/opt/meshcentral/meshcentral-backups
+  #    # location for site customization files
+  #    - /opt/meshcentral/web:/opt/meshcentral/meshcentral-web
+
+  amt_console:
+    image: madeddie/amt_console:latest
+    container_name: amt_console
+    hostname: amt_console
+    restart: unless-stopped
+    ports:
+      - "8181:8181"
+    environment:
+      - APP_ENCRYPTION_KEY
+      - HTTP_URL=https://amtconsole.home.madtech.cx
+    volumes:
+      - ./amt_console:/data
+
+  http-echo:
+    image: mendhak/http-https-echo:36
+    container_name: http-echo
+    hostname: http-echo
+    restart: unless-stopped
+    ports:
+      - "8080:8888"
+      - "8443:9999"
+    environment:
+      - HTTP_PORT=8888
+      - HTTPS_PORT=9999
+      - PROMETHEUS_ENABLED=true
+      - PROMETHEUS_METRICS_PATH=/metrics
+      - PROMETHEUS_WITH_PATH=false
+      - PROMETHEUS_WITH_METHOD=true
+      - PROMETHEUS_WITH_STATUS=true
+      - PROMETHEUS_METRIC_TYPE=summary
+
+volumes:
+  prom_data:
+
+networks:
+  macvlan:
+    name: macvlan
+    driver: macvlan
+    driver_opts:
+      parent: ens18
+    ipam:
+      config:
+        - subnet: "192.168.0.0/24"
+          ip_range: "192.168.0.64/28"
+          gateway: "192.168.0.1"
