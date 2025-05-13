@@ -110,7 +110,7 @@ services:
         ipv4_address: 192.168.0.67
 
   esphome:
-    image: esphome/esphome
+    image: esphome/esphome:2025.4.2
     container_name: esphome
     hostname: esphome
     restart: unless-stopped
@@ -126,7 +126,7 @@ services:
         ipv4_address: 192.168.0.65
 
   qbittorrent:
-    image: ghcr.io/hotio/qbittorrent
+    image: ghcr.io/hotio/qbittorrent:release-5.1.0
     container_name: qbittorrent
     hostname: qbittorrent
     restart: unless-stopped
@@ -152,7 +152,7 @@ services:
       - net.ipv6.conf.all.disable_ipv6=1
 
   jellyfin:
-    image: jellyfin/jellyfin
+    image: jellyfin/jellyfin:2025051205
     container_name: jellyfin
     hostname: jellyfin
     restart: 'unless-stopped'
@@ -206,7 +206,7 @@ services:
   #    - /var/run/docker.sock:/var/run/docker.sock
 
   calibre-web:
-    image: lscr.io/linuxserver/calibre-web:latest
+    image: linuxserver/calibre-web:0.6.24
     container_name: calibre-web
     hostname: calibre-web
     restart: unless-stopped
