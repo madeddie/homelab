@@ -20,7 +20,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`home.madtech.cx`) || Host(`assistant.home.madtech.cx`) || Host(`jellyfin.home.madtech.cx`)
+    - match: Host(`home.madtech.cx`) || Host(`assistant.home.madtech.cx`) || Host(`jellyfin.home.madtech.cx`) || Host(`torrent.home.madtech.cx`) || Host(`calibre.home.madtech.cx`)
       kind: Rule
       services:
         - name: home-madtech
