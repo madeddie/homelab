@@ -152,7 +152,7 @@ services:
       - net.ipv6.conf.all.disable_ipv6=1
 
   jellyfin:
-    image: jellyfin/jellyfin:2025051205
+    image: jellyfin/jellyfin:10.10.7
     container_name: jellyfin
     hostname: jellyfin
     restart: 'unless-stopped'
@@ -166,7 +166,7 @@ services:
       - /dev/dri:/dev/dri
 
   samba:
-    image: dperson/samba
+    image: ghcr.io/dockur/samba:4.21.4
     container_name: samba
     hostname: samba
     restart: 'unless-stopped'
@@ -174,11 +174,13 @@ services:
       - "139:139"
       - "445:445"
     environment:
-      - SHARE=media;/data;yes;yes
-      - PERMISSIONS=true
-      - USER
+      - NAME=media
+      - USER=madeddie
+      - PASS
+      - UID=1000
+      - GID=1000
     volumes:
-      - /media/sandisk:/data
+      - /media/sandisk:/storage
 
   #kasm:
   #  image: lscr.io/linuxserver/kasm:latest
@@ -221,7 +223,7 @@ services:
       - /media/sandisk/books:/books
 
   prometheus:
-    image: quay.io/prometheus/prometheus
+    image: quay.io/prometheus/prometheus:v3.3.1
     container_name: prometheus
     hostname: prometheus
     restart: unless-stopped
@@ -235,7 +237,7 @@ services:
       - prom_data:/prometheus
 
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana:12.0.0
     container_name: grafana
     hostname: grafana
     restart: unless-stopped
@@ -248,7 +250,7 @@ services:
       - ./grafana:/etc/grafana/provisioning/datasources
 
   alertmanager:
-    image: quay.io/prometheus/alertmanager
+    image: quay.io/prometheus/alertmanager:v0.28.1
     container_name: alertmanager
     hostname: alertmanager
     restart: unless-stopped
