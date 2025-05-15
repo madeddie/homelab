@@ -11,10 +11,6 @@ traefik:
     kubernetesIngress:
       allowExternalNameServices: true
   env:
-    - name: ACME_DNS_API_BASE
-      value: https://auth.acme-dns.io/
-    - name: ACME_DNS_STORAGE_PATH
-      value: /data/lego-acme-dns-accounts.json
   certificatesResolvers:
     le-http:
       acme:
