@@ -9,6 +9,7 @@
     "renovate",
     "{{{manager}}}"
   ],
+  "reviewers": ["madeddie"],
   "kustomize": {
     "managerFilePatterns": [
       "/(^|/)kustomization\\.ya?ml$/",
