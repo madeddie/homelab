@@ -10,13 +10,24 @@ traefik:
       allowExternalNameServices: true
     kubernetesIngress:
       allowExternalNameServices: true
+  env:
+    - name: ACME_DNS_API_BASE
+      value: https://auth.acme-dns.io/
+    - name: ACME_DNS_STORAGE_PATH
+      value: /data/lego-acme-dns-accounts.json
   certificatesResolvers:
-    letsencrypt:
+    le-http:
       acme:
         email: edwin@madtech.cx
-        storage: /data/acme.json
+        storage: /data/acme-http.json
         httpChallenge:
           entryPoint: web
+    le-dns:
+      acme:
+        email: edwin@madtech.cx
+        storage: /data/acme-dns.json
+        dnsChallenge:
+          provider: acme-dns
   persistence:
     enabled: true
     storageClass: local-path
