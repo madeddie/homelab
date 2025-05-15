@@ -27,7 +27,7 @@ traefik:
         email: edwin@madtech.cx
         storage: /data/acme-dns.json
         dnsChallenge:
-          provider: acme-dns
+          provider: hurricane
   persistence:
     enabled: true
     storageClass: local-path
