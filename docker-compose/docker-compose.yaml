@@ -52,7 +52,7 @@ services:
       - esphome
 
   matter-server:
-    image: ghcr.io/home-assistant-libs/python-matter-server:7.0.1
+    image: ghcr.io/home-assistant-libs/python-matter-server:8.0.0
     container_name: matter-server
     hostname: matter-server
     restart: unless-stopped
