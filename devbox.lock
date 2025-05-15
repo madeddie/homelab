@@ -199,31 +199,51 @@
         }
       }
     },
-    "k9s@0.50.4": {
-      "last_modified": "2025-05-06T08:06:31Z",
-      "resolved": "github:NixOS/nixpkgs/1cb1c02a6b1b7cf67e3d7731cbbf327a53da9679#k9s",
+    "k9s@0.50.5": {
+      "last_modified": "2025-05-12T14:38:58Z",
+      "resolved": "github:NixOS/nixpkgs/eaeed9530c76ce5f1d2d8232e08bec5e26f18ec1#k9s",
       "source": "devbox-search",
-      "version": "0.50.4",
+      "version": "0.50.5",
       "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/bp7r2dazf80hv9mfafz7jsqqn0n1j65p-k9s-0.50.5",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/bp7r2dazf80hv9mfafz7jsqqn0n1j65p-k9s-0.50.5"
+        },
         "aarch64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/drchw6w64m89yvjk8x25vgik7r004a7p-k9s-0.50.4",
+              "path": "/nix/store/pf4r0w83j4hxvvxrjhcjiwprx7nr3gbg-k9s-0.50.5",
               "default": true
             }
           ],
-          "store_path": "/nix/store/drchw6w64m89yvjk8x25vgik7r004a7p-k9s-0.50.4"
+          "store_path": "/nix/store/pf4r0w83j4hxvvxrjhcjiwprx7nr3gbg-k9s-0.50.5"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/2680fm87q0flkjs3jgjqs5dcswdclgps-k9s-0.50.5",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/2680fm87q0flkjs3jgjqs5dcswdclgps-k9s-0.50.5"
         },
         "x86_64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/30x744n3xyxs7q66rlczfq5my9zd6551-k9s-0.50.4",
+              "path": "/nix/store/8r9vpdd1wyd2msz03b5hkk32lrx3r3j2-k9s-0.50.5",
               "default": true
             }
           ],
-          "store_path": "/nix/store/30x744n3xyxs7q66rlczfq5my9zd6551-k9s-0.50.4"
+          "store_path": "/nix/store/8r9vpdd1wyd2msz03b5hkk32lrx3r3j2-k9s-0.50.5"
         }
       }
     },
