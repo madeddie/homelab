@@ -8,3 +8,4 @@
 
 # local test files
 tmp/
+docker-compose/caddy/data/caddy

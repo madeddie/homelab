@@ -6,23 +6,22 @@ services:
     container_name: authentik_proxy
     hostname: authentik_proxy
     restart: unless-stopped
-    #ports:
-    #  - "9000:9000"
-    #  - "9443:9443"
     environment:
       - AUTHENTIK_HOST=https://authentik.svc.madtech.cx
       - AUTHENTIK_INSECURE=false
       - AUTHENTIK_TOKEN
 
   caddy:
-    image: caddy:2.10.0
-    #build: ./caddy_build
+    image: caddy:2.10.0-he
+    build: ./caddy_build
     container_name: caddy
     hostname: caddy
     restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
+    environment:
+      - HE_DDNS_TOKEN
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
       - ./caddy/index.html:/srv/index.html
@@ -34,8 +33,6 @@ services:
     hostname: homeassistant
     restart: unless-stopped
     privileged: true
-    #ports:
-    #  - "8123:8123"
     environment:
       - TZ=America/New_York
     volumes:
@@ -156,8 +153,6 @@ services:
     container_name: jellyfin
     hostname: jellyfin
     restart: 'unless-stopped'
-    ports:
-      - "8096:8096/tcp"
     volumes:
       - ./jellyfin/config:/config
       - ./jellyfin/cache:/cache
@@ -181,31 +176,6 @@ services:
       - GID=1000
     volumes:
       - /media/sandisk:/storage
-
-  #kasm:
-  #  image: lscr.io/linuxserver/kasm:latest
-  #  container_name: kasm
-  #  hostname: kasm
-  #  privileged: true
-  #  environment:
-  #    - KASM_PORT=4443
-  #  volumes:
-  #    - /data/kasm:/opt
-  #  ports:
-  #    - 3000:3000
-  #    - 4443:4443
-  #  restart: unless-stopped
-
-  #homepage:
-  #  image: ghcr.io/gethomepage/homepage:latest
-  #  container_name: homepage
-  #  hostname: homepage
-  #  restart: unless-stopped
-  #  ports:
-  #    - "3080:3080"
-  #  volumes:
-  #    - ./homepage/config:/app/config
-  #    - /var/run/docker.sock:/var/run/docker.sock
 
   calibre-web:
     image: linuxserver/calibre-web:0.6.24
@@ -263,32 +233,11 @@ services:
     volumes:
       - ./alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
 
-  #meshcentral:
-  #  image: ghcr.io/ylianst/meshcentral
-  #  container_name: meshcentral
-  #  restart: unless-stopped
-  #  ports:
-  #    - 4433:4433 # AMT
-  #  environment:
-  #    - NODE_ENV=production
-  #    - HOSTNAME=meshcentral.home.madtech.cx
-  #  volumes:
-  #    # config.json and other important files live here. A must for data persistence
-  #    - /opt/meshcentral/data:/opt/meshcentral/meshcentral-data
-  #    # where file uploads for users live
-  #    - /opt/meshcentral/user_files:/opt/meshcentral/meshcentral-files
-  #    # location for the meshcentral-backups - this should be mounted to an external storage
-  #    - /opt/meshcentral/backup:/opt/meshcentral/meshcentral-backups
-  #    # location for site customization files
-  #    - /opt/meshcentral/web:/opt/meshcentral/meshcentral-web
-
   amt_console:
     image: madeddie/amt_console:latest
     container_name: amt_console
     hostname: amt_console
     restart: unless-stopped
-    ports:
-      - "8181:8181"
     environment:
       - APP_ENCRYPTION_KEY
       - HTTP_URL=https://amtconsole.home.madtech.cx
@@ -300,9 +249,6 @@ services:
     container_name: http-echo
     hostname: http-echo
     restart: unless-stopped
-    ports:
-      - "8080:8888"
-      - "8443:9999"
     environment:
       - HTTP_PORT=8888
       - HTTPS_PORT=9999
