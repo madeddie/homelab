@@ -8,9 +8,15 @@ traefik:
   providers:
     kubernetesCRD:
       allowExternalNameServices: true
+      allowCrossNamespace: true
     kubernetesIngress:
       allowExternalNameServices: true
   env:
+    - name: HURRICANE_TOKENS
+      valueFrom:
+        secretKeyRef:
+          name: he-token-secret
+          key: hurricane_tokens
   certificatesResolvers:
     le-http:
       acme:
