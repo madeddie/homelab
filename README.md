@@ -223,6 +223,9 @@ Secret objects.
       renewal. Fix.
 - [ ] auto create traefik namespace
 - [ ] label longhorn namespace pod-security.kubernetes.io/enforce=privileged
+- [ ] implement cert-manager
+- [x] implement letsencrypt dns verification in traefik
+- [x] implement letsencrypt dns verification in caddy
 
 ## deprecations / cleanup
 
