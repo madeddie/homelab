@@ -8,15 +8,31 @@ traefik:
   providers:
     kubernetesCRD:
       allowExternalNameServices: true
+      allowCrossNamespace: true
     kubernetesIngress:
       allowExternalNameServices: true
+  env:
+    - name: HURRICANE_TOKENS
+      valueFrom:
+        secretKeyRef:
+          name: he-token-secret
+          key: hurricane_tokens
   certificatesResolvers:
-    letsencrypt:
+    le-http:
       acme:
         email: edwin@madtech.cx
-        storage: /data/acme.json
+        storage: /data/acme-http.json
         httpChallenge:
           entryPoint: web
+    le-dns:
+      acme:
+        email: edwin@madtech.cx
+        storage: /data/acme-dns.json
+        dnsChallenge:
+          resolvers:
+            - "1.1.1.1:53"
+            - "8.8.8.8:53"
+          provider: hurricane
   persistence:
     enabled: true
     storageClass: local-path

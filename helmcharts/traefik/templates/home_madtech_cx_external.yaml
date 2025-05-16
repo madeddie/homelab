@@ -27,4 +27,8 @@ spec:
           kind: Service
           port: 443
   tls:
-    certResolver: letsencrypt
+    certResolver: le-dns
+    domains:
+      - main: home.madtech.cx
+        sans:
+          - '*.home.madtech.cx'
