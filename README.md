@@ -25,7 +25,7 @@ Steps:
   https://budimanjojo.github.io/talhelper/latest/guides/#configuring-sops-for-talhelper
   ```
   mkdir -p "$HOME/.config/sops/age"             # I use age for encryption
-  pass homelab > "$HOME/.config/sops/keys.txt"  # I keep secrets in [pass](https://www.passwordstore.org/)
+  pass homelab_talos > "$HOME/.config/sops/keys.txt"  # I keep secrets in [pass](https://www.passwordstore.org/)
   ```
 - generate talosconfig and node configs\
   `talhelper genconfig`
@@ -80,6 +80,21 @@ Application will show it's out of sync. This is because it wasn't created with
 the `argocd.argoproj.io/instance` label which `argocd` itself will add if we
 press Sync and then Synchronize.
 
+### Bootstrap docker-compose
+
+The `docker-compose/` folder contains the configuration of the docker compose setup on the NUC.
+A prerequisite for setup is installing and configuring SOPS as descibed below, but instead of `pass homelab_talos` we use `pass homelab_compose`.
+
+After checking out the repo, run:
+
+`sops exec-env secrets.sops.env 'docker compose up -d'`
+
+This should bring up all the containers and feed them their "secret" ENV vars.
+
+TODO: I have not yet put all application configuration in version control.
+
+Also, some of the data will be in backups (DBs and other binary blobs). The restoration procedure needs to be described.
+
 ## Available services
 
 ### MetalLB and Traefik
@@ -115,15 +130,15 @@ Secret objects.
 
 - Talos linux k8s cluster, 3 controller nodes that are also worker nodes on the
   1L HP EliteDesks
-  - SOPS secrets operator
-  - metrics-server + Kubelet Serving Certificate Approver
   - Argo CD
+  - Authentik
+  - KubeVirt
   - local-path-provisioner
   - Longhorn
   - MetalLB
+  - metrics-server + Kubelet Serving Certificate Approver
+  - SOPS secrets operator
   - Traefik
-  - KubeVirt
-  - Authentik
 
 - Proxmox on the Beelink S12, running:
   - VM with Debian Bookworm with docker-compose running:
@@ -135,6 +150,7 @@ Secret objects.
     - [Calibre-Web](https://github.com/janeczku/calibre-web)
     - [ESPHome](https://esphome.io/)
     - [Grafana](https://grafana.com/)
+    - [http-https-echo](https://github.com/mendhak/docker-http-https-echo)
     - [Home Assistant](https://www.home-assistant.io/)
     - [homepage](https://gethomepage.dev/)
     - [Jellyfin](https://jellyfin.org/)
@@ -142,12 +158,12 @@ Secret objects.
     - [Eclipse Mosquitto](https://mosquitto.org/)
     - [Prometheus](https://prometheus.io/)
     - [qBittorrent](https://www.qbittorrent.org/)
-    - [Samba](https://github.com/dperson/samba)
+    - [Samba](https://github.com/dockur/samba)
     - [wyze-bridge](https://github.com/mrlt8/docker-wyze-bridge)
 
 - MikroTik runs the folllowing services (apart from standard routing
   functionality):
-  - Local DNS for home.madtech.cx and lab.madtech.cx
+  - Local DNS for home.madtech.cx, svc.madtech.cx and lab.madtech.cx
   - DHCP + PXE using [netboot.xyz](https://netboot.xyz/)
   - Wireguard VPN
 
@@ -178,14 +194,14 @@ Secret objects.
   - [x] Home Assistant (using https://github.com/BeryJu/hass-auth-header)
   - [x] Jellyfin (using https://github.com/9p4/jellyfin-plugin-sso)
   - [x] Calibre-Web (using built-in Reverse Proxy Authentication)
-  - [ ] Prometheus/Grafana/Alertmanager
+  - [x] Prometheus/Grafana/Alertmanager (just behind auth, no integration, so no users in the apps)
   - [x] qBittorrent (using forward auth and disabling auth on local subnet)
   - [x] Proxmox
-- [ ] ~~add oauth2-proxy for apps that don't support SAML/OIDC~~ using Traefik
+- [x] ~~add oauth2-proxy for apps that don't support SAML/OIDC~~ using Traefik
       built-in forward auth
 - [ ] investigate use-case for argo ApplicationSets
 - [ ] host own git? (forgejo)
-- [ ] host own password manager? (vaultwarden?)
+- [ ] host own password manager? (vaultwarden? I'm using passwordstore.org for now)
 - [x] add kubevirt
 - [x] add sops operator
 - [ ] ~~host own notes app? (memos: https://www.usememos.com/)~~ using Markor +
@@ -193,8 +209,8 @@ Secret objects.
 - [x] add longhorn (storage)
 - [x] implement renovate
 - [x] add metrics-server
-- [ ] try running a service needing a specific USB device
-- [ ] try running a service using video decoding hardware
+- [ ] try running a k8s service needing a specific USB device (for home assistant + zigbee)
+- [ ] try running a k8s service using video decoding hardware (for jellyfin)
 - [ ] implement hardware watchdog on talos nodes
       (https://www.talos.dev/v1.9/advanced/watchdog/)
 - [x] set up basic github page for project using Jekyll
@@ -219,17 +235,29 @@ Secret objects.
       nix-on-droid now)
 - [ ] find a way to declaratively configure authentik
 - [ ] figure out social login with authentik and google/github
-- [ ] Caddy is behind Traefik from outside traffic. This breaks SSL cert
-      renewal. Fix.
+- [x] Caddy is behind Traefik from outside traffic. This breaks SSL cert
+      renewal. Fix. (now using ACME with dns auth)
 - [ ] auto create traefik namespace
 - [ ] label longhorn namespace pod-security.kubernetes.io/enforce=privileged
 - [ ] implement cert-manager
 - [x] implement letsencrypt dns verification in traefik
 - [x] implement letsencrypt dns verification in caddy
+- [x] describe restoration procedure for all apps with binary blob backups
+- [ ] put docker-compose apps config in version control
+  - [x] caddy
+  - [ ] alertmanager
+  - [ ] amt_console
+  - [ ] esphome
+  - [ ] grafana
+  - [ ] home-assistant
+  - [ ] jellyfin
+  - [ ] matter-server?
+  - [ ] mosquitto
+  - [ ] prometheus
+  - [ ] qbittorrent
 
 ## deprecations / cleanup
 
-- Caddy, going to be replaced with Traefik
 - ~~MeshCentral, replaced with AMT Console~~
 - ~~Pi-hole, replaced with native MikroTik functionality~~
 - ~~Portainer, not actually used~~
