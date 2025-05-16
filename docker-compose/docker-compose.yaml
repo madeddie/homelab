@@ -208,7 +208,7 @@ services:
   #    - /var/run/docker.sock:/var/run/docker.sock
 
   calibre-web:
-    image: linuxserver/calibre-web:0.6.24
+    image: linuxserver/calibre-web:2021.12.16
     container_name: calibre-web
     hostname: calibre-web
     restart: unless-stopped
