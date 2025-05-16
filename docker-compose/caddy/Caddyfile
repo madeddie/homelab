@@ -1,0 +1,89 @@
+
+(authentik) {
+    route {
+        reverse_proxy /outpost.goauthentik.io/* http://authentik_proxy:9000
+        forward_auth http://authentik_proxy:9000 {
+            uri /outpost.goauthentik.io/auth/caddy
+            copy_headers X-Authentik-Username X-Authentik-Groups X-Authentik-Entitlements X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Jwt X-Authentik-Meta-Jwks X-Authentik-Meta-Outpost X-Authentik-Meta-Provider X-Authentik-Meta-App X-Authentik-Meta-Version
+            trusted_proxies private_ranges
+        }
+    }
+}
+
+*.home.madtech.cx, home.madtech.cx {
+    tls {
+        propagation_delay 5m
+        resolvers 8.8.8.8 8.8.4.4
+        dns he {
+            api_key {env.HE_DDNS_TOKEN}
+        }
+
+    }
+
+    @home host home.madtech.cx
+    handle @home {
+        file_server
+    }
+
+    @esphome host esphome.home.madtech.cx
+    handle @esphome {
+        import authentik
+        reverse_proxy esphome:6052
+    }
+
+    @jellyfin host jellyfin.home.madtech.cx
+    handle @jellyfin {
+        reverse_proxy jellyfin:8096
+    }
+
+    @assistant host assistant.home.madtech.cx
+    handle @assistant {
+        import authentik
+        reverse_proxy homeassistant:8123
+    }
+
+    @mqtt host mqtt.home.madtech.cx
+    handle @mqtt {
+        reverse_proxy mosquitto:8082
+    }
+
+    @torrent host torrent.home.madtech.cx
+    handle @torrent {
+        import authentik
+        reverse_proxy qbittorrent:8080
+    }
+
+    @calibre host calibre.home.madtech.cx
+    handle @calibre {
+        import authentik
+        reverse_proxy calibre-web:8083
+    }
+
+    @prometheus host prometheus.home.madtech.cx
+    handle @prometheus {
+        import authentik
+        reverse_proxy prometheus:9090
+    }
+
+    @alertmanager host alertmanager.home.madtech.cx
+    handle @alertmanager {
+        import authentik
+        reverse_proxy alertmanager:9093
+    }
+
+    @grafana host grafana.home.madtech.cx
+    handle @grafana {
+        reverse_proxy grafana:3000
+    }
+
+    @amtconsole host amtconsole.home.madtech.cx
+    handle @amtconsole {
+        reverse_proxy amt_console:8181
+    }
+
+    @test host test.home.madtech.cx
+    handle @test {
+        import authentik
+        reverse_proxy http-echo:8888
+    }
+}
