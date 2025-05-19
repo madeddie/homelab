@@ -1,16 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: traefik
+  name: traefik-crds
   namespace: argocd
 spec:
   project: default
   source:
-    helm:
-      skipCrds: true
-    repoURL: https://github.com/madeddie/homelab.git
-    path: helmcharts/traefik
-    targetRevision: HEAD
+    chart: traefik-crds
+    repoURL: https://traefik.github.io/charts
+    targetRevision: 1.8.0
   destination:
     server: https://kubernetes.default.svc
     namespace: traefik
