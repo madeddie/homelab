@@ -255,6 +255,7 @@ Secret objects.
   - [ ] mosquitto
   - [ ] prometheus
   - [ ] qbittorrent
+- [ ] test Authelia (should be more light weight than Authentik)
 
 ## deprecations / cleanup
 
