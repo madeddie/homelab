@@ -12,7 +12,7 @@ services:
       - AUTHENTIK_TOKEN
 
   caddy:
-    image: caddy:2.10.0-he
+    image: caddy:custom
     build: ./caddy_build
     container_name: caddy
     hostname: caddy
@@ -149,7 +149,8 @@ services:
       - net.ipv6.conf.all.disable_ipv6=1
 
   jellyfin:
-    image: jellyfin/jellyfin:10.10.7
+    image: jellyfin:custom
+    build: ./jellyfin_build
     container_name: jellyfin
     hostname: jellyfin
     restart: 'unless-stopped'
