@@ -237,8 +237,8 @@ Secret objects.
 - [ ] figure out social login with authentik and google/github
 - [x] Caddy is behind Traefik from outside traffic. This breaks SSL cert
       renewal. Fix. (now using ACME with dns auth)
-- [ ] auto create traefik namespace
-- [ ] label longhorn namespace pod-security.kubernetes.io/enforce=privileged
+- [x] auto create traefik namespace
+- [x] label longhorn namespace pod-security.kubernetes.io/enforce=privileged
 - [ ] implement cert-manager
 - [x] implement letsencrypt dns verification in traefik
 - [x] implement letsencrypt dns verification in caddy

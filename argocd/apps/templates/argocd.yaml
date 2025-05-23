@@ -12,3 +12,7 @@ spec:
     repoURL: https://github.com/madeddie/homelab.git
     path: helmcharts/argo-cd
     targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
