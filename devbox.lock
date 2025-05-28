@@ -475,7 +475,7 @@
         }
       }
     },
-    "opentofu@latest": {
+    "opentofu@1.9.1": {
       "last_modified": "2025-05-16T20:19:48Z",
       "resolved": "github:NixOS/nixpkgs/12a55407652e04dcf2309436eb06fef0d3713ef3#opentofu",
       "source": "devbox-search",
