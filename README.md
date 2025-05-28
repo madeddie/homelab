@@ -95,6 +95,24 @@ TODO: I have not yet put all application configuration in version control.
 
 Also, some of the data will be in backups (DBs and other binary blobs). The restoration procedure needs to be described.
 
+### Configure Authentik using OpenTofu
+
+To configure Authentik declaratively, I've chosen to use OpenTofu, aka the more opensource version
+of Terraform.
+
+I'm storing the TF state in git in encrypted form. The passphrase is also stored, separately encrypted
+with SOPS.
+
+To execute OpenTofu we'll need to run it encapsulated by SOPS like this:
+
+```
+cd opentofu
+sops exec-env sops.secrets.env 'tofu plan'
+```
+
+Where `plan` is the OpenTofu command to execute. This will inject environment variables with the
+secrets used by OpenTofu.
+
 ## Available services
 
 ### MetalLB and Traefik
@@ -171,7 +189,7 @@ Secret objects.
 
 - [x] use talhelper to configure Talos nodes declaratively
 - [ ] find a way to configure MikroTik router declaratively
-- [ ] migrate software from docker-compose to k8s
+- [-] migrate software from docker-compose to k8s
 - [x] add ArgoCD
 - [ ] experiment with FluxCD
 - [ ] add LTE backup to MikroTik router
@@ -179,8 +197,8 @@ Secret objects.
 - [x] add MetalLB
 - [x] add traefik
 - [x] configure traefik for *.home.madtech.cx on NUC
-- [ ] ~~switch from Caddy to Traefik for other services~~ Will stick with caddy
-      on docker and traefik in k8s
+- [ ] ~~switch from Caddy to Traefik for other services~~ (Will stick with caddy
+      on docker and traefik in k8s)
 - [ ] NUC either added to k8s cluster or remove proxmox, install VM directly on
       hardware to run Ansible/Terraform/bootstrap code and Home Assistant and
       Jellyfin
@@ -189,7 +207,7 @@ Secret objects.
 - [x] implement SAML and/or OIDC server (~~keycloak~~authentik)
 - [x] test keycloak
 - [x] implement Authentik
-- [ ] migrate services to SSO
+- [x] migrate services to SSO
   - [x] ArgoCD (OIDC + PKCE)
   - [x] Home Assistant (using https://github.com/BeryJu/hass-auth-header)
   - [x] Jellyfin (using https://github.com/9p4/jellyfin-plugin-sso)
@@ -204,8 +222,8 @@ Secret objects.
 - [ ] host own password manager? (vaultwarden? I'm using passwordstore.org for now)
 - [x] add kubevirt
 - [x] add sops operator
-- [ ] ~~host own notes app? (memos: https://www.usememos.com/)~~ using Markor +
-      git
+- [ ] ~~host own notes app? (memos: https://www.usememos.com/)~~ (using Markor +
+      git)
 - [x] add longhorn (storage)
 - [x] implement renovate
 - [x] add metrics-server
@@ -233,7 +251,7 @@ Secret objects.
       instructions
 - [ ] switch or duplicate use of devbox into nix shell (I use nix-darwin and
       nix-on-droid now)
-- [ ] find a way to declaratively configure authentik
+- [x] find a way to declaratively configure authentik
 - [ ] figure out social login with authentik and google/github
 - [x] Caddy is behind Traefik from outside traffic. This breaks SSL cert
       renewal. Fix. (now using ACME with dns auth)
@@ -256,6 +274,17 @@ Secret objects.
   - [ ] prometheus
   - [ ] qbittorrent
 - [ ] test Authelia (should be more light weight than Authentik)
+- [ ] test signoz (opensource datadog competitor)
+- [/] use opentofu to configure authentik
+- [ ] test spinning up virgin authentik with terraform (check https://docs.goauthentik.io/docs/install-config/automated-install)
+- [ ] add (forwarding) SMTP server for app notifications
+- [ ] try loki (logging)
+
+Legend:
+
+[-] task started, but barely </br>
+[/] task about halfway done </br>
+[x] task done </br>
 
 ## deprecations / cleanup
 
