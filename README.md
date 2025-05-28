@@ -95,6 +95,24 @@ TODO: I have not yet put all application configuration in version control.
 
 Also, some of the data will be in backups (DBs and other binary blobs). The restoration procedure needs to be described.
 
+### Configure Authentik using OpenTofu
+
+To configure Authentik declaratively, I've chosen to use OpenTofu, aka the more opensource version
+of Terraform.
+
+I'm storing the TF state in git in encrypted form. The passphrase is also stored, separately encrypted
+with SOPS.
+
+To execute OpenTofu we'll need to run it encapsulated by SOPS like this:
+
+```
+cd opentofu
+sops exec-env sops.secrets.env 'tofu plan'
+```
+
+Where `plan` is the OpenTofu command to execute. This will inject environment variables with the
+secrets used by OpenTofu.
+
 ## Available services
 
 ### MetalLB and Traefik
@@ -243,7 +261,7 @@ Secret objects.
 - [x] implement letsencrypt dns verification in traefik
 - [x] implement letsencrypt dns verification in caddy
 - [x] describe restoration procedure for all apps with binary blob backups
-- [ ] put docker-compose apps config in version control
+- [-] put docker-compose apps config in version control
   - [x] caddy
   - [ ] alertmanager
   - [ ] amt_console
@@ -257,8 +275,14 @@ Secret objects.
   - [ ] qbittorrent
 - [ ] test Authelia (should be more light weight than Authentik)
 - [ ] test signoz (opensource datadog competitor)
-- [ ] use opentofu to configure authentik
+- [/] use opentofu to configure authentik
 - [ ] test spinning up virgin authentik with terraform (check https://docs.goauthentik.io/docs/install-config/automated-install)
+
+Legend:
+
+[-] task started, but barely
+[/] task about halfway done
+[x] task done
 
 ## deprecations / cleanup
 
