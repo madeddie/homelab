@@ -280,9 +280,9 @@ Secret objects.
 
 Legend:
 
-[-] task started, but barely
-[/] task about halfway done
-[x] task done
+[-] task started, but barely </br>
+[/] task about halfway done </br>
+[x] task done </br>
 
 ## deprecations / cleanup
 
