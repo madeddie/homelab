@@ -10,3 +10,4 @@
 tmp/
 docker-compose/caddy/data/caddy
 opentofu/.terraform/
+opentofu/terraform.tfstate.backup

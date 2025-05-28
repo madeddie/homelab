@@ -23,8 +23,32 @@ data "authentik_flow" "default-invalidation-flow" {
   slug = "default-provider-invalidation-flow"
 }
 
-# Test App (HTTP request mirror)
+data "authentik_certificate_key_pair" "generated" {
+  name = "authentik Self-signed Certificate"
+}
 
+data "authentik_property_mapping_provider_scope" "default-scopes" {
+  managed_list = [
+    "goauthentik.io/providers/oauth2/scope-email",
+    "goauthentik.io/providers/oauth2/scope-openid",
+    "goauthentik.io/providers/oauth2/scope-profile"
+  ]
+}
+
+# Group Membership Property Mapping (mostly used by ArgoCD)
+import {
+  to = authentik_property_mapping_provider_scope.group-membership
+  id = "9178bc15-57d1-4d06-96c6-b2c648becc79"
+}
+
+resource "authentik_property_mapping_provider_scope" "group-membership" {
+  name        = "Group Membership"
+  scope_name  = "groups"
+  expression  = "return [group.name for group in user.ak_groups.all()]"
+  description = "See Which Groups you belong to"
+}
+
+# Test App (HTTP request mirror)
 import {
   to = authentik_provider_proxy.test-app
   id = 35
@@ -51,7 +75,6 @@ resource "authentik_application" "test-app" {
 }
 
 # Home Assistant
-
 import {
   to = authentik_provider_proxy.homeassistant
   id = 10
@@ -79,7 +102,6 @@ resource "authentik_application" "homeassistant" {
 }
 
 # Calibre Web
-
 import {
   to = authentik_provider_proxy.calibre-web
   id = 12
@@ -106,11 +128,11 @@ resource "authentik_application" "calibre-web" {
 }
 
 # qBittorrent
-
 import {
   to = authentik_provider_proxy.qbittorrent
   id = 14
 }
+
 resource "authentik_provider_proxy" "qbittorrent" {
   name                  = "Provider for qBittorrent"
   external_host         = "https://torrent.home.madtech.cx"
@@ -132,11 +154,11 @@ resource "authentik_application" "qbittorrent" {
 }
 
 # Prometheus
-
 import {
   to = authentik_provider_proxy.prometheus
   id = 24
 }
+
 resource "authentik_provider_proxy" "prometheus" {
   name                  = "Provider for Prometheus"
   external_host         = "https://prometheus.home.madtech.cx"
@@ -158,11 +180,11 @@ resource "authentik_application" "prometheus" {
 }
 
 # Alertmanager
-
 import {
   to = authentik_provider_proxy.alertmanager
   id = 30
 }
+
 resource "authentik_provider_proxy" "alertmanager" {
   name                  = "Provider for Alertmanager"
   external_host         = "https://alertmanager.home.madtech.cx"
@@ -184,11 +206,11 @@ resource "authentik_application" "alertmanager" {
 }
 
 # ESPHome
-
 import {
   to = authentik_provider_proxy.esphome
   id = 34
 }
+
 resource "authentik_provider_proxy" "esphome" {
   name                  = "Provider for ESPHome"
   external_host         = "https://esphome.home.madtech.cx"
@@ -209,32 +231,6 @@ resource "authentik_application" "esphome" {
   protocol_provider = authentik_provider_proxy.esphome.id
 }
 
-## Home Assistant
-#
-#import {
-#  to = authentik_provider_proxy.homeassistant
-#  id = 10
-#}
-#resource "authentik_provider_proxy" "homeassistant" {
-#  name                  = "Provider for Home Assistant"
-#  external_host         = "https://assistant.home.madtech.cx"
-#  mode                  = "forward_single"
-#  access_token_validity = local.default_token_validity
-#  authorization_flow    = data.authentik_flow.default-authorization-flow.id
-#  invalidation_flow     = data.authentik_flow.default-invalidation-flow.id
-#}
-#
-#import {
-#  to = authentik_application.homeassistant
-#  id = "homeassistant"
-#}
-#
-#resource "authentik_application" "homeassistant" {
-#  name              = "Home Assistant"
-#  slug              = "homeassistant"
-#  protocol_provider = authentik_provider_proxy.homeassistant.id
-#}
-
 # Caddy Proxy Outpost
 import {
   to = authentik_outpost.home-caddy-proxy
@@ -243,7 +239,6 @@ import {
 
 resource "authentik_outpost" "home-caddy-proxy" {
   name = "home-caddy-proxy"
-  # TODO replace hardcoded IDs with imported applications
   protocol_providers = [
     authentik_provider_proxy.homeassistant.id,
     authentik_provider_proxy.calibre-web.id,
@@ -253,4 +248,116 @@ resource "authentik_outpost" "home-caddy-proxy" {
     authentik_provider_proxy.esphome.id,
     authentik_provider_proxy.test-app.id
   ]
+}
+
+# Oauth2 Apps
+
+# ArgoCD
+import {
+  to = authentik_provider_oauth2.argocd
+  id = 2
+}
+
+resource "authentik_provider_oauth2" "argocd" {
+  name               = "Provider for ArgoCD"
+  client_id          = "argocd"
+  client_type        = "public"
+  signing_key        = data.authentik_certificate_key_pair.generated.id
+  authorization_flow = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow  = data.authentik_flow.default-invalidation-flow.id
+  allowed_redirect_uris = [
+    {
+      matching_mode = "strict",
+      url           = "http://localhost:8085/auth/callback",
+    },
+    {
+      matching_mode = "strict",
+      url           = "https://argocd.svc.madtech.cx/auth/callback",
+    },
+    {
+      matching_mode = "strict",
+      url           = "https://argocd.svc.madtech.cx/pkce/verify",
+    }
+  ]
+  property_mappings = data.authentik_property_mapping_provider_scope.default-scopes.ids
+}
+
+import {
+  to = authentik_application.argocd
+  id = "argocd"
+}
+
+resource "authentik_application" "argocd" {
+  name              = "ArgoCD"
+  slug              = "argocd"
+  protocol_provider = authentik_provider_oauth2.argocd.id
+}
+
+# Jellyfin
+import {
+  to = authentik_provider_oauth2.jellyfin
+  id = 18
+}
+
+resource "authentik_provider_oauth2" "jellyfin" {
+  name               = "Provider for Jellyfin"
+  client_id          = "jellyfin"
+  client_type        = "confidential"
+  signing_key        = data.authentik_certificate_key_pair.generated.id
+  authorization_flow = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow  = data.authentik_flow.default-invalidation-flow.id
+  allowed_redirect_uris = [
+    {
+      matching_mode = "strict",
+      url           = "https://jellyfin.home.madtech.cx/sso/OID/redirect/Authentik",
+    }
+  ]
+  property_mappings = concat(
+    data.authentik_property_mapping_provider_scope.default-scopes.ids,
+    [authentik_property_mapping_provider_scope.group-membership.id]
+  )
+}
+
+import {
+  to = authentik_application.jellyfin
+  id = "jellyfin"
+}
+
+resource "authentik_application" "jellyfin" {
+  name              = "Jellyfin"
+  slug              = "jellyfin"
+  protocol_provider = authentik_provider_oauth2.jellyfin.id
+}
+
+# Proxmox
+import {
+  to = authentik_provider_oauth2.proxmox
+  id = 22
+}
+
+resource "authentik_provider_oauth2" "proxmox" {
+  name               = "Provider for Proxmox"
+  client_id          = "proxmox"
+  client_type        = "confidential"
+  signing_key        = data.authentik_certificate_key_pair.generated.id
+  authorization_flow = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow  = data.authentik_flow.default-invalidation-flow.id
+  allowed_redirect_uris = [
+    {
+      matching_mode = "strict",
+      url           = "https://192.168.0.50:8006",
+    }
+  ]
+  property_mappings = data.authentik_property_mapping_provider_scope.default-scopes.ids
+}
+
+import {
+  to = authentik_application.proxmox
+  id = "proxmox"
+}
+
+resource "authentik_application" "proxmox" {
+  name              = "Proxmox"
+  slug              = "proxmox"
+  protocol_provider = authentik_provider_oauth2.proxmox.id
 }
