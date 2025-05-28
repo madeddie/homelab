@@ -277,6 +277,8 @@ Secret objects.
 - [ ] test signoz (opensource datadog competitor)
 - [/] use opentofu to configure authentik
 - [ ] test spinning up virgin authentik with terraform (check https://docs.goauthentik.io/docs/install-config/automated-install)
+- [ ] add (forwarding) SMTP server for app notifications
+- [ ] try loki (logging)
 
 Legend:
 
