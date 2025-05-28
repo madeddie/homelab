@@ -35,6 +35,35 @@ data "authentik_property_mapping_provider_scope" "default-scopes" {
   ]
 }
 
+data "authentik_group" "admins" {
+  name = "authentik Admins"
+}
+
+# Users and groups
+import {
+  to = authentik_group.argocdadmins
+  id = "e249624d-2f37-4471-9d8a-35aaf4c957a9"
+}
+
+resource "authentik_group" "argocdadmins" {
+  name = "ArgoCDAdmins"
+}
+
+import {
+  to = authentik_user.madeddie
+  id = 7
+}
+
+resource "authentik_user" "madeddie" {
+  username = "madeddie"
+  name     = "Edwin Hermans"
+  email    = "edwin@madtech.cx"
+  groups   = [
+    authentik_group.argocdadmins.id,
+    data.authentik_group.admins.id
+  ]
+}
+
 # Group Membership Property Mapping (mostly used by ArgoCD)
 import {
   to = authentik_property_mapping_provider_scope.group-membership
