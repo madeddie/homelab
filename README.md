@@ -256,6 +256,9 @@ Secret objects.
   - [ ] prometheus
   - [ ] qbittorrent
 - [ ] test Authelia (should be more light weight than Authentik)
+- [ ] test signoz (opensource datadog competitor)
+- [ ] use opentofu to configure authentik
+- [ ] test spinning up virgin authentik with terraform (check https://docs.goauthentik.io/docs/install-config/automated-install)
 
 ## deprecations / cleanup
 
