@@ -157,58 +157,58 @@ resource "authentik_application" "prometheus" {
   protocol_provider = authentik_provider_proxy.prometheus.id
 }
 
-## Home Assistant
-#
-#import {
-#  to = authentik_provider_proxy.homeassistant
-#  id = 10
-#}
-#resource "authentik_provider_proxy" "homeassistant" {
-#  name                  = "Provider for Home Assistant"
-#  external_host         = "https://assistant.home.madtech.cx"
-#  mode                  = "forward_single"
-#  access_token_validity = local.default_token_validity
-#  authorization_flow    = data.authentik_flow.default-authorization-flow.id
-#  invalidation_flow     = data.authentik_flow.default-invalidation-flow.id
-#}
-#
-#import {
-#  to = authentik_application.homeassistant
-#  id = "homeassistant"
-#}
-#
-#resource "authentik_application" "homeassistant" {
-#  name              = "Home Assistant"
-#  slug              = "homeassistant"
-#  protocol_provider = authentik_provider_proxy.homeassistant.id
-#}
-#
-## Home Assistant
-#
-#import {
-#  to = authentik_provider_proxy.homeassistant
-#  id = 10
-#}
-#resource "authentik_provider_proxy" "homeassistant" {
-#  name                  = "Provider for Home Assistant"
-#  external_host         = "https://assistant.home.madtech.cx"
-#  mode                  = "forward_single"
-#  access_token_validity = local.default_token_validity
-#  authorization_flow    = data.authentik_flow.default-authorization-flow.id
-#  invalidation_flow     = data.authentik_flow.default-invalidation-flow.id
-#}
-#
-#import {
-#  to = authentik_application.homeassistant
-#  id = "homeassistant"
-#}
-#
-#resource "authentik_application" "homeassistant" {
-#  name              = "Home Assistant"
-#  slug              = "homeassistant"
-#  protocol_provider = authentik_provider_proxy.homeassistant.id
-#}
-#
+# Alertmanager
+
+import {
+  to = authentik_provider_proxy.alertmanager
+  id = 30
+}
+resource "authentik_provider_proxy" "alertmanager" {
+  name                  = "Provider for Alertmanager"
+  external_host         = "https://alertmanager.home.madtech.cx"
+  mode                  = "forward_single"
+  access_token_validity = local.default_token_validity
+  authorization_flow    = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow     = data.authentik_flow.default-invalidation-flow.id
+}
+
+import {
+  to = authentik_application.alertmanager
+  id = "alertmanager"
+}
+
+resource "authentik_application" "alertmanager" {
+  name              = "Alertmanager"
+  slug              = "alertmanager"
+  protocol_provider = authentik_provider_proxy.alertmanager.id
+}
+
+# ESPHome
+
+import {
+  to = authentik_provider_proxy.esphome
+  id = 34
+}
+resource "authentik_provider_proxy" "esphome" {
+  name                  = "Provider for ESPHome"
+  external_host         = "https://esphome.home.madtech.cx"
+  mode                  = "forward_single"
+  access_token_validity = local.default_token_validity
+  authorization_flow    = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow     = data.authentik_flow.default-invalidation-flow.id
+}
+
+import {
+  to = authentik_application.esphome
+  id = "esphome"
+}
+
+resource "authentik_application" "esphome" {
+  name              = "ESPHome"
+  slug              = "esphome"
+  protocol_provider = authentik_provider_proxy.esphome.id
+}
+
 ## Home Assistant
 #
 #import {
@@ -249,9 +249,8 @@ resource "authentik_outpost" "home-caddy-proxy" {
     authentik_provider_proxy.calibre-web.id,
     authentik_provider_proxy.qbittorrent.id,
     authentik_provider_proxy.prometheus.id,
-    30,
-    32,
-    34,
+    authentik_provider_proxy.alertmanager.id,
+    authentik_provider_proxy.esphome.id,
     authentik_provider_proxy.test-app.id
   ]
 }
