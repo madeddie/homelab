@@ -189,7 +189,7 @@ Secret objects.
 
 - [x] use talhelper to configure Talos nodes declaratively
 - [ ] find a way to configure MikroTik router declaratively
-- [ ] migrate software from docker-compose to k8s
+- [-] migrate software from docker-compose to k8s
 - [x] add ArgoCD
 - [ ] experiment with FluxCD
 - [ ] add LTE backup to MikroTik router
@@ -197,8 +197,8 @@ Secret objects.
 - [x] add MetalLB
 - [x] add traefik
 - [x] configure traefik for *.home.madtech.cx on NUC
-- [ ] ~~switch from Caddy to Traefik for other services~~ Will stick with caddy
-      on docker and traefik in k8s
+- [ ] ~~switch from Caddy to Traefik for other services~~ (Will stick with caddy
+      on docker and traefik in k8s)
 - [ ] NUC either added to k8s cluster or remove proxmox, install VM directly on
       hardware to run Ansible/Terraform/bootstrap code and Home Assistant and
       Jellyfin
@@ -207,7 +207,7 @@ Secret objects.
 - [x] implement SAML and/or OIDC server (~~keycloak~~authentik)
 - [x] test keycloak
 - [x] implement Authentik
-- [ ] migrate services to SSO
+- [x] migrate services to SSO
   - [x] ArgoCD (OIDC + PKCE)
   - [x] Home Assistant (using https://github.com/BeryJu/hass-auth-header)
   - [x] Jellyfin (using https://github.com/9p4/jellyfin-plugin-sso)
@@ -222,8 +222,8 @@ Secret objects.
 - [ ] host own password manager? (vaultwarden? I'm using passwordstore.org for now)
 - [x] add kubevirt
 - [x] add sops operator
-- [ ] ~~host own notes app? (memos: https://www.usememos.com/)~~ using Markor +
-      git
+- [ ] ~~host own notes app? (memos: https://www.usememos.com/)~~ (using Markor +
+      git)
 - [x] add longhorn (storage)
 - [x] implement renovate
 - [x] add metrics-server
@@ -251,7 +251,7 @@ Secret objects.
       instructions
 - [ ] switch or duplicate use of devbox into nix shell (I use nix-darwin and
       nix-on-droid now)
-- [ ] find a way to declaratively configure authentik
+- [x] find a way to declaratively configure authentik
 - [ ] figure out social login with authentik and google/github
 - [x] Caddy is behind Traefik from outside traffic. This breaks SSL cert
       renewal. Fix. (now using ACME with dns auth)
@@ -261,7 +261,7 @@ Secret objects.
 - [x] implement letsencrypt dns verification in traefik
 - [x] implement letsencrypt dns verification in caddy
 - [x] describe restoration procedure for all apps with binary blob backups
-- [-] put docker-compose apps config in version control
+- [ ] put docker-compose apps config in version control
   - [x] caddy
   - [ ] alertmanager
   - [ ] amt_console
