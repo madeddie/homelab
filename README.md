@@ -239,12 +239,12 @@ Secret objects.
 - [ ] implement PV on NAS (Samba? NFS? iSCSI?)
 - [ ] implement backups
 - [ ] backup services
-  - [ ] Authentik
-  - [ ] ArgoCD?
-  - [ ] longhorn?
-  - [ ] Home Assistant
-  - [ ] Jellyfin?
-  - [ ] Calibre-Web
+  - [ ] Authentik https://docs.goauthentik.io/docs/sys-mgmt/ops/backup-restore
+  - [ ] ArgoCD? https://argo-cd.readthedocs.io/en/stable/operator-manual/disaster_recovery/
+  - [ ] longhorn? https://longhorn.io/docs/1.8.1/snapshots-and-backups/backup-and-restore/set-backup-target/
+  - [ ] Home Assistant https://www.home-assistant.io/integrations/backup/
+  - [ ] Jellyfin? https://jellyfin.org/docs/general/administration/backup-and-restore/
+  - [ ] Calibre-Web https://github.com/janeczku/calibre-web/issues/733
 - [ ] implement local image storage (move from google photos?)
 - [x] instructions are missing installing SOPS helm chart before argocd
 - [ ] add sops helm chart with included values to simplify bootstrap
