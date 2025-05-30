@@ -189,6 +189,7 @@ Secret objects.
 
 - [x] use talhelper to configure Talos nodes declaratively
 - [ ] find a way to configure MikroTik router declaratively
+- [ ] regularly backup mikrotik config (ssh mikrotik /export > backup.rsc)
 - [-] migrate software from docker-compose to k8s
 - [x] add ArgoCD
 - [ ] experiment with FluxCD
@@ -279,6 +280,8 @@ Secret objects.
 - [ ] test spinning up virgin authentik with terraform (check https://docs.goauthentik.io/docs/install-config/automated-install)
 - [ ] add (forwarding) SMTP server for app notifications
 - [ ] try loki (logging)
+- [ ] try kubero
+- [ ] try openfaas
 
 Legend:
 
