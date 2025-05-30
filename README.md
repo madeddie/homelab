@@ -239,6 +239,7 @@ Secret objects.
 - [ ] replace NAS? (raspberry pi 5 + raspberry pi penta hat + 4x 2.5 SATA SSD)
 - [ ] implement PV on NAS (Samba? NFS? iSCSI?)
 - [ ] implement backups
+- [ ] investigate velero
 - [ ] backup services
   - [ ] Authentik https://docs.goauthentik.io/docs/sys-mgmt/ops/backup-restore
   - [ ] ArgoCD? https://argo-cd.readthedocs.io/en/stable/operator-manual/disaster_recovery/
