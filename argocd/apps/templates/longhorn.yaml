@@ -6,13 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://charts.longhorn.io
-    chart: longhorn
-    targetRevision: 1.8.1
-    helm:
-      values: |
-        preUpgradeChecker:
-          jobEnabled: false
+    repoURL: https://github.com/madeddie/homelab.git
+    path: helmcharts/longhorn
+    targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
     namespace: longhorn-system
