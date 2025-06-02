@@ -1,0 +1,7 @@
+longhorn:
+  preUpgradeChecker:
+    jobEnabled: false
+  defaultBackupStore:
+    backupTarget: s3://longhorn-backup@us-east/
+    backupTargetCredentialSecret: idrive-auth
+    pollInterval: 300
