@@ -238,16 +238,19 @@ Secret objects.
 - [ ] implement paperless-ngx
 - [ ] replace NAS? (raspberry pi 5 + raspberry pi penta hat + 4x 2.5 SATA SSD)
 - [ ] implement PV on NAS (Samba? NFS? iSCSI?)
-- [ ] implement backups
+- [ ] implement backups.
 - [ ] investigate velero
+- [x] set up idrive e2 account for backing up stuff
+- [x] configure longhorn to backup PVs to idrive e2
 - [ ] backup services
   - [ ] Authentik https://docs.goauthentik.io/docs/sys-mgmt/ops/backup-restore
   - [ ] ArgoCD? https://argo-cd.readthedocs.io/en/stable/operator-manual/disaster_recovery/
-  - [ ] longhorn? https://longhorn.io/docs/1.8.1/snapshots-and-backups/backup-and-restore/set-backup-target/
+  - [x] longhorn? https://longhorn.io/docs/1.8.1/snapshots-and-backups/backup-and-restore/set-backup-target/
   - [ ] Home Assistant https://www.home-assistant.io/integrations/backup/
   - [ ] Jellyfin? https://jellyfin.org/docs/general/administration/backup-and-restore/
   - [ ] Calibre-Web https://github.com/janeczku/calibre-web/issues/733
-- [ ] implement local image storage (move from google photos?)
+- [ ] install CloudNativePG for use by immich
+- [ ] implement ~~local image storage (move from google photos?)~~ immich
 - [x] instructions are missing installing SOPS helm chart before argocd
 - [ ] add sops helm chart with included values to simplify bootstrap
       instructions
