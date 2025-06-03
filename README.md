@@ -150,6 +150,7 @@ Secret objects.
   1L HP EliteDesks
   - Argo CD
   - Authentik
+  - Immich
   - KubeVirt
   - local-path-provisioner
   - Longhorn
@@ -249,8 +250,10 @@ Secret objects.
   - [ ] Home Assistant https://www.home-assistant.io/integrations/backup/
   - [ ] Jellyfin? https://jellyfin.org/docs/general/administration/backup-and-restore/
   - [ ] Calibre-Web https://github.com/janeczku/calibre-web/issues/733
-- [ ] install CloudNativePG for use by immich
-- [ ] implement ~~local image storage (move from google photos?)~~ immich
+  - [ ] Immich, DB needs backing up, media should be picked up by longhorn backup
+- [x] install CloudNativePG for use by immich
+- [ ] see if we can use CNPG for any other PG DBs
+- [x] implement ~~local image storage (move from google photos?)~~ immich
 - [x] instructions are missing installing SOPS helm chart before argocd
 - [ ] add sops helm chart with included values to simplify bootstrap
       instructions

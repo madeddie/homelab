@@ -1,0 +1,46 @@
+immich:
+  image:
+    tag: v1.134.0
+
+  env:
+    DB_DATABASE_NAME: app
+    DB_HOSTNAME:
+      valueFrom:
+        secretKeyRef:
+          key: host
+          name: immich-pg-cluster-app
+    DB_PASSWORD:
+      valueFrom:
+        secretKeyRef:
+          key: password
+          name: immich-pg-cluster-app
+    DB_USERNAME:
+      valueFrom:
+        secretKeyRef:
+          key: username
+          name: immich-pg-cluster-app
+
+  immich:
+    persistence:
+      library:
+        existingClaim: immich-media
+
+  server:
+    ingress:
+      main:
+        enabled: true
+        className: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.tls: "true"
+          traefik.ingress.kubernetes.io/router.tls.certresolver: le-http
+        hosts:
+          - host: photos.svc.madtech.cx
+            paths:
+              - path: "/"
+
+  redis:
+    enabled: true
+    master:
+      resourcesPreset: micro
+      persistence:
+        storageClass: local-path
