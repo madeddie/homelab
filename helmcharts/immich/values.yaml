@@ -34,7 +34,7 @@ immich:
           traefik.ingress.kubernetes.io/router.tls: "true"
           traefik.ingress.kubernetes.io/router.tls.certresolver: le-http
         hosts:
-          - host: photos.home.madtech.cx
+          - host: photos.svc.madtech.cx
             paths:
               - path: "/"
 
