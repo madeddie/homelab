@@ -289,6 +289,8 @@ Secret objects.
 - [ ] try loki (logging)
 - [ ] try kubero
 - [ ] try openfaas
+- [ ] migrate authentik psql to cnpg
+- [ ] investigate redis/valkey operator
 
 Legend:
 
