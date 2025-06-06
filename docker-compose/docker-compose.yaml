@@ -2,7 +2,7 @@ name: 'madhome'
 
 services:
   authentik_proxy:
-    image: ghcr.io/goauthentik/proxy:2025.6.0
+    image: ghcr.io/goauthentik/proxy:2025.6.1
     container_name: authentik_proxy
     hostname: authentik_proxy
     restart: unless-stopped
