@@ -2,37 +2,52 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     utils.url = "github:numtide/flake-utils";
-    talhelper.url = "github:budimanjojo/talhelper";
+    madeddie-nur = {
+      url = "github:madeddie/nur-packages";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, utils, talhelper }:
+  outputs = { self, nixpkgs, utils, madeddie-nur }:
     utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
-        talhelperPkgs = import talhelper {
-          inherit system;
-          lib = nixpkgs.lib;
-          stdenv = pkgs.stdenv;
-        };
+        sharedBuildInputs = [
+          pkgs.talosctl
+          madeddie-nur.packages.${system}.talhelper
+          pkgs.age
+          pkgs.k9s
+          pkgs.kubectl
+          pkgs.direnv
+          pkgs.kustomize
+          pkgs.argocd
+          pkgs.kubevirt
+          pkgs.jekyll
+          pkgs.ruby
+          pkgs.kubernetes-helm
+          pkgs.opentofu
+        ];
       in
       {
-        devShell = with pkgs; mkShell {
-          buildInputs = [
-            talosctl
-            talhelperPkgs.talhelper
-            age
-            k9s
-            kubectl
-            direnv
-            kustomize
-            argocd
-            kubevirt
-            jekyll
-            ruby
-            kubernetes-helm
-            opentofu
-          ];
-          #RUST_SRC_PATH = rustPlatform.rustLibSrc;
+        devShell = pkgs.mkShell {
+          buildInputs = sharedBuildInputs;
+        };
+
+        packages = {
+          default = pkgs.stdenv.mkDerivation {
+            name = "homelab";
+            src = self; # Reference the flake's source
+            buildInputs = sharedBuildInputs;
+
+            # Define empty build phases if no build is required
+            buildPhase = ''
+              echo "No build required for default-package"
+            '';
+            installPhase = ''
+              mkdir -p $out
+              echo "Default package installed" > $out/README.txt
+            '';
+          };
         };
       }
     );

@@ -1,20 +1,22 @@
 {
   "nodes": {
-    "flake-parts": {
+    "madeddie-nur": {
       "inputs": {
-        "nixpkgs-lib": "nixpkgs-lib"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
-        "lastModified": 1743550720,
-        "narHash": "sha256-hIshGgKZCgWh6AYJpJmRgFdR3WUbkY04o82X05xqQiY=",
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "rev": "c621e8422220273271f52058f618c94e405bb0f5",
+        "lastModified": 1749239781,
+        "narHash": "sha256-V6mpCxgtoJ9clt3ZM8gw4IzZenH7OPIaVVa5GJToMLY=",
+        "owner": "madeddie",
+        "repo": "nur-packages",
+        "rev": "e9e22efb03f2c0d68fd2e008aabfa1807432e0bc",
         "type": "github"
       },
       "original": {
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
+        "owner": "madeddie",
+        "repo": "nur-packages",
         "type": "github"
       }
     },
@@ -34,41 +36,10 @@
         "type": "github"
       }
     },
-    "nixpkgs-lib": {
-      "locked": {
-        "lastModified": 1743296961,
-        "narHash": "sha256-b1EdN3cULCqtorQ4QeWgLMrd5ZGOjLSLemfa00heasc=",
-        "owner": "nix-community",
-        "repo": "nixpkgs.lib",
-        "rev": "e4822aea2a6d1cdd36653c134cacfd64c97ff4fa",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "nixpkgs.lib",
-        "type": "github"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1748370509,
-        "narHash": "sha256-QlL8slIgc16W5UaI3w7xHQEP+Qmv/6vSNTpoZrrSlbk=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "4faa5f5321320e49a78ae7848582f684d64783e9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
+        "madeddie-nur": "madeddie-nur",
         "nixpkgs": "nixpkgs",
-        "talhelper": "talhelper",
         "utils": "utils"
       }
     },
@@ -84,25 +55,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "talhelper": {
-      "inputs": {
-        "flake-parts": "flake-parts",
-        "nixpkgs": "nixpkgs_2"
-      },
-      "locked": {
-        "lastModified": 1749180600,
-        "narHash": "sha256-zwH7mcLPW66J5X/rhrFYnVMR1BkkAnMtHPkKxnbdPmA=",
-        "owner": "budimanjojo",
-        "repo": "talhelper",
-        "rev": "c0c40e6a306ca745413574f0b65ebb83cb6b1a91",
-        "type": "github"
-      },
-      "original": {
-        "owner": "budimanjojo",
-        "repo": "talhelper",
         "type": "github"
       }
     },
