@@ -10,7 +10,7 @@
     "direnv@2.36.0",
     "kustomize@5.6.0",
     "argocd@2.14.11",
-    "kubevirt@1.5.1",
+    "kubevirt@1.5.2",
     "jekyll@4.4.1",
     "ruby@3.4.3",
     "kubernetes-helm@3.18.2",
