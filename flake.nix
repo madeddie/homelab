@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     utils.url = "github:numtide/flake-utils";
     madeddie-nur = {
       url = "github:madeddie/nur-packages";
@@ -14,7 +14,7 @@
         pkgs = import nixpkgs { inherit system; };
         sharedBuildInputs = [
           pkgs.talosctl
-          madeddie-nur.packages.${system}.talhelper
+          pkgs.talhelper
           pkgs.age
           pkgs.k9s
           pkgs.kubectl
