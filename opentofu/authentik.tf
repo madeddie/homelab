@@ -390,3 +390,48 @@ resource "authentik_application" "proxmox" {
   slug              = "proxmox"
   protocol_provider = authentik_provider_oauth2.proxmox.id
 }
+
+# Immich
+import {
+  to = authentik_provider_oauth2.immich
+  id = 37
+}
+
+resource "authentik_provider_oauth2" "immich" {
+  name               = "Provider for Immich"
+  client_id          = "immich"
+  client_type        = "public"
+  signing_key        = data.authentik_certificate_key_pair.generated.id
+  authorization_flow = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow  = data.authentik_flow.default-invalidation-flow.id
+  allowed_redirect_uris = [
+    {
+      matching_mode = "strict",
+      url           = "app.immich:///oauth-callback",
+    },
+    {
+      matching_mode = "strict",
+      url           = "https://photos.svc.madtech.cx/auth/login",
+    },
+    {
+      matching_mode = "strict",
+      url           = "https://photos.svc.madtech.cx/user-settings",
+    },
+    {
+      matching_mode = "strict",
+      url           = "http://localhost:2283/auth/login",
+    }
+  ]
+  property_mappings = data.authentik_property_mapping_provider_scope.default-scopes.ids
+}
+
+import {
+  to = authentik_application.immich
+  id = "immich"
+}
+
+resource "authentik_application" "immich" {
+  name              = "Immich"
+  slug              = "immich"
+  protocol_provider = authentik_provider_oauth2.immich.id
+}
