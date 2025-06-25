@@ -156,6 +156,7 @@ Secret objects.
   - Longhorn
   - MetalLB
   - metrics-server + Kubelet Serving Certificate Approver
+  - Node Feature Discovery
   - SOPS secrets operator
   - Traefik
 
@@ -291,6 +292,9 @@ Secret objects.
 - [ ] try openfaas
 - [ ] migrate authentik psql to cnpg
 - [ ] investigate redis/valkey operator
+- [x] implement Node Feature Discovery
+- [ ] implement Akri for USB device detection (zigbee stick for home assistant)
+- [ ] implement device plugin operator and Intel GPU device plugin (for jellyfin)
 
 Legend:
 
