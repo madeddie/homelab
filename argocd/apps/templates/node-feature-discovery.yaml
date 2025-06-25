@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: node-feature-discovery
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: node-feature-discovery
+    repoURL: https://kubernetes-sigs.github.io/node-feature-discovery/charts
+    targetRevision: 0.17.3
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: node-feature-discovery
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    managedNamespaceMetadata:
+      labels:
+        pod-security.kubernetes.io/enforce: privileged
+        pod-security.kubernetes.io/enforce-version: latest
+        pod-security.kubernetes.io/audit: privileged
+        pod-security.kubernetes.io/audit-version: latest
+        pod-security.kubernetes.io/warn: privileged
+        pod-security.kubernetes.io/warn-version: latest
