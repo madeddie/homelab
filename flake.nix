@@ -26,6 +26,7 @@
           pkgs.ruby
           pkgs.kubernetes-helm
           pkgs.opentofu
+          pkgs.sops
         ];
       in
       {
