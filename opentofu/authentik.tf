@@ -40,18 +40,8 @@ data "authentik_group" "admins" {
 }
 
 # Users and groups
-import {
-  to = authentik_group.argocdadmins
-  id = "e249624d-2f37-4471-9d8a-35aaf4c957a9"
-}
-
 resource "authentik_group" "argocdadmins" {
   name = "ArgoCDAdmins"
-}
-
-import {
-  to = authentik_user.madeddie
-  id = 7
 }
 
 resource "authentik_user" "madeddie" {
@@ -65,11 +55,6 @@ resource "authentik_user" "madeddie" {
 }
 
 # Group Membership Property Mapping (mostly used by ArgoCD)
-import {
-  to = authentik_property_mapping_provider_scope.group-membership
-  id = "9178bc15-57d1-4d06-96c6-b2c648becc79"
-}
-
 resource "authentik_property_mapping_provider_scope" "group-membership" {
   name        = "Group Membership"
   scope_name  = "groups"
@@ -78,11 +63,6 @@ resource "authentik_property_mapping_provider_scope" "group-membership" {
 }
 
 # Test App (HTTP request mirror)
-import {
-  to = authentik_provider_proxy.test-app
-  id = 35
-}
-
 resource "authentik_provider_proxy" "test-app" {
   name                  = "Provider for Test App"
   external_host         = "https://test.home.madtech.cx"
@@ -92,11 +72,6 @@ resource "authentik_provider_proxy" "test-app" {
   invalidation_flow     = data.authentik_flow.default-invalidation-flow.id
 }
 
-import {
-  to = authentik_application.test-app
-  id = "test-app"
-}
-
 resource "authentik_application" "test-app" {
   name              = "Test App"
   slug              = "test-app"
@@ -104,11 +79,6 @@ resource "authentik_application" "test-app" {
 }
 
 # Home Assistant
-import {
-  to = authentik_provider_proxy.homeassistant
-  id = 10
-}
-
 resource "authentik_provider_proxy" "homeassistant" {
   name                  = "Provider for Home Assistant"
   external_host         = "https://assistant.home.madtech.cx"
@@ -119,11 +89,6 @@ resource "authentik_provider_proxy" "homeassistant" {
   skip_path_regex       = "/api/.*"
 }
 
-import {
-  to = authentik_application.homeassistant
-  id = "homeassistant"
-}
-
 resource "authentik_application" "homeassistant" {
   name              = "Home Assistant"
   slug              = "homeassistant"
@@ -131,11 +96,6 @@ resource "authentik_application" "homeassistant" {
 }
 
 # Calibre Web
-import {
-  to = authentik_provider_proxy.calibre-web
-  id = 12
-}
-
 resource "authentik_provider_proxy" "calibre-web" {
   name                  = "Provider for Calibre Web"
   external_host         = "https://calibre.home.madtech.cx"
@@ -145,11 +105,6 @@ resource "authentik_provider_proxy" "calibre-web" {
   invalidation_flow     = data.authentik_flow.default-invalidation-flow.id
 }
 
-import {
-  to = authentik_application.calibre-web
-  id = "calibre-web"
-}
-
 resource "authentik_application" "calibre-web" {
   name              = "Calibre Web"
   slug              = "calibre-web"
@@ -157,11 +112,6 @@ resource "authentik_application" "calibre-web" {
 }
 
 # qBittorrent
-import {
-  to = authentik_provider_proxy.qbittorrent
-  id = 14
-}
-
 resource "authentik_provider_proxy" "qbittorrent" {
   name                  = "Provider for qBittorrent"
   external_host         = "https://torrent.home.madtech.cx"
@@ -171,11 +121,6 @@ resource "authentik_provider_proxy" "qbittorrent" {
   invalidation_flow     = data.authentik_flow.default-invalidation-flow.id
 }
 
-import {
-  to = authentik_application.qbittorrent
-  id = "qbittorrent"
-}
-
 resource "authentik_application" "qbittorrent" {
   name              = "qBittorrent"
   slug              = "qbittorrent"
@@ -183,11 +128,6 @@ resource "authentik_application" "qbittorrent" {
 }
 
 # Prometheus
-import {
-  to = authentik_provider_proxy.prometheus
-  id = 24
-}
-
 resource "authentik_provider_proxy" "prometheus" {
   name                  = "Provider for Prometheus"
   external_host         = "https://prometheus.home.madtech.cx"
@@ -197,11 +137,6 @@ resource "authentik_provider_proxy" "prometheus" {
   invalidation_flow     = data.authentik_flow.default-invalidation-flow.id
 }
 
-import {
-  to = authentik_application.prometheus
-  id = "prometheus"
-}
-
 resource "authentik_application" "prometheus" {
   name              = "Prometheus"
   slug              = "prometheus"
@@ -209,11 +144,6 @@ resource "authentik_application" "prometheus" {
 }
 
 # Alertmanager
-import {
-  to = authentik_provider_proxy.alertmanager
-  id = 30
-}
-
 resource "authentik_provider_proxy" "alertmanager" {
   name                  = "Provider for Alertmanager"
   external_host         = "https://alertmanager.home.madtech.cx"
@@ -223,11 +153,6 @@ resource "authentik_provider_proxy" "alertmanager" {
   invalidation_flow     = data.authentik_flow.default-invalidation-flow.id
 }
 
-import {
-  to = authentik_application.alertmanager
-  id = "alertmanager"
-}
-
 resource "authentik_application" "alertmanager" {
   name              = "Alertmanager"
   slug              = "alertmanager"
@@ -235,11 +160,6 @@ resource "authentik_application" "alertmanager" {
 }
 
 # ESPHome
-import {
-  to = authentik_provider_proxy.esphome
-  id = 34
-}
-
 resource "authentik_provider_proxy" "esphome" {
   name                  = "Provider for ESPHome"
   external_host         = "https://esphome.home.madtech.cx"
@@ -249,11 +169,6 @@ resource "authentik_provider_proxy" "esphome" {
   invalidation_flow     = data.authentik_flow.default-invalidation-flow.id
 }
 
-import {
-  to = authentik_application.esphome
-  id = "esphome"
-}
-
 resource "authentik_application" "esphome" {
   name              = "ESPHome"
   slug              = "esphome"
@@ -261,11 +176,6 @@ resource "authentik_application" "esphome" {
 }
 
 # Caddy Proxy Outpost
-import {
-  to = authentik_outpost.home-caddy-proxy
-  id = "800bd561-776f-43dc-92d0-77f0b02316a7"
-}
-
 resource "authentik_outpost" "home-caddy-proxy" {
   name = "home-caddy-proxy"
   protocol_providers = [
@@ -282,11 +192,6 @@ resource "authentik_outpost" "home-caddy-proxy" {
 # Oauth2 Apps
 
 # ArgoCD
-import {
-  to = authentik_provider_oauth2.argocd
-  id = 2
-}
-
 resource "authentik_provider_oauth2" "argocd" {
   name               = "Provider for ArgoCD"
   client_id          = "argocd"
@@ -311,11 +216,6 @@ resource "authentik_provider_oauth2" "argocd" {
   property_mappings = data.authentik_property_mapping_provider_scope.default-scopes.ids
 }
 
-import {
-  to = authentik_application.argocd
-  id = "argocd"
-}
-
 resource "authentik_application" "argocd" {
   name              = "ArgoCD"
   slug              = "argocd"
@@ -323,11 +223,6 @@ resource "authentik_application" "argocd" {
 }
 
 # Jellyfin
-import {
-  to = authentik_provider_oauth2.jellyfin
-  id = 18
-}
-
 resource "authentik_provider_oauth2" "jellyfin" {
   name               = "Provider for Jellyfin"
   client_id          = "jellyfin"
@@ -347,11 +242,6 @@ resource "authentik_provider_oauth2" "jellyfin" {
   )
 }
 
-import {
-  to = authentik_application.jellyfin
-  id = "jellyfin"
-}
-
 resource "authentik_application" "jellyfin" {
   name              = "Jellyfin"
   slug              = "jellyfin"
@@ -359,11 +249,6 @@ resource "authentik_application" "jellyfin" {
 }
 
 # Proxmox
-import {
-  to = authentik_provider_oauth2.proxmox
-  id = 22
-}
-
 resource "authentik_provider_oauth2" "proxmox" {
   name               = "Provider for Proxmox"
   client_id          = "proxmox"
@@ -380,11 +265,6 @@ resource "authentik_provider_oauth2" "proxmox" {
   property_mappings = data.authentik_property_mapping_provider_scope.default-scopes.ids
 }
 
-import {
-  to = authentik_application.proxmox
-  id = "proxmox"
-}
-
 resource "authentik_application" "proxmox" {
   name              = "Proxmox"
   slug              = "proxmox"
@@ -392,11 +272,6 @@ resource "authentik_application" "proxmox" {
 }
 
 # Immich
-import {
-  to = authentik_provider_oauth2.immich
-  id = 37
-}
-
 resource "authentik_provider_oauth2" "immich" {
   name               = "Provider for Immich"
   client_id          = "immich"
@@ -423,11 +298,6 @@ resource "authentik_provider_oauth2" "immich" {
     }
   ]
   property_mappings = data.authentik_property_mapping_provider_scope.default-scopes.ids
-}
-
-import {
-  to = authentik_application.immich
-  id = "immich"
 }
 
 resource "authentik_application" "immich" {
