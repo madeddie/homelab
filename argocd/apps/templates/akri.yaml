@@ -8,7 +8,7 @@ spec:
   source:
     chart: akri
     repoURL: https://project-akri.github.io/akri/
-    targetRevision: 0.13.15
+    targetRevision: 0.13.8
   destination:
     server: "https://kubernetes.default.svc"
     namespace: akri
