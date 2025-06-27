@@ -1,21 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cert-manager
+  name: external-dns
   namespace: argocd
 spec:
   project: default
   source:
-    chart: cert-manager
-    repoURL: https://charts.jetstack.io
-    targetRevision: 1.18.1
-    helm:
-      parameters:
-      - name: "crds.enabled"
-        value: "true"
+    chart: external-dns
+    repoURL: https://kubernetes-sigs.github.io/external-dns/
+    targetRevision: 1.17.0
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: cert-manager
+    namespace: external-dns
   syncPolicy:
     automated:
       selfHeal: true
