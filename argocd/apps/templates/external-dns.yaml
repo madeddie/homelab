@@ -14,7 +14,6 @@ spec:
     namespace: external-dns
   syncPolicy:
     automated:
-      prune: false
       selfHeal: true
     syncOptions:
     - CreateNamespace=true
