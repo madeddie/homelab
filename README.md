@@ -148,8 +148,11 @@ Secret objects.
 
 - Talos linux k8s cluster, 3 controller nodes that are also worker nodes on the
   1L HP EliteDesks
+  - Akri
   - Argo CD
   - Authentik
+  - cert-manager
+  - external-dns
   - Immich
   - KubeVirt
   - local-path-provisioner
@@ -258,7 +261,7 @@ Secret objects.
 - [x] instructions are missing installing SOPS helm chart before argocd
 - [ ] add sops helm chart with included values to simplify bootstrap
       instructions
-- [ ] switch or duplicate use of devbox into nix shell (I use nix-darwin and
+- [x] switch or duplicate use of devbox into nix shell (I use nix-darwin and
       nix-on-droid now)
 - [x] find a way to declaratively configure authentik
 - [ ] figure out social login with authentik and google/github
@@ -266,7 +269,8 @@ Secret objects.
       renewal. Fix. (now using ACME with dns auth)
 - [x] auto create traefik namespace
 - [x] label longhorn namespace pod-security.kubernetes.io/enforce=privileged
-- [ ] implement cert-manager
+- [x] implement cert-manager
+- [ ] configure cert-manager ACME issuer
 - [x] implement letsencrypt dns verification in traefik
 - [x] implement letsencrypt dns verification in caddy
 - [x] describe restoration procedure for all apps with binary blob backups
@@ -284,7 +288,7 @@ Secret objects.
   - [ ] qbittorrent
 - [ ] test Authelia (should be more light weight than Authentik)
 - [ ] test signoz (opensource datadog competitor)
-- [/] use opentofu to configure authentik
+- [x] use opentofu to configure authentik
 - [ ] test spinning up virgin authentik with terraform (check https://docs.goauthentik.io/docs/install-config/automated-install)
 - [ ] add (forwarding) SMTP server for app notifications
 - [ ] try loki (logging)
@@ -295,6 +299,8 @@ Secret objects.
 - [x] implement Node Feature Discovery
 - [ ] implement Akri for USB device detection (zigbee stick for home assistant)
 - [ ] implement device plugin operator and Intel GPU device plugin (for jellyfin)
+- [x] implement external-dns
+- [ ] configure external-dns with hurricane electric and mikrotik
 
 Legend:
 
