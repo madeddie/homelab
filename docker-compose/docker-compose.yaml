@@ -160,6 +160,10 @@ services:
       - /media/sandisk:/data
     devices:
       - /dev/dri:/dev/dri
+    networks:
+      default:
+      macvlan:
+        ipv4_address: 192.168.0.68
 
   samba:
     image: ghcr.io/dockur/samba:4.21.6
