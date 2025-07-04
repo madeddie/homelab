@@ -8,7 +8,7 @@
     "k9s@0.50.6",
     "kubectl@1.33.2",
     "direnv@2.36.0",
-    "kustomize@5.6.0",
+    "kustomize@5.7.0",
     "argocd@2.14.11",
     "kubevirt@1.5.2",
     "jekyll@4.4.1",
