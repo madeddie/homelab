@@ -63,7 +63,7 @@ services:
         ipv4_address: 192.168.0.66
 
   mosquitto:
-    image: eclipse-mosquitto:2.0.21
+    image: eclipse-mosquitto:2.0.22
     container_name: mosquitto
     hostname: mosquitto
     command: mosquitto -c /mosquitto/config/mosquitto.conf
