@@ -11,3 +11,13 @@ tmp/
 docker-compose/caddy/data/caddy
 opentofu/.terraform/
 opentofu/terraform.tfstate.backup
+docker-compose/amt_console/device-management-toolkit/console.db
+docker-compose/esphome/archive
+docker-compose/homeassistant/.cloud
+docker-compose/homeassistant/backups
+docker-compose/homeassistant/multiscrape
+docker-compose/homeassistant/tts
+docker-compose/jellyfin/cache
+docker-compose/jellyfin/config/data/keyframes
+docker-compose/jellyfin/config/log
+docker-compose/mosquitto/data
