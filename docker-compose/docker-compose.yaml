@@ -176,7 +176,7 @@ services:
     environment:
       - NAME=media
       - USER=madeddie
-      - PASS
+      - PASS=gr03nv03r
       - UID=1000
       - GID=1000
     volumes:
