@@ -634,51 +634,51 @@
         }
       }
     },
-    "talhelper@3.0.31": {
-      "last_modified": "2025-07-24T15:00:16Z",
-      "resolved": "github:NixOS/nixpkgs/b74a30dbc0a72e20df07d43109339f780b439291#talhelper",
+    "talhelper@3.0.32": {
+      "last_modified": "2025-08-01T06:30:45Z",
+      "resolved": "github:NixOS/nixpkgs/a7822a17050fedda63794775b9090880c8214290#talhelper",
       "source": "devbox-search",
-      "version": "3.0.31",
+      "version": "3.0.32",
       "systems": {
         "aarch64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/g1l4hnmsrn5iiclshlyzgbgxx3qxnzdi-talhelper-3.0.31",
+              "path": "/nix/store/w48bj8ly5x0zzmzrdni5p3bbyaav6fjb-talhelper-3.0.32",
               "default": true
             }
           ],
-          "store_path": "/nix/store/g1l4hnmsrn5iiclshlyzgbgxx3qxnzdi-talhelper-3.0.31"
+          "store_path": "/nix/store/w48bj8ly5x0zzmzrdni5p3bbyaav6fjb-talhelper-3.0.32"
         },
         "aarch64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/barivd1j85zma8pylzm75ky6qgdf4qhr-talhelper-3.0.31",
+              "path": "/nix/store/yrlp6175bv79jdsa26vsjzhcj9zwcw03-talhelper-3.0.32",
               "default": true
             }
           ],
-          "store_path": "/nix/store/barivd1j85zma8pylzm75ky6qgdf4qhr-talhelper-3.0.31"
+          "store_path": "/nix/store/yrlp6175bv79jdsa26vsjzhcj9zwcw03-talhelper-3.0.32"
         },
         "x86_64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/cn312djrdnzcfd1wig7g9hvfngafl8fp-talhelper-3.0.31",
+              "path": "/nix/store/a38lfxd4j4wp56cdrh6nhwv7xn28ap5q-talhelper-3.0.32",
               "default": true
             }
           ],
-          "store_path": "/nix/store/cn312djrdnzcfd1wig7g9hvfngafl8fp-talhelper-3.0.31"
+          "store_path": "/nix/store/a38lfxd4j4wp56cdrh6nhwv7xn28ap5q-talhelper-3.0.32"
         },
         "x86_64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/va7kz9g3qyq6hmmc537gfg2hvbg9f5ji-talhelper-3.0.31",
+              "path": "/nix/store/p6i2fwf6sxqy176dp766k5gsyxsrdpsz-talhelper-3.0.32",
               "default": true
             }
           ],
-          "store_path": "/nix/store/va7kz9g3qyq6hmmc537gfg2hvbg9f5ji-talhelper-3.0.31"
+          "store_path": "/nix/store/p6i2fwf6sxqy176dp766k5gsyxsrdpsz-talhelper-3.0.32"
         }
       }
     },
