@@ -377,51 +377,51 @@
         }
       }
     },
-    "kubevirt@1.5.2": {
-      "last_modified": "2025-06-17T18:11:34Z",
-      "resolved": "github:NixOS/nixpkgs/f45e75fc63fc8a7ffc3da382b2f6b681c5b71875#kubevirt",
+    "kubevirt@1.6.0": {
+      "last_modified": "2025-08-12T09:17:37Z",
+      "resolved": "github:NixOS/nixpkgs/372d9eeeafa5b15913201e2b92e8e539ac7c64d1#kubevirt",
       "source": "devbox-search",
-      "version": "1.5.2",
+      "version": "1.6.0",
       "systems": {
         "aarch64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/z5f24cg8xw1m2mvq2cnbvvq7rd0rnlwa-kubevirt-1.5.2",
+              "path": "/nix/store/jp0i9mly56afnyb546xf1cdd5gsrpci1-kubevirt-1.6.0",
               "default": true
             }
           ],
-          "store_path": "/nix/store/z5f24cg8xw1m2mvq2cnbvvq7rd0rnlwa-kubevirt-1.5.2"
+          "store_path": "/nix/store/jp0i9mly56afnyb546xf1cdd5gsrpci1-kubevirt-1.6.0"
         },
         "aarch64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/w93nk33r6n2l51bd2svfayj1b9a57n9b-kubevirt-1.5.2",
+              "path": "/nix/store/7r0i2y6wzvyqq32jz85c8s5gxfy1jh20-kubevirt-1.6.0",
               "default": true
             }
           ],
-          "store_path": "/nix/store/w93nk33r6n2l51bd2svfayj1b9a57n9b-kubevirt-1.5.2"
+          "store_path": "/nix/store/7r0i2y6wzvyqq32jz85c8s5gxfy1jh20-kubevirt-1.6.0"
         },
         "x86_64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/zjg6cc5f47afp9xyal2qakkfv8i6232f-kubevirt-1.5.2",
+              "path": "/nix/store/iqi4w8lndgj37b8a3hlh2hsr8ycjc60v-kubevirt-1.6.0",
               "default": true
             }
           ],
-          "store_path": "/nix/store/zjg6cc5f47afp9xyal2qakkfv8i6232f-kubevirt-1.5.2"
+          "store_path": "/nix/store/iqi4w8lndgj37b8a3hlh2hsr8ycjc60v-kubevirt-1.6.0"
         },
         "x86_64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/w7l1yfmcmpg8dj4l32zcf3ymf3airpyy-kubevirt-1.5.2",
+              "path": "/nix/store/4q8y938fylc2i3m5v3wjb14dng9x6gmc-kubevirt-1.6.0",
               "default": true
             }
           ],
-          "store_path": "/nix/store/w7l1yfmcmpg8dj4l32zcf3ymf3airpyy-kubevirt-1.5.2"
+          "store_path": "/nix/store/4q8y938fylc2i3m5v3wjb14dng9x6gmc-kubevirt-1.6.0"
         }
       }
     },
