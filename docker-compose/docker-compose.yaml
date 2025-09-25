@@ -78,7 +78,7 @@ services:
     volumes:
       - ./mosquitto/config:/mosquitto/config
       - ./mosquitto/data:/mosquitto/data
-      - ./caddy/data/caddy/certificates/acme-v02.api.letsencrypt.org-directory/mqtt.home.madtech.cx:/certs
+      - ./caddy/data/caddy/certificates/acme-v02.api.letsencrypt.org-directory/wildcard_.home.madtech.cx:/certs
 
   wyze-bridge:
     image: mrlt8/wyze-bridge:2.10.3
