@@ -5,12 +5,7 @@ mkShell {
   # List of packages
   nativeBuildInputs = [
     talosctl
-    (fetchFromGitHub {
-      owner = "budimanjojo";
-      repo = "talhelper";
-      rev = "master";
-      sha256 = "sha256-1+DFTlHtauO0YCMtLNIgPZg9WMzxj+C/+TB8840qPV4=";
-    })
+    talhelper
     sops
     age
     k9s
