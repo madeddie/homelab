@@ -3,7 +3,7 @@
   "packages": [
     "talosctl@1.11.1",
     "talhelper@3.0.34",
-    "sops@3.10.2",
+    "sops@3.11.0",
     "age@1.2.1",
     "k9s@0.50.15",
     "kubectl@1.33.4",
