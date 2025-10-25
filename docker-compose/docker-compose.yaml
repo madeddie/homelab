@@ -250,7 +250,7 @@ services:
       - ./amt_console:/data
 
   http-echo:
-    image: mendhak/http-https-echo:37
+    image: mendhak/http-https-echo:38
     container_name: http-echo
     hostname: http-echo
     restart: unless-stopped
