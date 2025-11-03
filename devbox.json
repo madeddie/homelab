@@ -5,7 +5,7 @@
     "talhelper@3.0.37",
     "sops@3.11.0",
     "age@1.2.1",
-    "k9s@0.50.15",
+    "k9s@0.50.16",
     "kubectl@1.34.1",
     "direnv@2.37.1",
     "kustomize@5.7.1",
