@@ -4,7 +4,7 @@ immich:
       containers:
         main:
           image:
-            tag: v1.143.1
+            tag: v1.134.0
 
   immich:
     persistence:
