@@ -1,24 +1,10 @@
 immich:
-  image:
-    tag: v1.134.0
-
-  env:
-    DB_DATABASE_NAME: app
-    DB_HOSTNAME:
-      valueFrom:
-        secretKeyRef:
-          key: host
-          name: immich-pg-cluster-app
-    DB_PASSWORD:
-      valueFrom:
-        secretKeyRef:
-          key: password
-          name: immich-pg-cluster-app
-    DB_USERNAME:
-      valueFrom:
-        secretKeyRef:
-          key: username
-          name: immich-pg-cluster-app
+  controllers:
+    main:
+      containers:
+        main:
+          image:
+            tag: v1.143.1
 
   immich:
     persistence:
@@ -26,6 +12,27 @@ immich:
         existingClaim: immich-media
 
   server:
+    controllers:
+      main:
+        containers:
+          main:
+            env:
+              DB_DATABASE_NAME: app
+              DB_HOSTNAME:
+                valueFrom:
+                  secretKeyRef:
+                    key: host
+                    name: immich-pg-cluster-app
+              DB_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    key: password
+                    name: immich-pg-cluster-app
+              DB_USERNAME:
+                valueFrom:
+                  secretKeyRef:
+                    key: username
+                    name: immich-pg-cluster-app
     ingress:
       main:
         enabled: true
@@ -38,9 +45,5 @@ immich:
             paths:
               - path: "/"
 
-  redis:
+  valkey:
     enabled: true
-    master:
-      resourcesPreset: micro
-      persistence:
-        storageClass: local-path
