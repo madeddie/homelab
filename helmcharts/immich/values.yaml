@@ -1,10 +1,10 @@
 immich:
-  controllers:
-    main:
-      containers:
-        main:
-          image:
-            tag: v1.136.0
+  #controllers:
+  #  main:
+  #    containers:
+  #      main:
+  #        image:
+  #          tag: v1.136.0
 
   immich:
     persistence:
