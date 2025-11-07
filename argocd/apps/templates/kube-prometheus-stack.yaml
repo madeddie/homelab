@@ -6,8 +6,6 @@ metadata:
 spec:
   project: default
   source:
-    helm:
-      skipCrds: true
     repoURL: https://github.com/madeddie/homelab.git
     path: helmcharts/kube-prometheus-stack
     targetRevision: HEAD
