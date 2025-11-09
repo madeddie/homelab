@@ -155,6 +155,7 @@ Secret objects.
   - external-dns
   - Immich
   - KubeVirt
+  - kube-prometheus-stack: promethues, grafana, alertmanager
   - local-path-provisioner
   - Longhorn
   - MetalLB
@@ -301,6 +302,7 @@ Secret objects.
 - [ ] implement device plugin operator and Intel GPU device plugin (for jellyfin)
 - [x] implement external-dns
 - [ ] configure external-dns with hurricane electric and mikrotik
+- [ ] add OTLP collector (for now to send Traefik logs to Loki)
 
 Legend:
 
