@@ -6,14 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    path: kustomize
-    repoURL: https://github.com/mccutchen/go-httpbin
+    repoURL: https://github.com/madeddie/homelab.git
+    path: kustomized/go-httpbin
     targetRevision: HEAD
   destination:
-    server: "https://kubernetes.default.svc"
+    server: https://kubernetes.default.svc
     namespace: go-httpbin
-  syncPolicy:
-    automated:
-      selfHeal: true
-    syncOptions:
-    - CreateNamespace=true
