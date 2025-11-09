@@ -7,5 +7,5 @@ kube-prometheus-stack:
         traefik.ingress.kubernetes.io/router.middlewares: ipallowlan
         traefik.ingress.kubernetes.io/router.entrypoints: web
       hosts:
-        - host: alertmanager.svc.madtech.cx
+        - alertmanager.svc.madtech.cx
 
