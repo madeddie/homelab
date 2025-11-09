@@ -9,6 +9,7 @@ spec:
     ipStrategy:
       excludedIPs:
         - 10.244.2.0/24
+      depth: 3
     sourceRange:
       - 127.0.0.1/32
       - 192.168.0.0/24
