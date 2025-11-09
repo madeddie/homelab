@@ -4,7 +4,7 @@ kube-prometheus-stack:
       enabled: true
       ingressClassName: traefik
       annotations:
-        traefik.ingress.kubernetes.io/router.middlewares: ipallowlan
+        traefik.ingress.kubernetes.io/router.middlewares: ipallowlan@kubernetescrd
         traefik.ingress.kubernetes.io/router.entrypoints: web
       hosts:
         - alertmanager.svc.madtech.cx
