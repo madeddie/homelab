@@ -1,0 +1,28 @@
+apiVersion: ENC[AES256_GCM,data:owwrNmG69zO3zQfeBgZwcPCjc8dkBnDVMdka,iv:4pUe9mMAB4BhfB9m6ibTI1WfU1qXeOPBZDGFRpuk0JA=,tag:DDOwz3JJ112ZN4mhqs3cRQ==,type:str]
+kind: ENC[AES256_GCM,data:eP3ddfJwgNxMYg==,iv:bEiezOkrrTlSlUMu2d/9g9fOc8jeG+NVU4N1IXLk0GY=,tag:mt306dOf+qxVgs/zh2G51g==,type:str]
+metadata:
+    name: ENC[AES256_GCM,data:Zhr/sChsLNRNs+tJ4f+aBseN7+U=,iv:fKB8GTfD9lKfPkgvpVrEqqkkUmblBqL4zpR4HpGG/58=,tag:MMDHwtG7nnAI4MM0FeA97A==,type:str]
+    namespace: ENC[AES256_GCM,data:9b7ChPH5QzoL7w==,iv:XhEwjY+pFjXAUlpOG2G8eux7pMDKCVG3Akj0L51WBdg=,tag:AjIwcK81bkQIt7D3RqbKMA==,type:str]
+spec:
+    secretTemplates:
+        - name: ENC[AES256_GCM,data:pFq4zZ1kgpspqhQL5qb9Ki1uPzs=,iv:1KsMfFlMRmOTUzALRVm1Mdcu9Biab0PNDV5xRJAX7dY=,tag:9tO9SAptcu4QjF+O/+PPUg==,type:str]
+          labels:
+            app.kubernetes.io/name: ENC[AES256_GCM,data:9SdIqx+jundY4RRuXfsT2tK1rgg=,iv:xEKXP40jpd3bgnvlSKOD64Qbmv9Hto4Ux0i5alBDMVg=,tag:g4CCu+aybjmJ/iUrI8HYJQ==,type:str]
+          stringData:
+            admin-user: ENC[AES256_GCM,data:KSYDt0c=,iv:Ti8ATzlKT0JCt/dl43qJ3FBzvfSgLBavy059L1isa3g=,tag:GWu0EJQWUepTwyPoxGG1kA==,type:str]
+            admin-password: ENC[AES256_GCM,data:GOChOrIXcdkH,iv:a4iEte52xdkM5/YN6Fla8+StIEaTl+Enq61CNzAJ0GM=,tag:85fTxN6u4QKytZ8pXs/aHg==,type:str]
+sops:
+    age:
+        - recipient: age13jkfzky97zmm4n738k3wy8leguhz6xy6xas9r4etnx2esyafadvqat4qve
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBySmtZWVBEY2lQOWtEdkw5
+            djg1dXFSTWdlS0JxNG80QVYxV05hQTdSUVFnCkc4dU9YeTkrU2VaaGV6ZURPRC9p
+            Y0VUKytBeHdoRm9mM09PcDJUd2FJQm8KLS0tIGV1bFVSUTZRbEpubkRYUjQyOGYz
+            aXBrWTF0R1djcG5mUDRpeWcyczVHS1kKifgkgxxHL1VD/EfKEPmiK2OC/TiVR3uT
+            Fw+BP3GVOlgix9y2nmY2aV76/aKL8fNLmiiE3SsQm612Dgdd1ipVQQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2025-11-09T16:18:15Z"
+    mac: ENC[AES256_GCM,data:YimQqRb8f79VovfLuGQcoCRgf1HJUWV/odNOI1qi8856OLs05zK6p7X/Y0L3rugZfb2u3Fkv52q3l4N5pp6xLlzmntnyE+OMnfNRIdMveTRidAhnxbAsbGQ/U8JkJ+KSDe/AaWS39sqfLLspAMIRbN0uqA0pXwQJJl7z0pczjyY=,iv:2zqio1VjwthmgS7O9BPD58fJcXrKPMHdQ0ZA+VV2esk=,tag:7WhtkGqJRHJlCsvnxEzo5w==,type:str]
+    unencrypted_suffix: _unencrypted
+    version: 3.10.2
