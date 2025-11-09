@@ -4,7 +4,7 @@ kube-prometheus-stack:
       enabled: true
       ingressClassName: traefik
       annotations:
-        # traefik.ingress.kubernetes.io/router.middlewares: traefik-ipallowlan@kubernetescrd
+        traefik.ingress.kubernetes.io/router.middlewares: traefik-ipallowlan@kubernetescrd
         traefik.ingress.kubernetes.io/router.entrypoints: web
       hosts:
         - alertmanager.svc.madtech.cx
@@ -16,7 +16,18 @@ kube-prometheus-stack:
       enabled: true
       ingressClassName: traefik
       annotations:
-        # traefik.ingress.kubernetes.io/router.middlewares: traefik-ipallowlan@kubernetescrd
+        traefik.ingress.kubernetes.io/router.middlewares: traefik-ipallowlan@kubernetescrd
         traefik.ingress.kubernetes.io/router.entrypoints: web
       hosts:
         - grafana.svc.madtech.cx
+
+  prometheus:
+    ingress:
+      enabled: true
+      ingressClassName: traefik
+      annotations:
+        traefik.ingress.kubernetes.io/router.middlewares: traefik-ipallowlan@kubernetescrd
+        traefik.ingress.kubernetes.io/router.entrypoints: web
+      hosts:
+        - prom.svc.madtech.cx
+        - prometheus.svc.madtech.cx
