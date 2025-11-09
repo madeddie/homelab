@@ -36,6 +36,8 @@ traefik:
   persistence:
     enabled: true
     storageClass: local-path
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: traefik
+  logs:
+    general:
+      level: "INFO"
+    access:
+      enabled: false

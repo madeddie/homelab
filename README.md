@@ -155,6 +155,7 @@ Secret objects.
   - external-dns
   - Immich
   - KubeVirt
+  - kube-prometheus-stack: promethues, grafana, alertmanager
   - local-path-provisioner
   - Longhorn
   - MetalLB
@@ -301,6 +302,7 @@ Secret objects.
 - [ ] implement device plugin operator and Intel GPU device plugin (for jellyfin)
 - [x] implement external-dns
 - [ ] configure external-dns with hurricane electric and mikrotik
+- [ ] add OTLP collector (for now to send Traefik logs to Loki)
 
 Legend:
 
@@ -315,3 +317,27 @@ Legend:
 - ~~Portainer, not actually used~~
 - ~~Sonarr, not actually used~~
 - ~~WireGuard Easy, replaced with native MikroTik functionality~~
+
+## Add applications
+
+This section describes useful information for adding applications to the stack.
+
+### Traefik Ingress
+
+This section will describe information about adding Ingress through Traefik to an application.
+
+- Annotations
+- Rewrite to HTTPS
+- IP Allow to LAN
+- Basic AUTH
+
+### SOPS Secrets
+
+To add a secret encrypted with SOPS, first add the Secret as YAML to the `templates` folder of your helm chart.
+Name is `your-secret-object.sops.yaml`.
+
+Then encrypt the file with:
+
+```
+sops --encrypt --encrypted-regex '^(data|stringData)$' --in-place your-secret-object.sops.yaml
+```
