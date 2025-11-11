@@ -1,343 +1,489 @@
 # madtech homelab
 
-This repository contains configuration and code to maintain my homelab.
+A GitOps-managed homelab infrastructure running Kubernetes and Docker services for smart home automation, media management, and self-hosted applications.
 
-## How to initialize
+## Table of Contents
 
-### Install required tools
+- [Overview](#overview)
+- [Architecture](#architecture)
+- [Hardware](#hardware)
+- [Quick Start](#quick-start)
+- [Deployment Guide](#deployment-guide)
+  - [1. Install Tools](#1-install-tools)
+  - [2. Configure Talos Kubernetes](#2-configure-talos-kubernetes)
+  - [3. Bootstrap SOPS & Argo CD](#3-bootstrap-sops--argo-cd)
+  - [4. Configure Docker-Compose](#4-configure-docker-compose)
+  - [5. Configure Authentik (OpenTofu)](#5-configure-authentik-opentofu)
+- [Deployed Services](#deployed-services)
+- [Adding Applications](#adding-applications)
+- [Roadmap](#roadmap)
 
-- Running [Devbox](https://www.jetify.com/devbox): use `devbox shell` to
-  initialize the environment with all the required tools.
-- Not running Devbox, but are using [Homebrew](https://brew.sh/): run
-  `brew bundle` to install the required tools.
+---
 
-### Configure talosctl and kubectl
+## Overview
 
-I'm assuming you have [Talos](https://www.talos.dev/) nodes already installed.
-In `talos/talconfig.yaml` there are 3 machines, homelab{1,2,3} with IPs
-192.168.0.{115,120,125}. Update this configuration if you have a different
-amount of machines or use different IP addresses.
+This repository uses **Infrastructure as Code (IaC)** principles to declaratively manage:
 
-Steps:
+- **3-node Kubernetes cluster** (Talos Linux)
+- **GitOps automation** (Argo CD)
+- **Encrypted secrets in git** (SOPS with age encryption)
+- **Docker-compose services** (Proxmox VM)
+- **SSO/Authentication** (Authentik)
 
-- `cd talos`
-- configure SOPS;
-  https://budimanjojo.github.io/talhelper/latest/guides/#configuring-sops-for-talhelper
-  ```
-  mkdir -p "$HOME/.config/sops/age"             # I use age for encryption
-  pass homelab_talos > "$HOME/.config/sops/keys.txt"  # I keep secrets in [pass](https://www.passwordstore.org/)
-  ```
-- generate talosconfig and node configs\
-  `talhelper genconfig`
-- test access to talos\
-  `talhelper gencommand kubeconfig | sed 's/kubeconfig/health/' | bash` # The
-  `health` command is not yet supported
-- configure `kubectl`\
-  `talhelper gencommand --extra-flags ./clusterconfig/kubeconfig kubeconfig | bash`
-- test access to kubernetes\
-  `kubectl get nodes`
+**Key Technologies:**
+- Kubernetes orchestration via Talos Linux
+- GitOps with Argo CD
+- Helm charts & Kustomize for deployments
+- SOPS for secret management
+- OpenTofu for infrastructure state
+- MetalLB + Traefik for networking
+- Longhorn for distributed storage
+- CloudNativePG for PostgreSQL
+- Prometheus + Grafana for monitoring
 
-### Bootstrap SOPS and Argo CD
+---
 
-We'll be managing all apps (including Argo CD itself) in the cluster with Argo
-CD and managing secrets using SOPS secrets operator, which allows storing the
-secrets, encrypted, in git.
-
-To start we first need to manually create the main decryption key Secret, using
-the same `age` key we used for the Talos config:
+## Architecture
 
 ```
+┌──────────────────────────────────────────────────────┐
+│  External Network (192.168.0.0/24)                   │
+│  ├─ MikroTik Router (DNS, DHCP, WireGuard VPN)       │
+│  └─ TP-Link Archer C4000 Access Point                │
+└──────────────────────────────────────────────────────┘
+                         │
+    ┌────────────────────┴────────────────────┐
+    │                                         │
+┌───▼─────────────────────────────┐  ┌────────▼──────────────────┐
+│  Kubernetes Cluster (Talos)     │  │  Proxmox VM (Beelink S12) │
+│  ├─ 3x HP EliteDesk 800 G3      │  │  └─ Docker-Compose        │
+│  ├─ MetalLB (192.168.0.240-250) │  │     ├─ Home Assistant     │
+│  ├─ Traefik (Ingress)           │  │     ├─ Jellyfin           │
+│  ├─ Argo CD (GitOps)            │  │     ├─ ESPHome            │
+│  ├─ Authentik (SSO)             │  │     ├─ Mosquitto          │
+│  ├─ Longhorn (Storage)          │  │     ├─ qBittorrent        │
+│  ├─ Prometheus Stack            │  │     ├─ Calibre-Web        │
+│  ├─ Immich (Photos)             │  │     └─ More...            │
+│  ├─ cert-manager                │  │                           │
+│  └─ KubeVirt                    │  │                           │
+└─────────────────────────────────┘  └───────────────────────────┘
+                         │
+              ┌──────────▼──────────┐
+              │  QNAP TS-253A NAS   │
+              │  └─ 2.6TB RAID      │
+              │  └─ Backups         │
+              └─────────────────────┘
+```
+
+**Data Flow:**
+```
+Git Repository (this repo)
+    ↓
+Argo CD (watches for changes)
+    ↓
+├─ Helm Charts → Kubernetes Deployments
+├─ Kustomize → Kubernetes Resources
+└─ SOPS Encrypted Secrets → Decrypted at runtime
+    ↓
+OpenTofu → Authentik Configuration (IaC)
+```
+
+---
+
+## Hardware
+
+| Component | Details |
+|-----------|---------|
+| **Internet** | Arris TM1602A Cable Modem (Spectrum) |
+| **Router** | MikroTik hAP ax3 |
+| **Access Point** | TP-Link Archer C4000 |
+| **K8s Nodes** | 3x HP EliteDesk 800 65W G3<br>└─ i5-6500 @ 3.2GHz, 32GB RAM, 256GB SSD |
+| **Docker Host** | Beelink MINI S12 (Proxmox)<br>└─ Intel N100, 16GB RAM, 500GB SSD |
+| **Storage** | QNAP TS-253A NAS<br>└─ 3.64TB + 2.73TB HDDs, 2.6TB usable (RAID) |
+| **Network** | Netgear 5-port switch |
+
+---
+
+## Quick Start
+
+```bash
+# 1. Load development environment
+devbox shell  # or: brew bundle, or: nix develop
+
+# 2. Allow direnv to set KUBECONFIG & TALOSCONFIG
+direnv allow
+
+# 3. Check cluster status
+kubectl get nodes
+k9s  # Interactive cluster viewer
+
+# 4. View Argo CD applications
+kubectl port-forward svc/argocd-server -n argocd 8080:443
+open https://localhost:8080  # user: admin, password in helmcharts/argo-cd/templates/argocd-secret.sops.yaml (if you can't remember, bcrypt a new password in there)
+
+# 5. Edit encrypted secrets
+sops edit helmcharts/kube-prometheus-stack/templates/grafana-admin.sops.yaml
+```
+
+---
+
+## Deployment Guide
+
+### 1. Install Tools
+
+Choose one of the following methods:
+
+**Option A: Devbox (recommended)**
+```bash
+devbox shell
+```
+
+**Option B: Homebrew (macOS)**
+```bash
+brew bundle
+```
+
+**Option C: Nix Flakes**
+```bash
+nix develop
+```
+
+### 2. Configure Talos Kubernetes
+
+Assumes you have Talos nodes already installed at:
+- `homelab1` → 192.168.0.115
+- `homelab2` → 192.168.0.120
+- `homelab3` → 192.168.0.125
+
+Update `talos/talconfig.yaml` if your IPs differ.
+
+#### Steps:
+
+```bash
+cd talos
+
+# Configure SOPS encryption (one-time setup)
+mkdir -p "$HOME/.config/sops/age"
+pass homelab_talos > "$HOME/.config/sops/age/keys.txt"  # Or manually create age key
+
+# Generate Talos configs
+talhelper genconfig
+
+# Check Talos health
+talhelper gencommand kubeconfig | sed 's/kubeconfig/health/' | bash
+
+# Configure kubectl
+talhelper gencommand --extra-flags ./clusterconfig/kubeconfig kubeconfig | bash
+
+# Verify cluster
+kubectl get nodes
+```
+
+### 3. Bootstrap SOPS & Argo CD
+
+#### Install SOPS Secrets Operator
+
+```bash
+# Create namespace and age key secret
 kubectl create namespace sops
-kubectl -n sops create secret generic sops-age-key-file --from-file="$HOME/.config/sops/age/keys.txt"
-helm upgrade --install sops sops/sops-secrets-operator --namespace sops --set "secretsAsFiles[0].mountPath=/etc/sops-age-key-file,secretsAsFiles[0].name=sops-age
--key-file,secretsAsFiles[0].secretName=sops-age-key-file,extraEnv[0].name=SOPS_AGE_KEY_FILE,extraEnv[0].value=/etc/sops-age-key-file/keys.txt"
+kubectl -n sops create secret generic sops-age-key-file \
+  --from-file="$HOME/.config/sops/age/keys.txt"
+
+# Install SOPS operator
+helm upgrade --install sops sops/sops-secrets-operator \
+  --namespace sops \
+  --set "secretsAsFiles[0].mountPath=/etc/sops-age-key-file" \
+  --set "secretsAsFiles[0].name=sops-age-key-file" \
+  --set "secretsAsFiles[0].secretName=sops-age-key-file" \
+  --set "extraEnv[0].name=SOPS_AGE_KEY_FILE" \
+  --set "extraEnv[0].value=/etc/sops-age-key-file/keys.txt"
 ```
 
-and install Argo CD (just once):
+#### Install Argo CD
 
-```
+```bash
 cd helmcharts/argo-cd
 helm repo add argo https://argoproj.github.io/argo-helm
 helm dependency build
 helm install -n argocd --create-namespace argocd .
 ```
 
-Since there are some interdependencies, there might be some manual actions to
-take before everything works as expected.
+#### Access Argo CD UI
 
-Let's log in to the UI.
-
-```
+```bash
 kubectl port-forward service/argocd-server -n argocd 8080:443
 open https://localhost:8080
 ```
 
-User `admin` with the password that is bcrypt'ed in
-helmcharts/argo-cd/values.yaml.
+- **User:** `admin`
+- **Password:** Bcrypt'ed in `helmcharts/argo-cd/templates/argocd-secret.sops.yaml`
 
-We'll want to refresh the `root` Application, after that the `argocd`
-Application will show it's out of sync. This is because it wasn't created with
-the `argocd.argoproj.io/instance` label which `argocd` itself will add if we
-press Sync and then Synchronize.
+**Post-Install:**
+1. Refresh the `root` Application
+2. Sync the `argocd` Application (adds required labels)
 
-### Bootstrap docker-compose
+### 4. Configure Docker-Compose
 
-The `docker-compose/` folder contains the configuration of the docker compose setup on the NUC.
-A prerequisite for setup is installing and configuring SOPS as descibed below, but instead of `pass homelab_talos` we use `pass homelab_compose`.
+On the Proxmox NUC (Beelink S12):
 
-After checking out the repo, run:
+```bash
+cd docker-compose
 
-`sops exec-env secrets.sops.env 'docker compose up -d'`
+# Configure SOPS (one-time)
+mkdir -p "$HOME/.config/sops/age"
+pass homelab_compose > "$HOME/.config/sops/age/keys.txt"
 
-This should bring up all the containers and feed them their "secret" ENV vars.
-
-TODO: I have not yet put all application configuration in version control.
-
-Also, some of the data will be in backups (DBs and other binary blobs). The restoration procedure needs to be described.
-
-### Configure Authentik using OpenTofu
-
-To configure Authentik declaratively, I've chosen to use OpenTofu, aka the more opensource version
-of Terraform.
-
-I'm storing the TF state in git in encrypted form. The passphrase is also stored, separately encrypted
-with SOPS.
-
-To execute OpenTofu we'll need to run it encapsulated by SOPS like this:
-
+# Start services with encrypted env vars
+sops exec-env secrets.sops.env 'docker compose up -d'
 ```
+
+**Note:** Application configs and database restoration procedures are still being documented.
+
+### 5. Configure Authentik (OpenTofu)
+
+Authentik is configured declaratively using OpenTofu (Terraform). The state is stored encrypted in git.
+
+```bash
 cd opentofu
-sops exec-env sops.secrets.env 'tofu plan'
+
+# Run OpenTofu commands with SOPS-injected secrets
+sops exec-env secrets.sops.env 'tofu plan'
+sops exec-env secrets.sops.env 'tofu apply'
 ```
 
-Where `plan` is the OpenTofu command to execute. This will inject environment variables with the
-secrets used by OpenTofu.
+---
 
-## Available services
+## Deployed Services
 
-### MetalLB and Traefik
+### Kubernetes Cluster
 
-The k8s cluster runs MetalLB, configured to give out IPs between 192.168.0.240
-and 192.168.0.250.
+| Service | Purpose |
+|---------|---------|
+| **Argo CD** | GitOps continuous delivery |
+| **Authentik** | SSO/OIDC authentication provider |
+| **Traefik** | Ingress controller & reverse proxy |
+| **MetalLB** | Load balancer (192.168.0.240-250) |
+| **cert-manager** | Automatic TLS certificate management |
+| **Longhorn** | Distributed block storage |
+| **CloudNativePG** | PostgreSQL operator |
+| **Prometheus Stack** | Monitoring (Prometheus, Grafana, AlertManager) |
+| **Immich** | Self-hosted photo management |
+| **KubeVirt** | Virtual machine management |
+| **Akri** | USB device discovery & sharing |
+| **external-dns** | Dynamic DNS management |
+| **SOPS Secrets Operator** | Encrypted secret management |
+| **metrics-server** | Kubernetes resource metrics |
+| **Node Feature Discovery** | Hardware capability detection |
+| **local-path-provisioner** | Local volume provisioning |
+| **go-httpbin** | HTTP debugging utility |
 
-Traefik was chosen as main loadbalancer and ingress service and is hardcoded to
-request 192.168.0.240.
+### Docker-Compose (Proxmox VM)
 
-### SOPS secrets operator
+| Service | Purpose |
+|---------|---------|
+| **Home Assistant** | Smart home automation hub |
+| **ESPHome** | ESP32/ESP8266 device management |
+| **Mosquitto** | MQTT broker |
+| **Matter Server** | Matter protocol support |
+| **wyze-bridge** | Wyze camera integration |
+| **Jellyfin** | Media streaming server |
+| **qBittorrent** | Torrent client |
+| **Calibre-Web** | Ebook library management |
+| **Prometheus** | Metrics collection |
+| **Grafana** | Visualization dashboards |
+| **AlertManager** | Alert routing |
+| **Caddy** | Web server & reverse proxy |
+| **Authentik Proxy** | Forward authentication outpost |
+| **Console** | Device management toolkit |
+| **Samba** | File sharing |
+| **http-https-echo** | HTTP debugging |
 
-We can add Secrets to our git repo safely since they can be encrypted using
-SOPS.
+### MikroTik Router Services
 
-Create a SopsSecret CR encapsulating whichever Secret's you want, encrypt it
-with `sops` and commit it to the repo. After creating the CR with
-`kubectl apply -f ...` or adding it to an Argo CD Application (through Helm or
-Kustomize), the SOPS secrets operator will decrypt the values and create the k8s
-Secret objects.
+- **Local DNS:** `home.madtech.cx`, `svc.madtech.cx`, `lab.madtech.cx`
+- **DHCP:** Network address assignment
+- **PXE Boot:** Using [netboot.xyz](https://netboot.xyz/)
+- **WireGuard VPN:** Remote access
 
-## hardware
+---
 
-- cable modem, Arris TM1602A (supplied by Spectrum)
-- router, MikroTik hAP ax3
-- access point, TP-Link Archer C4000
-- NUC, Beelink MINI S12 [cpu: N100, ram: 16GB, ssd: 500GB]
-- 5-port switch, Netgear
-- NAS, QNAP TS-253A [hdd: 3.64TB, hdd: 2.73TB, raid: 2.6TB]
-- 3x 1L PC, HP EliteDesk 800 65W G3 [cpu: i5-6500@3.2GHz, ram: 32GB, ssd: 256GB]
+## Adding Applications
 
-## software
+### Creating Traefik Ingress
 
-- Talos linux k8s cluster, 3 controller nodes that are also worker nodes on the
-  1L HP EliteDesks
-  - Akri
-  - Argo CD
-  - Authentik
-  - cert-manager
-  - external-dns
-  - Immich
-  - KubeVirt
-  - kube-prometheus-stack: promethues, grafana, alertmanager
-  - local-path-provisioner
-  - Longhorn
-  - MetalLB
-  - metrics-server + Kubelet Serving Certificate Approver
-  - Node Feature Discovery
-  - SOPS secrets operator
-  - Traefik
+Add annotations to your Ingress resource:
 
-- Proxmox on the Beelink S12, running:
-  - VM with Debian Bookworm with docker-compose running:
-    - [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/)
-    - [Authentik Proxy outpost](https://docs.goauthentik.io/docs/add-secure-apps/outposts/manual-deploy-docker-compose)
-    - [Console](https://github.com/device-management-toolkit/console) (with some
-      local patches)
-    - [Caddy](https://caddyserver.com/)
-    - [Calibre-Web](https://github.com/janeczku/calibre-web)
-    - [ESPHome](https://esphome.io/)
-    - [Grafana](https://grafana.com/)
-    - [http-https-echo](https://github.com/mendhak/docker-http-https-echo)
-    - [Home Assistant](https://www.home-assistant.io/)
-    - [homepage](https://gethomepage.dev/)
-    - [Jellyfin](https://jellyfin.org/)
-    - [Open Home Foundation Matter Server](https://github.com/home-assistant-libs/python-matter-server)
-    - [Eclipse Mosquitto](https://mosquitto.org/)
-    - [Prometheus](https://prometheus.io/)
-    - [qBittorrent](https://www.qbittorrent.org/)
-    - [Samba](https://github.com/dockur/samba)
-    - [wyze-bridge](https://github.com/mrlt8/docker-wyze-bridge)
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-app
+  annotations:
+    # Redirect HTTP to HTTPS
+    traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
 
-- MikroTik runs the folllowing services (apart from standard routing
-  functionality):
-  - Local DNS for home.madtech.cx, svc.madtech.cx and lab.madtech.cx
-  - DHCP + PXE using [netboot.xyz](https://netboot.xyz/)
-  - Wireguard VPN
+    # Restrict to LAN
+    traefik.ingress.kubernetes.io/router.middlewares: default-lan-only@kubernetescrd
 
-## plans
-
-- [x] use talhelper to configure Talos nodes declaratively
-- [ ] find a way to configure MikroTik router declaratively
-- [ ] regularly backup mikrotik config (ssh mikrotik /export > backup.rsc)
-- [-] migrate software from docker-compose to k8s
-- [x] add ArgoCD
-- [ ] experiment with FluxCD
-- [ ] add LTE backup to MikroTik router
-- [ ] add Raspberry Pi's to k8s cluster
-- [x] add MetalLB
-- [x] add traefik
-- [x] configure traefik for *.home.madtech.cx on NUC
-- [ ] ~~switch from Caddy to Traefik for other services~~ (Will stick with caddy
-      on docker and traefik in k8s)
-- [ ] NUC either added to k8s cluster or remove proxmox, install VM directly on
-      hardware to run Ansible/Terraform/bootstrap code and Home Assistant and
-      Jellyfin
-- [ ] create new git repo with local AMT Console changes
-- [ ] add USB storage and simple HTTP server to MikroTik to serve PXE assets
-- [x] implement SAML and/or OIDC server (~~keycloak~~authentik)
-- [x] test keycloak
-- [x] implement Authentik
-- [x] migrate services to SSO
-  - [x] ArgoCD (OIDC + PKCE)
-  - [x] Home Assistant (using https://github.com/BeryJu/hass-auth-header)
-  - [x] Jellyfin (using https://github.com/9p4/jellyfin-plugin-sso)
-  - [x] Calibre-Web (using built-in Reverse Proxy Authentication)
-  - [x] Prometheus/Grafana/Alertmanager (just behind auth, no integration, so no users in the apps)
-  - [x] qBittorrent (using forward auth and disabling auth on local subnet)
-  - [x] Proxmox
-- [x] ~~add oauth2-proxy for apps that don't support SAML/OIDC~~ using Traefik
-      built-in forward auth
-- [ ] investigate use-case for argo ApplicationSets
-- [ ] host own git? (forgejo)
-- [ ] host own password manager? (vaultwarden? I'm using passwordstore.org for now)
-- [x] add kubevirt
-- [x] add sops operator
-- [ ] ~~host own notes app? (memos: https://www.usememos.com/)~~ (using Markor +
-      git)
-- [x] add longhorn (storage)
-- [x] implement renovate
-- [x] add metrics-server
-- [ ] try running a k8s service needing a specific USB device (for home assistant + zigbee)
-- [ ] try running a k8s service using video decoding hardware (for jellyfin)
-- [ ] implement hardware watchdog on talos nodes
-      (https://www.talos.dev/v1.9/advanced/watchdog/)
-- [x] set up basic github page for project using Jekyll
-- [ ] set up github actions to copy README and create Changelog for the project
-      site
-- [ ] implement paperless-ngx
-- [ ] replace NAS? (raspberry pi 5 + raspberry pi penta hat + 4x 2.5 SATA SSD)
-- [ ] implement PV on NAS (Samba? NFS? iSCSI?)
-- [ ] implement backups.
-- [ ] investigate velero
-- [x] set up idrive e2 account for backing up stuff
-- [x] configure longhorn to backup PVs to idrive e2
-- [ ] backup services
-  - [ ] Authentik https://docs.goauthentik.io/docs/sys-mgmt/ops/backup-restore
-  - [ ] ArgoCD? https://argo-cd.readthedocs.io/en/stable/operator-manual/disaster_recovery/
-  - [x] longhorn? https://longhorn.io/docs/1.8.1/snapshots-and-backups/backup-and-restore/set-backup-target/
-  - [ ] Home Assistant https://www.home-assistant.io/integrations/backup/
-  - [ ] Jellyfin? https://jellyfin.org/docs/general/administration/backup-and-restore/
-  - [ ] Calibre-Web https://github.com/janeczku/calibre-web/issues/733
-  - [ ] Immich, DB needs backing up, media should be picked up by longhorn backup
-- [x] install CloudNativePG for use by immich
-- [ ] see if we can use CNPG for any other PG DBs
-- [x] implement ~~local image storage (move from google photos?)~~ immich
-- [x] instructions are missing installing SOPS helm chart before argocd
-- [ ] add sops helm chart with included values to simplify bootstrap
-      instructions
-- [x] switch or duplicate use of devbox into nix shell (I use nix-darwin and
-      nix-on-droid now)
-- [x] find a way to declaratively configure authentik
-- [ ] figure out social login with authentik and google/github
-- [x] Caddy is behind Traefik from outside traffic. This breaks SSL cert
-      renewal. Fix. (now using ACME with dns auth)
-- [x] auto create traefik namespace
-- [x] label longhorn namespace pod-security.kubernetes.io/enforce=privileged
-- [x] implement cert-manager
-- [ ] configure cert-manager ACME issuer
-- [x] implement letsencrypt dns verification in traefik
-- [x] implement letsencrypt dns verification in caddy
-- [x] describe restoration procedure for all apps with binary blob backups
-- [ ] put docker-compose apps config in version control
-  - [x] caddy
-  - [ ] alertmanager
-  - [ ] amt_console
-  - [ ] esphome
-  - [ ] grafana
-  - [ ] home-assistant
-  - [ ] jellyfin
-  - [ ] matter-server?
-  - [ ] mosquitto
-  - [ ] prometheus
-  - [ ] qbittorrent
-- [ ] test Authelia (should be more light weight than Authentik)
-- [ ] test signoz (opensource datadog competitor)
-- [x] use opentofu to configure authentik
-- [ ] test spinning up virgin authentik with terraform (check https://docs.goauthentik.io/docs/install-config/automated-install)
-- [ ] add (forwarding) SMTP server for app notifications
-- [ ] try loki (logging)
-- [ ] try kubero
-- [ ] try openfaas
-- [ ] migrate authentik psql to cnpg
-- [ ] investigate redis/valkey operator
-- [x] implement Node Feature Discovery
-- [ ] implement Akri for USB device detection (zigbee stick for home assistant)
-- [ ] implement device plugin operator and Intel GPU device plugin (for jellyfin)
-- [x] implement external-dns
-- [ ] configure external-dns with hurricane electric and mikrotik
-- [ ] add OTLP collector (for now to send Traefik logs to Loki)
-
-Legend:
-
-[-] task started, but barely </br>
-[/] task about halfway done </br>
-[x] task done </br>
-
-## deprecations / cleanup
-
-- ~~MeshCentral, replaced with AMT Console~~
-- ~~Pi-hole, replaced with native MikroTik functionality~~
-- ~~Portainer, not actually used~~
-- ~~Sonarr, not actually used~~
-- ~~WireGuard Easy, replaced with native MikroTik functionality~~
-
-## Add applications
-
-This section describes useful information for adding applications to the stack.
-
-### Traefik Ingress
-
-This section will describe information about adding Ingress through Traefik to an application.
-
-- Annotations
-- Rewrite to HTTPS
-- IP Allow to LAN
-- Basic AUTH
-
-### SOPS Secrets
-
-To add a secret encrypted with SOPS, first add the Secret as YAML to the `templates` folder of your helm chart.
-Name is `your-secret-object.sops.yaml`.
-
-Then encrypt the file with:
-
+    # Forward authentication (Authentik SSO)
+    traefik.ingress.kubernetes.io/router.middlewares: default-authentik-forward-auth@kubernetescrd
 ```
-sops --encrypt --encrypted-regex '^(data|stringData)$' --in-place your-secret-object.sops.yaml
+
+### Adding SOPS Encrypted Secrets
+
+1. Create a Secret YAML in your Helm chart's `templates/` folder:
+
+```yaml
+# templates/my-secret.sops.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-secret
+type: Opaque
+stringData:
+  username: admin
+  password: changeme
 ```
+
+2. Encrypt the secret values:
+
+```bash
+sops --encrypt --encrypted-regex '^(data|stringData)$' --in-place templates/my-secret.sops.yaml
+```
+
+3. The SOPS Secrets Operator will automatically decrypt it when deployed.
+
+### Adding Argo CD Applications
+
+Create a new file in `argocd/apps/templates/`:
+
+```yaml
+# argocd/apps/templates/my-app.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/yourusername/homelab
+    targetRevision: main
+    path: helmcharts/my-app
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: my-app
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+```
+
+---
+
+## Roadmap
+
+### Infrastructure
+- [ ] Find way to configure MikroTik router declaratively
+- [ ] Regularly backup MikroTik config (`ssh mikrotik /export > backup.rsc`)
+- [ ] Add LTE backup to MikroTik router
+- [ ] Add Raspberry Pi nodes to K8s cluster
+- [ ] Add USB storage + HTTP server to MikroTik for PXE assets
+- [ ] Implement hardware watchdog on Talos nodes
+
+### Storage & Backups
+- [ ] Investigate Velero for K8s backup
+- [ ] Implement PV on NAS (Samba/NFS/iSCSI)
+- [ ] Consider replacing NAS (Raspberry Pi 5 + Penta HAT + SSDs?)
+- [ ] Backup all services:
+  - [ ] Authentik
+  - [ ] Argo CD
+  - [x] Longhorn (to iDrive e2)
+  - [ ] Home Assistant
+  - [ ] Jellyfin
+  - [ ] Calibre-Web
+  - [ ] Immich (DB + media)
+
+### Applications & Services
+- [ ] Host own git (Forgejo)
+- [ ] Host password manager (Vaultwarden)
+- [ ] Implement Paperless-NGX (document management)
+- [ ] Add forwarding SMTP server for notifications
+- [ ] Try Loki (log aggregation)
+- [ ] Try SigNoz (Datadog alternative)
+- [ ] Try Kubero (PaaS)
+- [ ] Try OpenFaaS (serverless)
+- [ ] Test Authelia (lightweight auth alternative)
+
+### Hardware & Devices
+- [x] Implement Node Feature Discovery
+- [ ] Implement Akri for USB device detection (Zigbee stick)
+- [ ] Implement Intel GPU device plugin (Jellyfin transcoding)
+- [ ] Test K8s service with USB device (Home Assistant + Zigbee)
+- [ ] Test K8s service with video hardware decoding (Jellyfin)
+
+### Networking & DNS
+- [x] Implement external-dns
+- [ ] Configure external-dns with Hurricane Electric & MikroTik
+- [ ] Configure cert-manager ACME issuer
+
+### Migrations & Improvements
+- [ ] Migrate remaining docker-compose apps to K8s
+- [ ] Migrate Authentik PostgreSQL to CNPG
+- [ ] Investigate Redis/Valkey operator
+- [ ] Test social login with Authentik (Google/GitHub)
+- [ ] Investigate Argo ApplicationSets use cases
+- [ ] Put docker-compose app configs in version control
+  - [x] Caddy
+  - [ ] AlertManager, ESPHome, Grafana, Home Assistant
+  - [ ] Jellyfin, Mosquitto, Prometheus, qBittorrent
+
+### Documentation
+- [ ] Document restoration procedures for all apps
+- [x] Add Jekyll GitHub Pages site
+- [ ] Set up GitHub Actions for README & Changelog automation
+
+### Completed
+- [x] Use talhelper for declarative Talos configuration
+- [x] Add Argo CD for GitOps
+- [x] Add MetalLB & Traefik
+- [x] Implement OIDC server (Authentik, replacing Keycloak)
+- [x] Migrate services to SSO (Argo CD, Home Assistant, Jellyfin, etc.)
+- [x] Add KubeVirt for VM management
+- [x] Add SOPS Secrets Operator
+- [x] Add Longhorn for distributed storage
+- [x] Implement Renovate for dependency updates
+- [x] Add metrics-server
+- [x] Install CloudNativePG for Immich
+- [x] Implement Immich (Google Photos replacement)
+- [x] Switch to Devbox/Nix for dev environment
+- [x] Declaratively configure Authentik with OpenTofu
+- [x] Implement cert-manager
+- [x] Implement Let's Encrypt DNS verification (Traefik & Caddy)
+- [x] Set up iDrive e2 for backups
+- [x] Configure Longhorn backups to iDrive e2
+
+### Deprecated
+- ~~MeshCentral~~ (replaced with AMT Console)
+- ~~Pi-hole~~ (replaced with MikroTik DNS)
+- ~~Portainer~~ (not used)
+- ~~Sonarr~~ (not used)
+- ~~WireGuard Easy~~ (replaced with MikroTik WireGuard)
+- ~~Keycloak~~ (replaced with Authentik)
+
+**Legend:**
+`[-]` Started | `[/]` Halfway | `[x]` Done
+
+---
+
+## Contributing
+
+This is a personal homelab project, but feel free to open issues for questions or suggestions!
+
+## License
+
+[MIT License](https://github.com/madeddie/homelab#MIT-1-ov-file)
+
+This project is for personal use. Feel free to reference or adapt for your own homelab.
