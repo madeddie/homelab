@@ -3,6 +3,8 @@ kind: PodMonitor
 metadata:
   name: authentik-pg-cluster
   namespace: prometheus
+  labels:
+    release: kube-prometheus-stack
 spec:
   selector:
     namespaceSelector: authentik
