@@ -2,12 +2,10 @@ apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
   name: authentik-pg-cluster
-  namespace: prometheus
   labels:
     release: kube-prometheus-stack
 spec:
   selector:
-    namespaceSelector: authentik
     matchLabels:
       cnpg.io/cluster: authentik-pg-cluster
   podMetricsEndpoints:
