@@ -22,10 +22,12 @@ kube-prometheus-stack:
         - grafana.svc.madtech.cx
     dashboards:
       default:
-        CloudNativePG:
-          gnetId: 20417
-          revision: 4
+        prometheus-stats:
+          # Ref: https://grafana.com/dashboards/2
+          gnetId: 2
+          revision: 2
           datasource: Prometheus
+
   prometheus:
     ingress:
       enabled: true
