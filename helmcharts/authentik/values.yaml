@@ -16,6 +16,12 @@ authentik:
     error_reporting:
       enabled: false
 
+    postgresql:
+      #enabled: true
+      host: file:///postgres-creds/host
+      user: file:///postgres-creds/username
+      password: file:///postgres-creds/password
+
   server:
     ingress:
       ingressClassName: traefik
@@ -43,12 +49,6 @@ authentik:
       - name: postgres-creds
         mountPath: /postgres-creds
         readOnly: true
-
-  postgresql:
-    #enabled: true
-    host: file:///postgres-creds/host
-    user: file:///postgres-creds/username
-    password: file:///postgres-creds/password
 
   redis:
     enabled: true
