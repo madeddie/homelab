@@ -5,3 +5,7 @@ longhorn:
     backupTarget: s3://longhorn-backup@us-east/
     backupTargetCredentialSecret: idrive-auth
     pollInterval: 300
+  metrics:
+    serviceMonitor:
+      # -- Setting that allows the creation of a [Prometheus Operator](https://prometheus-operator.dev/) ServiceMonitor resource for Longhorn Manager components.
+      enabled: true
