@@ -44,6 +44,3 @@ authentik:
       - name: postgres-creds
         mountPath: /postgres-creds
         readOnly: true
-
-  redis:
-    enabled: true
