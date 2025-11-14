@@ -6,15 +6,16 @@ authentik:
         secretKeyRef:
           name: authentik-secret
           key: secret-key
-    - name: AUTHENTIK_POSTGRESQL__PASSWORD
-      valueFrom:
-        secretKeyRef:
-          name: authentik-secret
-          key: postgres-password
 
   authentik:
     error_reporting:
       enabled: false
+
+    postgresql:
+      host: file:///postgres-creds/host
+      name: file:///postgres-creds/dbname
+      user: file:///postgres-creds/username
+      password: file:///postgres-creds/password
 
   server:
     ingress:
@@ -25,14 +26,24 @@ authentik:
       annotations:
         traefik.ingress.kubernetes.io/router.tls: 'true'
         traefik.ingress.kubernetes.io/router.tls.certresolver: le-http
+    volumes:
+      - name: postgres-creds
+        secret:
+          secretName: authentik-pg-cluster-app
+    volumeMounts:
+      - name: postgres-creds
+        mountPath: /postgres-creds
+        readOnly: true
 
-  postgresql:
-    enabled: true
-    auth:
-      existingSecret: authentik-secret
-      secretKeys:
-        adminPasswordKey: postgres-password
-        userPasswordKey: postgres-password
-        replicationPasswordKey: postgresql-password
+  worker:
+    volumes:
+      - name: postgres-creds
+        secret:
+          secretName: authentik-pg-cluster-app
+    volumeMounts:
+      - name: postgres-creds
+        mountPath: /postgres-creds
+        readOnly: true
+
   redis:
     enabled: true
