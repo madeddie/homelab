@@ -6,18 +6,12 @@ authentik:
         secretKeyRef:
           name: authentik-secret
           key: secret-key
-    #- name: AUTHENTIK_POSTGRESQL__PASSWORD
-    #  valueFrom:
-    #    secretKeyRef:
-    #      name: authentik-secret
-    #      key: postgres-password
 
   authentik:
     error_reporting:
       enabled: false
 
     postgresql:
-      #enabled: true
       host: file:///postgres-creds/host
       name: file:///postgres-creds/dbname
       user: file:///postgres-creds/username
