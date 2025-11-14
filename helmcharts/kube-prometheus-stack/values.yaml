@@ -20,7 +20,12 @@ kube-prometheus-stack:
         traefik.ingress.kubernetes.io/router.entrypoints: web
       hosts:
         - grafana.svc.madtech.cx
-
+    dashboards:
+      default:
+        CloudNativePG:
+          gnetId: 20417
+          revision: 4
+          datasource: Prometheus
   prometheus:
     ingress:
       enabled: true
