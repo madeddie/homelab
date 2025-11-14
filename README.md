@@ -398,7 +398,7 @@ spec:
 - [ ] Implement PV on NAS (Samba/NFS/iSCSI)
 - [ ] Consider replacing NAS (Raspberry Pi 5 + Penta HAT + SSDs?)
 - [ ] Backup all services:
-  - [ ] Authentik
+  - [ ] Authentik (use cngpg backup to S3/idrive)
   - [ ] Argo CD
   - [x] Longhorn (to iDrive e2)
   - [ ] Home Assistant
@@ -431,7 +431,7 @@ spec:
 
 ### Migrations & Improvements
 - [ ] Migrate remaining docker-compose apps to K8s
-- [ ] Migrate Authentik PostgreSQL to CNPG
+- [x] Migrate Authentik PostgreSQL to CNPG
 - [ ] Investigate Redis/Valkey operator
 - [ ] Test social login with Authentik (Google/GitHub)
 - [ ] Investigate Argo ApplicationSets use cases
