@@ -42,6 +42,10 @@ kube-prometheus-stack:
           gnetId: 16888
           revision: 11
           datasource: Prometheus
+        traefik:
+          gnetId: 17347
+          revision: 9
+          datasource: Prometheus
 
   prometheus:
     ingress:

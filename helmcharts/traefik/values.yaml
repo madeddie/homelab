@@ -41,3 +41,9 @@ traefik:
       level: "INFO"
     access:
       enabled: false
+  metrics:
+    prometheus:
+      serviceMonitor:
+        enabled: true
+        additionalLabels:
+          release: kube-prometheus-stack
