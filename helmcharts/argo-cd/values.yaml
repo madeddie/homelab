@@ -19,19 +19,21 @@ argo-cd:
       policy.csv: |
         g, ArgoCDAdmins, role:admin
 
-  controller.metrics:
-    enabled: true
-    serviceMonitor:
+  controller:
+    metrics:
       enabled: true
-      additionalLabels:
-        release: kube-prometheus-stack
+      serviceMonitor:
+        enabled: true
+        additionalLabels:
+          release: kube-prometheus-stack
 
-  repoServer.metrics:
-    enabled: true
-    serviceMonitor:
+  repoServer:
+    metrics:
       enabled: true
-      additionalLabels:
-        release: kube-prometheus-stack
+      serviceMonitor:
+        enabled: true
+        additionalLabels:
+          release: kube-prometheus-stack
 
   server:
     ingress:
@@ -47,23 +49,26 @@ argo-cd:
         additionalLabels:
           release: kube-prometheus-stack
 
-  dex.metrics:
-    enabled: true
-    serviceMonitor:
+  dex:
+    metrics:
       enabled: true
-      additionalLabels:
-        release: kube-prometheus-stack
+      serviceMonitor:
+        enabled: true
+        additionalLabels:
+          release: kube-prometheus-stack
 
-  redis.metrics:
-    enabled: true
-    serviceMonitor:
+  redis:
+    metrics:
       enabled: true
-      additionalLabels:
-        release: kube-prometheus-stack
+      serviceMonitor:
+        enabled: true
+        additionalLabels:
+          release: kube-prometheus-stack
 
-  notifications.metrics:
-    enabled: true
-    serviceMonitor:
+  notifications:
+    metrics:
       enabled: true
-      additionalLabels:
-        release: kube-prometheus-stack
+      serviceMonitor:
+        enabled: true
+        additionalLabels:
+          release: kube-prometheus-stack
