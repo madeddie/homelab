@@ -8,8 +8,7 @@ argo-cd:
     secret:
       createSecret: false    # managed by SOPS operator in ./templates/argocd-secret.sops.yaml
     cm:
-      admin:
-        enabled: false
+      admin.enabled: false
       oidc.config: |
         name: Authentik
         issuer: https://authentik.svc.madtech.cx/application/o/argocd/
