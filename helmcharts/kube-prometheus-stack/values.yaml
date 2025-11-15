@@ -20,6 +20,25 @@ kube-prometheus-stack:
         traefik.ingress.kubernetes.io/router.entrypoints: web
       hosts:
         - grafana.svc.madtech.cx
+    dashboardProviders:
+      dashboardproviders.yaml:
+        apiVersion: 1
+        providers:
+        - name: grafana-com
+          orgId: 1
+          folder: ''
+          type: file
+          disableDeletion: false
+          editable: true
+          options:
+            path: /var/lib/grafana/dashboards/grafana-com
+    dashboards:
+      grafana-com:
+        cloudnativepg:
+          # Ref: https://grafana.com/dashboards/2
+          gnetId: 20417
+          revision: 4
+          datasource: Prometheus
 
   prometheus:
     ingress:
