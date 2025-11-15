@@ -8,7 +8,8 @@ argo-cd:
     secret:
       createSecret: false    # managed by SOPS operator in ./templates/argocd-secret.sops.yaml
     cm:
-      admin.enabled: false
+      admin:
+        enabled: false
       oidc.config: |
         name: Authentik
         issuer: https://authentik.svc.madtech.cx/application/o/argocd/
@@ -42,14 +43,6 @@ argo-cd:
       annotations:
         traefik.ingress.kubernetes.io/router.tls: "true"
         traefik.ingress.kubernetes.io/router.tls.certresolver: le-http
-    metrics:
-      enabled: true
-      serviceMonitor:
-        enabled: true
-        additionalLabels:
-          release: kube-prometheus-stack
-
-  dex:
     metrics:
       enabled: true
       serviceMonitor:
