@@ -18,19 +18,3 @@ spec:
       postInitApplicationSQL:
         - CREATE EXTENSION IF NOT EXISTS "vchord" CASCADE
         - CREATE EXTENSION IF NOT EXISTS "earthdistance" CASCADE;
-      import:
-        type: microservice
-        databases:
-          - app
-        source:
-          externalCluster: immich-postgresql
-
-  externalClusters:
-    - name: immich-postgresql
-      connectionParameters:
-        host: immich-postgresql-rw
-        user: app
-        dbname: postgres
-      password:
-        name: immich-postgresql-app
-        key: password
