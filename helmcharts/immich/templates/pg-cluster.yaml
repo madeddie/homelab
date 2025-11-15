@@ -3,14 +3,16 @@ kind: Cluster
 metadata:
   name: immich-pg-cluster
 spec:
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16-0.3.0
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17-0.4.3
   instances: 1
+
   postgresql:
     shared_preload_libraries:
       - vchord.so
+
   storage:
     size: 1Gi
-    storageClass: local-path
+
   bootstrap:
     initdb:
       postInitApplicationSQL:
