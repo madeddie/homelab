@@ -50,4 +50,4 @@ spec:
         dbname: postgres
       password:
         name: immich-pg-cluster-app
-        key: passwoord
+        key: password
