@@ -35,9 +35,12 @@ kube-prometheus-stack:
     dashboards:
       grafana-com:
         cloudnativepg:
-          # Ref: https://grafana.com/dashboards/2
           gnetId: 20417
           revision: 4
+          datasource: Prometheus
+        longhorn:
+          gnetId: 16888
+          revision: 11
           datasource: Prometheus
 
   prometheus:
