@@ -42,8 +42,8 @@ traefik:
     access:
       enabled: false
   metrics:
-    serviceMonitor:
-      enabled: true
-      additionalLabels:
-        release: kube-prometheus-stack
-
+    prometheus:
+      serviceMonitor:
+        enabled: true
+        additionalLabels:
+          release: kube-prometheus-stack
