@@ -19,15 +19,19 @@ argo-cd:
       policy.csv: |
         g, ArgoCDAdmins, role:admin
 
-  controller.metrics.serviceMonitor:
+  controller.metrics:
     enabled: true
-    additionalLabels:
-      release: kube-prometheus-stack
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        release: kube-prometheus-stack
 
-  repoServer.metrics.serviceMonitor:
+  repoServer.metrics:
     enabled: true
-    additionalLabels:
-      release: kube-prometheus-stack
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        release: kube-prometheus-stack
 
   server:
     ingress:
@@ -36,22 +40,30 @@ argo-cd:
       annotations:
         traefik.ingress.kubernetes.io/router.tls: "true"
         traefik.ingress.kubernetes.io/router.tls.certresolver: le-http
-    metrics.serviceMonitor:
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+        additionalLabels:
+          release: kube-prometheus-stack
+
+  dex.metrics:
+    enabled: true
+    serviceMonitor:
       enabled: true
       additionalLabels:
         release: kube-prometheus-stack
 
-  dex.metrics.serviceMonitor:
+  redis.metrics:
     enabled: true
-    additionalLabels:
-      release: kube-prometheus-stack
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        release: kube-prometheus-stack
 
-  redis.metrics.serviceMonitor:
+  notifications.metrics:
     enabled: true
-    additionalLabels:
-      release: kube-prometheus-stack
-
-  notifications.metrics.serviceMonitor:
-    enabled: true
-    additionalLabels:
-      release: kube-prometheus-stack
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        release: kube-prometheus-stack
