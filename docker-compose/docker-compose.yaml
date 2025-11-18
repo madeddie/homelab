@@ -1,3 +1,7 @@
+# Run with `sops exec-env secrets.sops.env 'docker compose up -d'`
+#
+# Some environment variables are set by SOPS
+#
 name: 'madhome'
 
 services:
@@ -9,7 +13,7 @@ services:
     environment:
       - AUTHENTIK_HOST=https://authentik.svc.madtech.cx
       - AUTHENTIK_INSECURE=false
-      - AUTHENTIK_TOKEN
+      - AUTHENTIK_TOKEN=${AUTHENTIK_TOKEN}
 
   caddy:
     image: caddy:custom
@@ -21,7 +25,7 @@ services:
       - "80:80"
       - "443:443"
     environment:
-      - HE_DDNS_TOKEN
+      - HE_DDNS_TOKEN=${HE_DDNS_TOKEN}
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
       - ./caddy/index.html:/srv/index.html
@@ -92,15 +96,15 @@ services:
       - "5000:5000"
     environment:
       - TZ=America/New_York
-      - WYZE_EMAIL
-      - WYZE_PASSWORD
-      - API_ID
-      - API_KEY
+      - WYZE_EMAIL=${WYZE_EMAIL}
+      - WYZE_PASSWORD=${WYZE_PASSWORD}
+      - API_ID=${API_ID}
+      - API_KEY=${API_KEY}
       - WB_AUTH=False
       - ENABLE_AUDIO=True
       - WB_IP=192.168.0.60
       - MQTT_HOST=mosquitto:1883
-      - MQTT_AUTH
+      - MQTT_AUTH=${MQTT_AUTH}
     networks:
       default:
       macvlan:
@@ -176,7 +180,7 @@ services:
     environment:
       - NAME=media
       - USER=madeddie
-      - PASS=gr03nv03r
+      - PASS=${PASS}
       - UID=1000
       - GID=1000
     volumes:
@@ -219,8 +223,8 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - GF_SECURITY_ADMIN_USER
-      - GF_SECURITY_ADMIN_PASSWORD
+      - GF_SECURITY_ADMIN_USER=${GF_SECURITY_ADMIN_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GF_SECURITY_ADMIN_PASSWORD}
     volumes:
       - ./grafana:/etc/grafana/provisioning/datasources
 
@@ -244,10 +248,14 @@ services:
     hostname: amt_console
     restart: unless-stopped
     environment:
-      - APP_ENCRYPTION_KEY
+      - APP_ENCRYPTION_KEY=${APP_ENCRYPTION_KEY}
+      - HTTP_HOST=0.0.0.0
       - HTTP_URL=https://amtconsole.home.madtech.cx
+      - HTTP_TLS_ENABLED=false
+      - AUTH_ADMIN_USERNAME=admin
+      - AUTH_ADMIN_PASSWORD=${AUTH_ADMIN_PASSWORD}
     volumes:
-      - ./amt_console:/data
+      - ./amt_console:/.config/device-management-toolkit
 
   http-echo:
     image: mendhak/http-https-echo:38
