@@ -1,0 +1,15 @@
+groups:
+- name: Girls room temperature
+  rules:
+  - alert: TempLessThan20
+    expr: hass_sensor_temperature_celsius{friendly_name="Babyroom Meter"} < 20
+    for: 10s
+  - alert: TempMoreThan25
+    expr: hass_sensor_temperature_celsius{friendly_name="Babyroom Meter"} > 25
+    for: 10s
+
+- name: Homelab
+  rules:
+  - alert: DiskUageOver85
+    expr: hass_system_monitor{entity="sensor.system_monitor_disk_usage"} > 85
+    for: 10s

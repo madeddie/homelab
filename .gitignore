@@ -21,3 +21,10 @@ docker-compose/jellyfin/cache
 docker-compose/jellyfin/config/data/keyframes
 docker-compose/jellyfin/config/log
 docker-compose/mosquitto/data
+docker-compose/amt_console/console.db
+docker-compose/amt_console/console.db-shm
+docker-compose/amt_console/console.db-wal
+docker-compose/jellyfin/config/data/ScheduledTasks
+docker-compose/jellyfin/config/data
+docker-compose/jellyfin/config/metadata
+docker-compose/jellyfin/config/plugins
