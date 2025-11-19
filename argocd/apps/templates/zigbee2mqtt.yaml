@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: zigbee2mqtt
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: zigbee2mqtt
+    repoURL: https://charts.zigbee2mqtt.io/
+    targetRevision: 2.6.3
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: zigbee2mqtt
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    # managedNamespaceMetadata:
+    #   labels:
+    #     pod-security.kubernetes.io/enforce: privileged
+    #     pod-security.kubernetes.io/enforce-version: latest
+    #     pod-security.kubernetes.io/audit: privileged
+    #     pod-security.kubernetes.io/audit-version: latest
+    #     pod-security.kubernetes.io/warn: privileged
+    #     pod-security.kubernetes.io/warn-version: latest
