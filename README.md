@@ -439,6 +439,9 @@ spec:
   - [x] Caddy
   - [ ] AlertManager, ESPHome, Grafana, Home Assistant
   - [ ] Jellyfin, Mosquitto, Prometheus, qBittorrent
+  - [ ] test rbac-manager https://github.com/FairwindsOps/rbac-manager
+  - [ ] test rbac and network policy compliance tooling (kyverno, polaris)
+  - [ ] test docker image security testing tooling (trivy)
 
 ### Documentation
 - [ ] Document restoration procedures for all apps
