@@ -1,5 +1,7 @@
 zigbee2mqtt:
   statefulset:
+    storage:
+      storageClassName: longhorn
     secrets:
       name: secret-yaml
     volumeMounts:
