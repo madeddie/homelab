@@ -16,7 +16,7 @@ zigbee2mqtt:
     mqtt:
       user: '!secret.yaml mqtt_user'
       password: '!secret.yaml mqtt_password'
-      server: mqtt://192.168.0.60:1883
+      server: mqtts://mqtt.home.madtech.cx:8883
     serial:
       port: /dev/usb
       adapter: deconz
