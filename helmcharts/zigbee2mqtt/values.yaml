@@ -37,3 +37,4 @@ zigbee2mqtt:
             pathType: ImplementationSpecific
           - path: /api
             pathType: ImplementationSpecific
+    tls: null
