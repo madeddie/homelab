@@ -9,8 +9,8 @@ zigbee2mqtt:
         name: usb-device
   zigbee2mqtt:
     mqtt:
-      user: !secret.yaml mqtt_user
-      password: !secret.yaml mqtt_password
+      user: '!secret.yaml mqtt_user'
+      password: '!secret.yaml mqtt_password'
       server: mqtt://192.168.0.60:1883
     serial:
       adapter: deconz
