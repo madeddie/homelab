@@ -3,5 +3,5 @@ name: zigbee2mqtt
 version: 0.0.1
 dependencies:
   - name: zigbee2mqtt
-    repository: https://charts.zigbee2mqtt.io/
+    repository: https://charts.zigbee2mqtt.io/zigbee2mqtt
     version: 2.6.3
