@@ -1,7 +1,7 @@
 zigbee2mqtt:
   statefulset:
     secrets:
-      name: secrets-yaml
+      name: secret-yaml
     volumeMounts:
       - mountPath: /dev/ttyACM0
         name: usb-device
