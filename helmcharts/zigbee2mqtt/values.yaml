@@ -21,15 +21,13 @@ zigbee2mqtt:
       adapter: deconz
       baudrate: 38400
     frontend:
-      url: https://zigbee.svc.madtech.cx
+      url: http://zigbee.svc.madtech.cx
   ingress:
     enabled: true
     ingressClassName: traefik
     annotations:
       traefik.ingress.kubernetes.io/router.middlewares: traefik-ipallowlan@kubernetescrd
       traefik.ingress.kubernetes.io/router.entrypoints: web
-      traefik.ingress.kubernetes.io/router.tls: 'true'
-      traefik.ingress.kubernetes.io/router.tls.certresolver: le-http
     hosts:
       - host: zigbee.svc.madtech.cx
         paths:

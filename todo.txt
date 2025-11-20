@@ -1,0 +1,10 @@
+x storage for zigbee2mqtt
+x unique user+pass in mqtt for zigbee2mqtt
+x ingress for zigbee2mqtt
+- set URL to ingress hostname in zigbee2mqtt config
+- monitoring?
+- migrate other devices
+- use Akri to find node with zigbee adapter
+- mqtts instead of mqtt
+- check settings of https://www.zigbee2mqtt.io/guide/configuration/zigbee-network.html#network-config are not set to GENERATE
+
