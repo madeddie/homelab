@@ -1,6 +1,7 @@
 zigbee2mqtt:
   statefulset:
     storage:
+      enabled: true
       storageClassName: longhorn
     secrets:
       name: secret-yaml
