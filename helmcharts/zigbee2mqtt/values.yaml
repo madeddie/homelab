@@ -1,0 +1,17 @@
+zigbee2mqtt:
+  statefulset:
+    volumeMounts:
+      - mountPath: /dev/ttyACM0
+        name: usb-device
+    volumes:
+      - hostPath:
+          path: /dev/ttyACM0
+        name: usb-device
+  zigbee2mqtt:
+    mqtt:
+      user: !secret.yaml mqtt_user
+      password: !secret.yaml mqtt_password
+      server: mqtt://192.168.0.60:1883
+    serial:
+      adapter: deconz
+      baudrate: 38400

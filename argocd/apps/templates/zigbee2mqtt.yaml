@@ -6,11 +6,11 @@ metadata:
 spec:
   project: default
   source:
-    chart: zigbee2mqtt
-    repoURL: https://charts.zigbee2mqtt.io/
-    targetRevision: 2.6.3
+    repoURL: https://github.com/madeddie/homelab.git
+    path: helmcharts/zigbee2mqtt
+    targetRevision: HEAD
   destination:
-    server: "https://kubernetes.default.svc"
+    server: https://kubernetes.default.svc
     namespace: zigbee2mqtt
   syncPolicy:
     automated:
