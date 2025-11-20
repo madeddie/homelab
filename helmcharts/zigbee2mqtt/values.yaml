@@ -28,3 +28,8 @@ zigbee2mqtt:
       traefik.ingress.kubernetes.io/router.entrypoints: web
     hosts:
       - host: zigbee.svc.madtech.cx
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+          - path: /api
+            pathType: ImplementationSpecific
