@@ -10,12 +10,12 @@ zigbee2mqtt:
         akri.sh/zigbee: "1"
       limits:
         akri.sh/zigbee: "1"
-    volumeMounts:
-      - mountPath: /dev/usb
-        name: usb-device
-    volumes:
-      - hostPath:
-          path: /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2496081-if00
+    # volumeMounts:
+    #   - mountPath: /dev/usb
+    #     name: usb-device
+    # volumes:
+    #   - hostPath:
+    #       path: /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2496081-if00
         name: usb-device
   zigbee2mqtt:
     mqtt:
@@ -23,7 +23,7 @@ zigbee2mqtt:
       password: '!secret.yaml mqtt_password'
       server: mqtts://mqtt.home.madtech.cx:8883
     serial:
-      port: /dev/usb
+      port: /dev/ttyACM0
       adapter: deconz
       baudrate: 38400
     frontend:
