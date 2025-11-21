@@ -170,7 +170,7 @@ services:
         ipv4_address: 192.168.0.68
 
   samba:
-    image: ghcr.io/dockur/samba:4.21.10
+    image: ghcr.io/dockur/samba:4.22.6
     container_name: samba
     hostname: samba
     restart: 'unless-stopped'
