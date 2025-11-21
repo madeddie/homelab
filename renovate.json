@@ -17,6 +17,9 @@
     ],
     "pinDigests": false
   },
+  "argocd": {
+    "managerFilePatterns": ["/argocd/apps/templates/.+\\.yaml$/"]
+  },
   "customManagers": [
     {
       "customType": "regex",
