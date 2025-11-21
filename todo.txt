@@ -2,7 +2,7 @@ x storage for zigbee2mqtt
 x unique user+pass in mqtt for zigbee2mqtt
 x ingress for zigbee2mqtt
 x set URL to ingress hostname in zigbee2mqtt config
-- monitoring?
+- monitoring akri/zigbee and zigbee2mqtt
 - migrate other zigbee devices
 x use Akri to find node with zigbee adapter
 x mqtts instead of mqtt
@@ -10,3 +10,4 @@ x check settings of https://www.zigbee2mqtt.io/guide/configuration/zigbee-networ
 
 
 - move mosquitto into k8s
+x figure out why renovate doesn't monitor argocd applications
