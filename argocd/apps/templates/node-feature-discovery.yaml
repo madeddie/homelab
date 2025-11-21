@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    chart: node-feature-discovery
-    repoURL: https://kubernetes-sigs.github.io/node-feature-discovery/charts
-    targetRevision: 0.17.3
+    path: .
+    repoURL: oci://registry.k8s.io/nfd/charts/node-feature-discovery
+    targetRevision: 0.18.0
   destination:
     server: "https://kubernetes.default.svc"
     namespace: node-feature-discovery
