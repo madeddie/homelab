@@ -65,6 +65,8 @@ This repository uses **Infrastructure as Code (IaC)** principles to declarativel
 │  ├─ Prometheus Stack            │  │     ├─ Calibre-Web        │
 │  ├─ Immich (Photos)             │  │     └─ More...            │
 │  ├─ cert-manager                │  │                           │
+│  ├─ akri                        │  │                           │
+│  ├─ zigbee2mqtt                 │  │                           │
 │  └─ KubeVirt                    │  │                           │
 └─────────────────────────────────┘  └───────────────────────────┘
                          │
@@ -276,6 +278,8 @@ sops exec-env secrets.sops.env 'tofu apply'
 | **Node Feature Discovery** | Hardware capability detection |
 | **local-path-provisioner** | Local volume provisioning |
 | **go-httpbin** | HTTP debugging utility |
+| **akri** | Hardware device resource manager |
+| **zigbee2mqtt** | Zigbee to MQTT gateway |
 
 ### Docker-Compose (Proxmox VM)
 
@@ -419,9 +423,9 @@ spec:
 
 ### Hardware & Devices
 - [x] Implement Node Feature Discovery
-- [ ] Implement Akri for USB device detection (Zigbee stick)
+- [x] Implement Akri for USB device detection (Zigbee stick)
 - [ ] Implement Intel GPU device plugin (Jellyfin transcoding)
-- [ ] Test K8s service with USB device (Home Assistant + Zigbee)
+- [x] Test K8s service with USB device (Home Assistant + Zigbee)
 - [ ] Test K8s service with video hardware decoding (Jellyfin)
 
 ### Networking & DNS

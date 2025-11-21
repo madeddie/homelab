@@ -1,0 +1,37 @@
+zigbee2mqtt:
+  statefulset:
+    storage:
+      enabled: true
+      storageClassName: longhorn
+    secrets:
+      name: secret-yaml
+    resources:
+      requests:
+        akri.sh/zigbee: "1"
+      limits:
+        akri.sh/zigbee: "1"
+  zigbee2mqtt:
+    mqtt:
+      user: '!secret.yaml mqtt_user'
+      password: '!secret.yaml mqtt_password'
+      server: mqtts://mqtt.home.madtech.cx:8883
+    serial:
+      port: /dev/ttyACM0
+      adapter: deconz
+      baudrate: 38400
+    frontend:
+      url: http://zigbee.svc.madtech.cx
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      traefik.ingress.kubernetes.io/router.middlewares: traefik-ipallowlan@kubernetescrd
+      traefik.ingress.kubernetes.io/router.entrypoints: web
+    hosts:
+      - host: zigbee.svc.madtech.cx
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+          - path: /api
+            pathType: ImplementationSpecific
+    tls: null
