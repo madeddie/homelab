@@ -5,6 +5,11 @@ zigbee2mqtt:
       storageClassName: longhorn
     secrets:
       name: secret-yaml
+    resources:
+      requests:
+        akri.sh/zigbee: "1"
+      limits:
+        akri.sh/zigbee: "1"
     volumeMounts:
       - mountPath: /dev/usb
         name: usb-device
