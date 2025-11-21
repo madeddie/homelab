@@ -10,13 +10,6 @@ zigbee2mqtt:
         akri.sh/zigbee: "1"
       limits:
         akri.sh/zigbee: "1"
-    # volumeMounts:
-    #   - mountPath: /dev/usb
-    #     name: usb-device
-    # volumes:
-    #   - hostPath:
-    #       path: /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2496081-if00
-    #     name: usb-device
   zigbee2mqtt:
     mqtt:
       user: '!secret.yaml mqtt_user'

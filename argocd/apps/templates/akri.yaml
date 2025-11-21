@@ -9,8 +9,20 @@ spec:
     chart: akri
     repoURL: https://project-akri.github.io/akri/
     targetRevision: 0.13.8
+    helm:
+      valuesObject:
+        udev:
+          configuration:
+            discoveryDetails:
+              groupRecursive: true
+              udevRules:
+                - ATTRS{idVendor}=="1cf1", ATTRS{idProduct}=="0030"
+            enabled: true
+            name: zigbee
+          discovery:
+            enabled: true
   destination:
-    server: "https://kubernetes.default.svc"
+    server: https://kubernetes.default.svc
     namespace: akri
   syncPolicy:
     automated:
