@@ -432,9 +432,16 @@ spec:
 - [x] Implement external-dns
 - [ ] Configure external-dns with Hurricane Electric & MikroTik
 - [ ] Configure cert-manager ACME issuer
+- [ ] Test Traefik with Gateway API
 
 ### Migrations & Improvements
 - [ ] Migrate remaining docker-compose apps to K8s
+  - [x] Zigbee (ZHA to zigbee2mqtt)
+  - [ ] mosquitto
+  - [ ] esphome
+  - [ ] wyze-bridge
+  - [ ] home assistent
+  - [ ] prometheus + grafana (already running in K8s, need to migrate collectors)
 - [x] Migrate Authentik PostgreSQL to CNPG
 - [ ] Investigate Redis/Valkey operator
 - [ ] Test social login with Authentik (Google/GitHub)
