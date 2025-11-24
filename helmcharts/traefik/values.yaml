@@ -51,6 +51,6 @@ traefik:
     mqtt:
       port: 1883
       exposedPort: 1883
-      exposed:
+      expose:
         default: true
       protocol: TCP
