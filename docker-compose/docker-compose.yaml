@@ -103,7 +103,7 @@ services:
       - WB_AUTH=False
       - ENABLE_AUDIO=True
       - WB_IP=192.168.0.60
-      - MQTT_HOST=mosquitto:1883
+      - MQTT_HOST=mqtt.svc.madtech.cx:1883
       - MQTT_AUTH=${MQTT_AUTH}
     networks:
       default:
