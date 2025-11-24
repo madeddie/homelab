@@ -47,10 +47,10 @@ traefik:
         enabled: true
         additionalLabels:
           release: kube-prometheus-stack
-  ports:
-    mqtt:
-      port: 1883
-      exposedPort: 1883
-      exposed:
-        default: true
-      protocol: TCP
+  #ports:
+  #  mqtt:
+  #    port: 1883
+  #    exposedPort: 1883
+  #    exposed:
+  #      default: true
+  #    protocol: TCP
