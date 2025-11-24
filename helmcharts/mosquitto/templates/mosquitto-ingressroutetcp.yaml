@@ -4,7 +4,7 @@ metadata:
   name: mosquitto-ingressroutetcp
 spec:
   entryPoints:
-  - mosquitto
+  - mqtt
   routes:
   - match: HostSNI(`*`)
     services:
