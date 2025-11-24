@@ -1,0 +1,7 @@
+apiVersion: v2
+name: mosquitto
+version: 0.0.1
+dependencies:
+  - name: mosquitto
+    repository: https://sintef.github.io/mosquitto-helm-chart
+    version: 0.1.1
