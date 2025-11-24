@@ -52,5 +52,5 @@ traefik:
       port: 1883
       exposedPort: 1883
       exposed:
-        default: false
+        default: true
       protocol: TCP
