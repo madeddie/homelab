@@ -14,7 +14,6 @@ spec:
     namespace: prometheus
   syncPolicy:
     automated:
-      prune: false
       selfHeal: true
     syncOptions:
       - ServerSideApply=true
