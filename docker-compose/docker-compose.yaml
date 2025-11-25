@@ -49,8 +49,8 @@ services:
       macvlan:
         ipv4_address: 192.168.0.64
     depends_on:
-      - mosquitto
       - esphome
+      #- mosquitto
 
   matter-server:
     image: ghcr.io/home-assistant-libs/python-matter-server:8.1.0
@@ -66,23 +66,23 @@ services:
       macvlan:
         ipv4_address: 192.168.0.66
 
-  mosquitto:
-    image: eclipse-mosquitto:2.0.22
-    container_name: mosquitto
-    hostname: mosquitto
-    command: mosquitto -c /mosquitto/config/mosquitto.conf
-    restart: unless-stopped
-    ports:
-      - "1883:1883"
-      - "8883:8883"
-      - "8082:8082"
-      - "8083:8083"
-    environment:
-      - TZ=America/New_York
-    volumes:
-      - ./mosquitto/config:/mosquitto/config
-      - ./mosquitto/data:/mosquitto/data
-      - ./caddy/data/caddy/certificates/acme-v02.api.letsencrypt.org-directory/wildcard_.home.madtech.cx:/certs
+          #mosquitto:
+          #  image: eclipse-mosquitto:2.0.22
+          #  container_name: mosquitto
+          #  hostname: mosquitto
+          #  command: mosquitto -c /mosquitto/config/mosquitto.conf
+          #  restart: unless-stopped
+          #  ports:
+          #    - "1883:1883"
+          #    - "8883:8883"
+          #    - "8082:8082"
+          #    - "8083:8083"
+          #  environment:
+          #    - TZ=America/New_York
+          #  volumes:
+          #    - ./mosquitto/config:/mosquitto/config
+          #    - ./mosquitto/data:/mosquitto/data
+          #    - ./caddy/data/caddy/certificates/acme-v02.api.letsencrypt.org-directory/wildcard_.home.madtech.cx:/certs
 
   wyze-bridge:
     image: mrlt8/wyze-bridge:2.10.3
