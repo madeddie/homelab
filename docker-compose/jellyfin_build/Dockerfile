@@ -1,4 +1,4 @@
-FROM jellyfin/jellyfin:10.11.3
+FROM jellyfin/jellyfin:10.11.4
 
 ARG JELLYFIN_WEB_ROOT="/jellyfin/jellyfin-web"
 
