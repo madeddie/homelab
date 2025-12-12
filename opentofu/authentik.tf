@@ -78,21 +78,26 @@ resource "authentik_application" "test-app" {
   protocol_provider = authentik_provider_proxy.test-app.id
 }
 
-# Home Assistant
-resource "authentik_provider_proxy" "homeassistant" {
-  name                  = "Provider for Home Assistant"
-  external_host         = "https://assistant.home.madtech.cx"
-  mode                  = "forward_single"
-  access_token_validity = local.default_token_validity
-  authorization_flow    = data.authentik_flow.default-authorization-flow.id
-  invalidation_flow     = data.authentik_flow.default-invalidation-flow.id
-  skip_path_regex       = "/api/.*"
+resource "authentik_provider_oauth2" "homeassistant" {
+  name               = "Provider for Home Assistant"
+  client_id          = "homeassistant"
+  client_type        = "confidential"
+  signing_key        = data.authentik_certificate_key_pair.generated.id
+  authorization_flow = data.authentik_flow.default-authorization-flow.id
+  invalidation_flow  = data.authentik_flow.default-invalidation-flow.id
+  allowed_redirect_uris = [
+    {
+      matching_mode = "strict",
+      url           = "https://assistant.home.madtech.cx/auth/openid/callback",
+    }
+  ]
+  property_mappings = data.authentik_property_mapping_provider_scope.default-scopes.ids
 }
 
 resource "authentik_application" "homeassistant" {
   name              = "Home Assistant"
   slug              = "homeassistant"
-  protocol_provider = authentik_provider_proxy.homeassistant.id
+  protocol_provider = authentik_provider_oauth2.homeassistant.id
 }
 
 # Calibre Web
@@ -179,7 +184,6 @@ resource "authentik_application" "esphome" {
 resource "authentik_outpost" "home-caddy-proxy" {
   name = "home-caddy-proxy"
   protocol_providers = [
-    authentik_provider_proxy.homeassistant.id,
     authentik_provider_proxy.calibre-web.id,
     authentik_provider_proxy.qbittorrent.id,
     authentik_provider_proxy.prometheus.id,
