@@ -38,7 +38,6 @@
 
     @assistant host assistant.home.madtech.cx
     handle @assistant {
-        import authentik
         reverse_proxy homeassistant:8123
     }
 
