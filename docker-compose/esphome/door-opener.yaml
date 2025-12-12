@@ -1,0 +1,95 @@
+esphome:
+  name: door-opener
+  friendly_name: door-opener
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: !secret do_ha_api_key
+
+ota:
+  - platform: esphome
+    password: !secret do_ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal Sensor"
+    update_interval: 60s 
+
+output:
+  - platform: gpio
+    pin: GPIO12
+    id: buzzer_relay_output
+
+button:
+  - platform: template
+    name: "Buzzer relay button"
+    id: buzzer_relay_button
+    icon: "mdi:door-closed-lock"
+    on_press:
+    - logger.log: "Wait for 3 seconds"
+    - delay: 3s
+    - logger.log: "Turn on relay for 10 seconds"
+    - switch.turn_on: buzzer_relay_switch
+    - delay: 10s
+    - switch.turn_off: buzzer_relay_switch
+
+switch:
+  - platform: output
+    name: "Buzzer relay switch"
+    id: buzzer_relay_switch
+    icon: "mdi:door-closed-lock"
+    output: buzzer_relay_output
+    on_turn_on:
+    - logger.log: "Turning on relay with fallback switchoff of 30 seconds"
+    - cover.template.publish:
+        id: buzzer_relay_cover
+        state: OPEN
+    - delay: 30s
+    - switch.turn_off: buzzer_relay_switch
+    on_turn_off:
+    - cover.template.publish:
+        id: buzzer_relay_cover
+        state: CLOSED
+  - platform: gpio
+    name: "Internal LED"
+    pin: 
+      number: GPIO2
+      inverted: false
+
+cover:
+  - platform: template
+    name: "Buzzer relay cover"
+    id: buzzer_relay_cover
+    open_action:
+      - logger.log: "Turn on relay for 10 seconds"
+      - switch.turn_on: buzzer_relay_switch
+      - delay: 10s
+      - switch.turn_off: buzzer_relay_switch
+    close_action:
+      - switch.turn_off: buzzer_relay_switch
+
+binary_sensor:
+  - platform: gpio
+    name: "Built in button"
+    pin: 
+      number: GPIO0
+      inverted: true
+    on_press:
+      - switch.turn_on: buzzer_relay_switch
+
+web_server:
+  port: 80
+  version: 3
