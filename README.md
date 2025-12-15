@@ -409,6 +409,7 @@ spec:
   - [ ] Jellyfin
   - [ ] Calibre-Web
   - [ ] Immich (DB + media)
+- [ ] Test out (Garage)[https://garagehq.deuxfleurs.fr/] for object storage (s3-compatible)
 
 ### Applications & Services
 - [ ] Host own git (Forgejo)
