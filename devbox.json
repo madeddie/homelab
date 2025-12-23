@@ -14,7 +14,7 @@
     "jekyll@4.4.1",
     "ruby@3.4.7",
     "kubernetes-helm@3.19.1",
-    "opentofu@1.11.1"
+    "opentofu@1.11.2"
   ],
   "env_from": ".env",
   "shell": {
