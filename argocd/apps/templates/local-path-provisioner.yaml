@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/rancher/local-path-provisioner.git
     path: deploy
-    targetRevision: v0.0.33
+    targetRevision: v0.0.34
     kustomize:
       patches:
         - patch: |-
