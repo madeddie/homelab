@@ -12,7 +12,7 @@
     "argocd@3.1.9",
     "kubevirt@1.6.3",
     "jekyll@4.4.1",
-    "ruby@3.4.8",
+    "ruby@4.0.0",
     "kubernetes-helm@3.19.1",
     "opentofu@1.11.2"
   ],
