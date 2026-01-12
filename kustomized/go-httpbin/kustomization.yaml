@@ -6,5 +6,5 @@ resources:
   - github.com/mccutchen/go-httpbin/kustomize
   - ingress.yaml
 images:
-  - name: mccutchen/go-httpbin
+  - name: mccutchen/go-httpbin:2.20
 
