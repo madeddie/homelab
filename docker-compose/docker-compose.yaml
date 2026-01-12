@@ -258,7 +258,7 @@ services:
       - ./amt_console:/.config/device-management-toolkit
 
   http-echo:
-    image: mendhak/http-https-echo:38
+    image: mendhak/http-https-echo:39
     container_name: http-echo
     hostname: http-echo
     restart: unless-stopped
