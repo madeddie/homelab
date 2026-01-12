@@ -6,6 +6,6 @@ resources:
   - github.com/mccutchen/go-httpbin/kustomize
   - ingress.yaml
 images:
-  - name: mccutchen/go-httpbin
+  - name: ghcr.io/mccutchen/go-httpbin
     newTag: "2.20"
 
