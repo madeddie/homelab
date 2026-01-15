@@ -473,51 +473,51 @@
         }
       }
     },
-    "opentofu@1.11.2": {
-      "last_modified": "2025-12-21T10:48:17Z",
-      "resolved": "github:NixOS/nixpkgs/306ea70f9eb0fb4e040f8540e2deab32ed7e2055#opentofu",
+    "opentofu@1.11.3": {
+      "last_modified": "2026-01-14T04:14:06Z",
+      "resolved": "github:NixOS/nixpkgs/ea30586ee015f37f38783006a9bc9e4aa64d7d61#opentofu",
       "source": "devbox-search",
-      "version": "1.11.2",
+      "version": "1.11.3",
       "systems": {
         "aarch64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/nljjhv4di9zyl215hjarm34pkgsmzqvv-opentofu-1.11.2",
+              "path": "/nix/store/8rfqngidr74zdnjqgxm0d2ph4nymvz8j-opentofu-1.11.3",
               "default": true
             }
           ],
-          "store_path": "/nix/store/nljjhv4di9zyl215hjarm34pkgsmzqvv-opentofu-1.11.2"
+          "store_path": "/nix/store/8rfqngidr74zdnjqgxm0d2ph4nymvz8j-opentofu-1.11.3"
         },
         "aarch64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/bybfj82asfqjcq0y4af2h7vmvc90zwmq-opentofu-1.11.2",
+              "path": "/nix/store/x9g4gd8jlp06zf21qlb0vxaby44qhfgj-opentofu-1.11.3",
               "default": true
             }
           ],
-          "store_path": "/nix/store/bybfj82asfqjcq0y4af2h7vmvc90zwmq-opentofu-1.11.2"
+          "store_path": "/nix/store/x9g4gd8jlp06zf21qlb0vxaby44qhfgj-opentofu-1.11.3"
         },
         "x86_64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/ga61l5ip56whchqhahahwsljfblxqxw7-opentofu-1.11.2",
+              "path": "/nix/store/msr7cqwjia46gb57ynldcxfaqwz9mz6s-opentofu-1.11.3",
               "default": true
             }
           ],
-          "store_path": "/nix/store/ga61l5ip56whchqhahahwsljfblxqxw7-opentofu-1.11.2"
+          "store_path": "/nix/store/msr7cqwjia46gb57ynldcxfaqwz9mz6s-opentofu-1.11.3"
         },
         "x86_64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/q4zi2lmlimzxv7mix9manl763zhzvnmp-opentofu-1.11.2",
+              "path": "/nix/store/a333xnpvghzz986scr9rnwskm4ch0l9v-opentofu-1.11.3",
               "default": true
             }
           ],
-          "store_path": "/nix/store/q4zi2lmlimzxv7mix9manl763zhzvnmp-opentofu-1.11.2"
+          "store_path": "/nix/store/a333xnpvghzz986scr9rnwskm4ch0l9v-opentofu-1.11.3"
         }
       }
     },
