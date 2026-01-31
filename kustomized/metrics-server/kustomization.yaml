@@ -3,4 +3,4 @@ kind: Kustomization
 
 resources:
 - https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/refs/tags/v0.10.2/deploy/standalone-install.yaml
-- https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.8.0/components.yaml
+- https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.8.1/components.yaml
