@@ -54,3 +54,11 @@ traefik:
       expose:
         default: true
       protocol: TCP
+
+home_madtech_cx_hosts:
+  - home.madtech.cx
+  - assistant.home.madtech.cx
+  - jellyfin.home.madtech.cx
+  - torrent.home.madtech.cx
+  - calibre.home.madtech.cx
+  - kosync.home.madtech.cx
