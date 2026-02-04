@@ -85,4 +85,9 @@
         import authentik
         reverse_proxy http-echo:8888
     }
+
+    @kosync host kosync.home.madtech.cx
+    handle @kosync {
+        reverse_proxy kosync:17200
+    }
 }

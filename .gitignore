@@ -6,25 +6,27 @@
 # local env vars
 .env
 
-# local test files
+# local test and generated files
 tmp/
 docker-compose/caddy/data/caddy
 opentofu/.terraform/
 opentofu/terraform.tfstate.backup
-docker-compose/amt_console/device-management-toolkit/console.db
-docker-compose/esphome/archive
-docker-compose/homeassistant/.cloud
-docker-compose/homeassistant/backups
-docker-compose/homeassistant/multiscrape
-docker-compose/homeassistant/tts
-docker-compose/jellyfin/cache
-docker-compose/jellyfin/config/data/keyframes
-docker-compose/jellyfin/config/log
-docker-compose/mosquitto/data
 docker-compose/amt_console/console.db
 docker-compose/amt_console/console.db-shm
 docker-compose/amt_console/console.db-wal
-docker-compose/jellyfin/config/data/ScheduledTasks
+docker-compose/amt_console/device-management-toolkit/console.db
+docker-compose/esphome/archive
+docker-compose/homeassistant
+docker-compose/jellyfin/cache
 docker-compose/jellyfin/config/data
+docker-compose/jellyfin/config/log
 docker-compose/jellyfin/config/metadata
 docker-compose/jellyfin/config/plugins
+docker-compose/koreader
+docker-compose/matter-server
+docker-compose/mosquitto/data
+docker-compose/qbittorrent/data
+docker-compose/qbittorrent/download
+docker-compose/qbittorrent/flood
+docker-compose/qbittorrent/log
+docker-compose/qbittorrent/session

@@ -44,10 +44,13 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     devices:
       - "/dev/ttyACM0:/dev/ttyACM0"
+    ports:
+      - "5060:5060"
+      - "5060:5060/udp"
     networks:
       default:
       macvlan:
-        ipv4_address: 192.168.0.64
+        ipv4_address: 192.168.0.69
     depends_on:
       - esphome
       #- mosquitto
@@ -200,6 +203,20 @@ services:
     volumes:
       - /media/sandisk/books:/config
       - /media/sandisk/books:/books
+
+  kosync:
+    image: koreader/kosync:latest
+    container_name: kosync
+    hostname: kosync
+    ports:
+      - 7200:7200
+      - 17200:17200
+    environment:
+      - ENABLE_USER_REGISTRATION=false
+    volumes:
+      - ./koreader/logs/app:/app/koreader-sync-server/logs
+      - ./koreader/logs/redis:/var/log/redis
+      - ./koreader/data/redis:/var/lib/redis
 
   prometheus:
     image: quay.io/prometheus/prometheus:v3.9.1
