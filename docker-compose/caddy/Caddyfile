@@ -90,4 +90,9 @@
     handle @kosync {
         reverse_proxy kosync:17200
     }
+
+    @opds-aggregator host opds.home.madtech.cx
+    handle @opds-aggregator {
+        reverse_proxy opds-aggregator:8080
+    }
 }

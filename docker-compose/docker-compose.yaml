@@ -289,6 +289,25 @@ services:
       - PROMETHEUS_WITH_STATUS=true
       - PROMETHEUS_METRIC_TYPE=summary
 
+  opds-aggregator:
+    image: ghcr.io/madeddie/opds-aggregator:latest
+    container_name: opds-aggregator
+    hostname: opds-aggregator
+    environment:
+      - OPDS_AUTH_USERNAME=${OPDS_AUTH_USERNAME}
+      - OPDS_AUTH_PASSWORD=${OPDS_AUTH_PASSWORD}
+      - OPDS_POLLING_INTERVAL=6h
+      - OPDS_FEED_0_NAME=My Calibre
+      - OPDS_FEED_0_URL=http://calibre-web:8083/opds
+      - OPDS_FEED_0_POLL_DEPTH=2
+      - OPDS_FEED_0_AUTH_USERNAME=${OPDS_FEED_HOME_AUTH_USERNAME}
+      - OPDS_FEED_0_AUTH_PASSWORD=${OPDS_FEED_HOME_AUTH_PASSWORD}
+      - OPDS_FEED_1_NAME=Project Gutenber
+      - OPDS_FEED_1_URL=https://www.gutenberg.org/ebooks.opds/
+      - OPDS_FEED_1_POLL_DEPTH=0
+      - OPDS_DEBUG=true
+    restart: unless-stopped
+
 volumes:
   prom_data:
 
