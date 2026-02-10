@@ -302,7 +302,7 @@ services:
       - OPDS_FEED_0_POLL_DEPTH=2
       - OPDS_FEED_0_AUTH_USERNAME=${OPDS_FEED_HOME_AUTH_USERNAME}
       - OPDS_FEED_0_AUTH_PASSWORD=${OPDS_FEED_HOME_AUTH_PASSWORD}
-      - OPDS_FEED_1_NAME=Project Gutenber
+      - OPDS_FEED_1_NAME=Project Gutenberg
       - OPDS_FEED_1_URL=https://www.gutenberg.org/ebooks.opds/
       - OPDS_FEED_1_POLL_DEPTH=0
       - OPDS_DEBUG=true
