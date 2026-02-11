@@ -114,7 +114,7 @@ services:
         ipv4_address: 192.168.0.67
 
   esphome:
-    image: esphome/esphome:2026.1.4
+    image: esphome/esphome:2026.1.5
     container_name: esphome
     hostname: esphome
     restart: unless-stopped
