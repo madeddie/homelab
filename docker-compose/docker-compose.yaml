@@ -305,6 +305,8 @@ services:
       - OPDS_FEED_1_NAME=Project Gutenberg
       - OPDS_FEED_1_URL=https://www.gutenberg.org/ebooks.opds/
       - OPDS_FEED_1_POLL_DEPTH=0
+      - OPDS_FEED_1_MAX_ENTRIES=50
+      - OPDS_FEED_1_MAX_PAGINATE=5
       - OPDS_DEBUG=true
     restart: unless-stopped
 
