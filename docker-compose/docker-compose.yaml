@@ -246,7 +246,7 @@ services:
       - ./grafana:/etc/grafana/provisioning/datasources
 
   alertmanager:
-    image: quay.io/prometheus/alertmanager:v0.31.0
+    image: quay.io/prometheus/alertmanager:v0.31.1
     container_name: alertmanager
     hostname: alertmanager
     restart: unless-stopped
