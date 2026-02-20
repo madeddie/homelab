@@ -32,7 +32,7 @@ services:
       - ./caddy/data:/data
 
   homeassistant:
-    image: ghcr.io/home-assistant/home-assistant:2026.2.1
+    image: ghcr.io/home-assistant/home-assistant:2026.2.3
     container_name: homeassistant
     hostname: homeassistant
     restart: unless-stopped
