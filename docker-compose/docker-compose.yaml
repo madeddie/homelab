@@ -6,7 +6,7 @@ name: 'madhome'
 
 services:
   authentik_proxy:
-    image: ghcr.io/goauthentik/proxy:2025.12.6
+    image: ghcr.io/goauthentik/proxy:2026.5.3
     container_name: authentik_proxy
     hostname: authentik_proxy
     restart: unless-stopped
@@ -32,7 +32,7 @@ services:
       - ./caddy/data:/data
 
   homeassistant:
-    image: ghcr.io/home-assistant/home-assistant:2026.2.1
+    image: ghcr.io/home-assistant/home-assistant:2026.6.3
     container_name: homeassistant
     hostname: homeassistant
     restart: unless-stopped
@@ -114,7 +114,7 @@ services:
         ipv4_address: 192.168.0.67
 
   esphome:
-    image: esphome/esphome:2026.1.5
+    image: esphome/esphome:2026.5.3
     container_name: esphome
     hostname: esphome
     restart: unless-stopped
@@ -173,7 +173,7 @@ services:
         ipv4_address: 192.168.0.68
 
   samba:
-    image: ghcr.io/dockur/samba:4.22.6
+    image: ghcr.io/dockur/samba:4.23.8
     container_name: samba
     hostname: samba
     restart: 'unless-stopped'
@@ -219,7 +219,7 @@ services:
       - ./koreader/data/redis:/var/lib/redis
 
   prometheus:
-    image: quay.io/prometheus/prometheus:v3.9.1
+    image: quay.io/prometheus/prometheus:v3.12.0
     container_name: prometheus
     hostname: prometheus
     restart: unless-stopped
@@ -233,7 +233,7 @@ services:
       - prom_data:/prometheus
 
   grafana:
-    image: grafana/grafana:12.4.4
+    image: grafana/grafana:13.0.2
     container_name: grafana
     hostname: grafana
     restart: unless-stopped
@@ -275,7 +275,7 @@ services:
       - ./amt_console:/.config/device-management-toolkit
 
   http-echo:
-    image: mendhak/http-https-echo:39
+    image: mendhak/http-https-echo:41
     container_name: http-echo
     hostname: http-echo
     restart: unless-stopped
