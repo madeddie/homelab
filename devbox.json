@@ -13,7 +13,7 @@
     "kubevirt@1.6.3",
     "jekyll@4.4.1",
     "ruby@4.0.5",
-    "kubernetes-helm@3.19.1",
+    "kubernetes-helm@3.20.2",
     "opentofu@1.11.4"
   ],
   "env_from": ".env",
